@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>帮助中心</title>
+		<script src="js/index.js"></script>
+		<link rel="stylesheet" href="css/style_w.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<style type="text/css">
+			/*帮助中心*/
+			
+			.help-info {
+				line-height: 2em;
+				color: gray;
+				font-size: .28rem;
+				padding: 0 .2rem;
+				box-sizing: border-box;
+				text-align: justify;
+				text-align-last: left;
+			}
+			.help-info  p{
+				text-indent: 0.65rem;
+			}
+			/*帮助中心*/
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap">
+			<div class="datalist">
+				<div class="row" onclick="window.location.href='help_1.html'">
+					<div>平台介绍</div>
+					<img src="images/inquiry/TurnContent-Help.png" class="help-img" />
+				</div>
+				<div class="row" onclick="window.location.href='help_2.html'">
+					<div>什么是期权</div>
+					<img src="images/inquiry/TurnContent-Help.png" class="help-img" />
+				</div>
+				<div class="row" onclick="window.location.href='about-the-platform.html'">
+					<div>示例</div>
+					<img src="images/inquiry/TurnContent-Help.png" />
+				</div>
+				<!-- <div class="help-info" hidden>
+					<p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+				</div> -->
+			</div>
+		</div>
+		<script>
+			get.fontSize();
+			// $(".datalist").on("click", ".row", function() {
+			// 	$(this).next().toggle();
+			// })
+		</script>
+	</body>
+
+</html>

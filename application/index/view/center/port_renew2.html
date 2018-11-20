@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口服务</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script src="__PUBLIC__/static/style/js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css" />
+    <link rel="stylesheet" href="__PUBLIC__/static/style/css/interface-service-application.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+        .interface-service-application-box{
+            overflow: hidden;
+        }
+        .standard-renewals{
+            position: absolute;
+            top: 15%;left: 33%;
+            z-index: 20;
+        }
+        .standard-renewals p{
+            height: 2em;
+            line-height: 2em;
+            text-align: center;
+            font-weight: bold;
+        }
+        .interface-service-timeChoose{
+            position: absolute;
+            top: 65%;left: 28%;
+            z-index: 20;
+            text-align: center;
+        }
+        .interface-service-timeChoose select{
+            width: 150px;
+            height: 2em;
+        }  
+        .interface-service-application-tj{
+            position: absolute;
+            top: 75%;left: 30%;
+            z-index: 20;
+        }     
+        .interface-service-application-tj>div{
+            color: #fff;
+            text-align: center;
+            font-size: 18px;
+            background-color: #ff6b0d;
+            border-radius: 10px;
+            padding: 10px 30px;
+            box-sizing: border-box;
+        }
+        .ovo-coverbg{
+            position: absolute;
+            top: 0;right: 0;bottom: 0;left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 5;
+        }
+        .ovo-methed-btn{
+            position: absolute;
+            right: 20px;
+            bottom: 25px;
+            z-index: 20;
+        }
+        .ovo-methed-btn img{
+            width: 40px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="interface-service-application-box">
+        <img src="{$list_slide['picture']}" class="ovo-coverbg">
+        <div class="standard-renewals">
+            <p>续费标准</p>
+            <p>
+                一个月 <span>{$renew['renew']}</span>元
+            </p>
+        </div>
+        <div class="interface-service-timeChoose">
+            <select name="time" id="">
+                <option value="一个月">一个月</option>
+                <option value="三个月">三个月</option>
+                <option value="六个月">六个月</option>
+                <option value="一年">一年</option>
+            </select>
+        </div>
+        <div class="interface-service-application-tj">
+            <div>提交申请</div>
+        </div>
+        <div class="ovo-methed-btn">
+            <img src="__PUBLIC__/static/style/images/backicon.png" alt="">
+        </div>
+    </div>
+    <!--温馨提示-->
+    <div class="w-reminder-box bg-white dis-no">
+        <p class="w-reminder-head">温馨提示</p>
+        <p class="font-red txt-c">恭喜您！信息提交成功。</p>
+        <p class="txt-in20" style="padding: 0 20px">我们将尽快与您电话沟通，请保持手机畅通。</p>
+        <div class="w-cancel-goats clearfix">
+            <p>取消</p>
+            <p>确定</p>
+        </div>
+    </div>
+    <div id="loadingDiv" style="position:fixed;display:none;z-index:5;top:0px;left:0px;width:100%;height:100%;background-color:rgba(0,0,0,0.5)"></div>
+</div>
+<script>
+    var token = "{$user_info['token']}";
+
+    $(".interface-service-application-tj div").click(function () {
+        alert(999);
+        //请求数据接口续费申请接口
+        $.ajax({
+            url: appIp() + "/api/center/port_renew",
+            type: "POST",
+            dataType:"json",
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+                token:token,
+                date:$("select[name='time'] :selected").html()
+            },
+            success: function(ret) {
+              if(ret.status=='200'){
+                  $(".w-reminder-box").show();
+                  $("#loadingDiv").show();
+              } else {
+                alert(ret.message);
+                return false;
+              }
+            },
+            error: function(err) {
+              console.log(err);
+            }
+        });
+    })
+    $(".w-cancel-goats").on('click','p',function () {
+        $("#loadingDiv").hide();
+        $(".w-reminder-box").hide();
+        //跳转到数据接口管理页面
+        window.location.href="{:url('center/port_essential')}"
+    })
+    $(".ovo-methed-btn img").click(function () {
+        //跳转到数据接口管理页面
+        window.location.href="{:url('center/port_essential')}"
+    })
+</script>
+</body>
+</html>

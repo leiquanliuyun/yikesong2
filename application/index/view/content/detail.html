@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投教内容详情</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script src="__PUBLIC__/static/style/js/index.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/static/style/css/style_w.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style type="text/css">
+    .ovo-methed-head {
+    height: 105px;
+    line-height: 105px;
+    font-size: 20px;
+    text-align: center;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+        input{
+            font-size: 0.3rem;
+        }
+        img
+        {
+            display: block;
+        }
+       .ovo-methed-text>p:last-of-type{
+        display: flex;
+        }
+        .ovo-methed-text>p:last-of-type span{
+            display: inline-block;
+            padding: 10px;
+            width: 90%;
+            word-wrap: break-word;
+        }
+        .ovo-methed-text>p:last-of-type{
+            display: inline-block;
+            padding: 10px;
+            width: 90%;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="interface-invocation-method-box bg-white">
+        <div class="ovo-methed-head">
+            <p>{$list_consult['title']}</p>
+        </div>
+        <div class="ovo-methed-text">
+            {$list_consult['content']}
+        </div>
+        <div class="ovo-methed-btn bg-white">
+            <img src="__PUBLIC__/static/style/images/backicon.png" alt="">
+        </div>
+    </div>
+</div>
+<script>
+    $(".ovo-methed-btn img").click(function(){
+        window.history.back(); 
+    })
+</script>
+</body>
+</html>

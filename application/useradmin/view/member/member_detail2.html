@@ -1,0 +1,619 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+    <title>基本设置</title>
+    </head>
+    <body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span>
+        用户管理
+        <span class="c-gray en">&gt;</span>
+        用户详情
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <div>
+            用户名：浏览
+        </div>
+        <div id="tab-system" class="HuiTab">
+            <div class="tabBar cl">
+                <span>积分提现</span>
+                <span>办理业务</span>
+                <span>知识产权查询</span>
+                <span>合同</span>
+                <span>记账情况</span>
+                <span>财务相关</span>
+            </div>
+            <div class="tabCon">
+                <div class="mt-20">
+                    <table class="table table-border table-bordered table-bg table-hover table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="100">提现金额</th>
+                            <th width="100">支付宝</th>
+                            <th width="100">支付宝绑定姓名</th>
+                            <th width="100">联系方式</th>
+                            <th width="100">订单状态</th>
+                            <th width="100">申请时间</th>
+                            <th width="180">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <volist name='withdraw_list' id='vo'>
+                            <tr class="text-c">
+                                <td>{$vo['money']}</td>
+                                <td>{$vo['account']}</td>
+                                <td>{$vo['realname']}</td>
+                                <td>{$vo['member']['mobile']}</td>
+                                <td class="order_status">{$vo['status_text']}</td>
+                                <td>{$vo['create_time']}</td>
+                                <td class="td-manage">
+                                    <if condition="$vo['status'] eq 1">
+                                        <a href="javascript:void(0)" onclick="confirmWith({$vo.id},this)" title="审核通过"><i class="Hui-iconfont" style="font-size:20px;">&#xe6a7;</i></a>
+                                        <a href="javascript:void(0)" onclick="backWith({$vo.id},this)" title="审核退回"><i class="Hui-iconfont" style="font-size:20px;">&#xe6a6;</i></a>
+                                        <else/>
+                                        已处理
+                                    </if>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tabCon">
+                <div class="mt-20">
+                    <table class="table table-border table-bordered table-bg table-hover table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="20">序号</th>
+                            <th width="20">订单号</th>
+                            <th width="60">所属服务</th>
+                            <th width="60">下单时间</th>
+                            <th width="60">订单状态</th>
+                            <th width="60">费用</th>
+                            <th width="60">订单进度</th>
+                            <th width="60">合同管理</th>
+                            <th width="60">合同状态</th>
+                            <th width="60">是否正常</th>
+                            <th width="100">负责人</th>
+                            <th width="50">备注</th>
+                            <th width="50">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <volist name='order_list' id='vo' key="k">
+                            <tr class="text-c">
+                                <td>{$k}</td>
+                                <td>{$vo['ordernum']}</td>
+                                <td>{$vo['service_name']}</td>
+                                <td>{$vo['create_time']}</td>
+                                <td>{$vo['order_status_text']}</td>
+                                <td>
+                                    <if condition="$vo['order_status'] eq 1">
+                                        <a style="text-decoration:none" class="ml-5" href="{:url('order/change_price',['id'=>$vo['id']])}" title="修改价格">修改价格</a>
+                                        <else />
+                                        {$vo['price']}
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition="$vo['order_status'] eq 3 && $vo['service_name']!=='财税管理'">
+                                        <a href="{:url('order/schedule',array('id'=>$vo['id'],'status'=>$vo['order_status']))}" style="cursor:pointer;">管理</a>
+                                        <elseif condition="$vo['order_status'] eq 4 && $vo['service_name']!=='财税管理'" />
+                                        <a href="{:url('order/schedule',array('id'=>$vo['id'],'status'=>$vo['order_status']))}" style="cursor:pointer;color:red;">查看</a>
+                                        <else/>
+                                        暂无进度
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition="$vo['pact'] eq 1">
+                                        <a href="{:url('pact/pact_add',['order_id'=>$vo['id'],'option'=>'add'])}" style="cursor:pointer;">添加</a>
+                                        <else />
+                                        <a href="{:url('pact/pact_edit',['order_id'=>$vo['id'],'option'=>'update'])}" style="cursor:pointer;color:red;">修改</a>
+                                    </if>
+                                </td>
+                                <td>{$vo['pact_text']}</td>
+                                <td>{$vo['audit_text']}</td>
+                                <td>
+                                    <select name="edit1" id="" class="select">
+                                        <option value="">--请选择--</option>
+                                        <volist name="user_info" id="v">
+                                            <option value="{$v['id']}" {$vo['liable'] == $v['realname']? 'selected' : ''}>{$v['realname']}</option>
+                                        </volist>
+                                    </select>
+                                    <a onClick="editLiable({$vo.id},this)" style="cursor:pointer;">派单</a>
+                                </td>
+                                <td>{$vo['remark']}</td>
+                                <td class="td-manage">
+                                    <a style="text-decoration:none" class="ml-5" href="{:url('member/order_audit',['id'=>$vo['id'],'uid'=>$id])}" title="审核"><i class="Hui-iconfont" style="font-size:20px;">&#xe6e0;</i></a>
+                                    <if condition="$vo['febt'] eq 1"><a href="javascript:debt({$vo.id},{$vo.price})" title="催缴"><i class="Hui-iconfont" style="font-size:20px;">&#xe63c;</i></a></if>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tabCon">
+                <div class="mt-20">
+                    <table class="table table-border table-bordered table-bg table-hover table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="100">查询品牌</th>
+                            <th width="100">用户姓名</th>
+                            <th width="100">手机号</th>
+                            <th width="100">订单状态</th>
+                            <th width="100">申请时间</th>
+                            <th width="180">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <volist name='intell_list' id='vo'>
+                            <tr class="text-c">
+                                <td>{$vo['brand']}</td>
+                                <td>{$vo['member']['realname']}</td>
+                                <td>{$vo['mobile']}</td>
+                                <td class="order_status">{$vo['status_text']}</td>
+                                <td>{$vo['create_time']}</td>
+                                <td class="td-manage">
+                                    <if condition="$vo['status'] eq 0">
+                                        <a href="javascript:void(0)" onclick="intell_confirmWith({$vo.id},this)" title="已处理"><i class="Hui-iconfont" style="font-size:20px;">&#xe6a7;</i></a>
+                                        <else/>
+                                        已处理
+                                    </if>
+                                </td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tabCon">
+                <div class="mt-20">
+                    <table class="table table-border table-bordered table-bg table-hover table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="60">合同名称</th>
+                            <th width="60">合同状态</th>
+                            <th width="60">签订日期</th>
+                            <th width="60">费用</th>
+                            <th width="100">合同</th>
+                            <th width="100">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <volist name='order_list' id='vo' key="k">
+                            <tr class="text-c">
+                                <td>{$vo['name']}</td>
+                                <td>{$vo['pact_status']}</td>
+                                <td>{$vo['master_sign_time']}</td>
+                                <td>
+                                    <if condition="$vo['order_status'] eq 1">
+                                        <a style="text-decoration:none" class="ml-5" href="{:url('order/change_price',['id'=>$vo['id']])}" title="修改价格"><i class="Hui-iconfont" style="font-size:20px;">&#xe6df;</i></a>
+                                        <else />
+                                        {$vo['price']}
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition="$vo['pact'] eq 1">
+                                        <a href="{:url('pact/pact_add',['order_id'=>$vo['id'],'option'=>'add'])}" style="cursor:pointer;">添加</a>
+                                        <else />
+                                        <a href="{:url('pact/pact_edit',['order_id'=>$vo['id'],'option'=>'update'])}" style="cursor:pointer;color:red;">修改</a>
+                                    </if>
+                                </td>
+                                <td>
+                                    <if condition="$vo['febt'] eq 1"><a href="javascript:debt({$vo.id})" title="催缴"><i class="Hui-iconfont" style="font-size:20px;">&#xe606;</i></a></if>
+                                </td>
+
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tabCon">
+                <div class="mt-20">
+                    <form class="form form-horizontal" id="form-article-add" action="{:url('member/finance')}" method="post">
+                        <div class="row cl">
+                            <table class="table table-border table-bordered table-bg table-hover">
+                                <thead>
+                                <tr class="text-c">
+                                    <th width="20">名称</th>
+                                    <th width="15">是否开通</th>
+                                    <th width="15">是否委托</th>
+                                    <!--<th width="50">备注</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="text-c">
+                                    <td>自助开票功能</td>
+                                    <td>
+                                        <select name="is_open_billing" class="select" id="is_open_billing">
+                                            <option value="1" {$finance_info['is_open_billing'] == 1? 'selected': ''}>是</option>
+                                            <option value="2" {$finance_info['is_open_billing'] == 2? 'selected' : ''}>否</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <if condition="$finance_info['is_open_billing']==1">
+                                            <select name="is_consign_billing" class="select">
+                                                <option value="1" {$finance_info['is_consign_billing'] == 1? 'selected': ''}>是</option>
+                                                <option value="2" {$finance_info['is_consign_billing'] == 2? 'selected' : ''}>否</option>
+                                            </select>
+                                            <else/>
+                                            --
+                                            <input type="hidden" name="is_consign_billing" value="3"/>
+                                        </if>
+
+                                    </td>
+                                </tr>
+                                <tr class="text-c">
+                                    <td>社保</td>
+                                    <td>
+                                        <select name="is_open_shebao" class="select" id="is_open_shebao">
+                                            <option value="1" {$finance_info['is_open_shebao'] == 1? 'selected': ''}>是</option>
+                                            <option value="2" {$finance_info['is_open_shebao'] == 2? 'selected' : ''}>否</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <if condition="$finance_info['is_consign_shebao']==1">
+                                            <select name="is_consign_shebao" class="select">
+                                                <option value="1" {$finance_info['is_consign_shebao'] == 1? 'selected': ''}>是</option>
+                                                <option value="2" {$finance_info['is_consign_shebao'] == 2? 'selected' : ''}>否</option>
+                                            </select>
+                                            <else/>
+                                            --
+                                            <input type="hidden" name="is_consign_shebao" value="3"/>
+                                        </if>
+                                    </td>
+                                </tr>
+                                <tr class="text-c">
+                                    <td>公积金</td>
+                                    <td>
+                                        <select name="is_open_pfund" class="select" id="is_open_pfund">
+                                            <option value="1" {$finance_info['is_open_pfund'] == 1? 'selected': ''}>是</option>
+                                            <option value="2" {$finance_info['is_open_pfund'] == 2? 'selected' : ''}>否</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <if condition="$finance_info['is_open_pfund']==1">
+                                            <select name="is_consign_pfund" class="select">
+                                                <option value="1" {$finance_info['is_consign_pfund'] == 1? 'selected': ''}>是</option>
+                                                <option value="2" {$finance_info['is_consign_pfund'] == 2? 'selected' : ''}>否</option>
+                                            </select>
+                                            <else/>
+                                            --
+                                            <input type="hidden" name="is_consign_pfund" value="3"/>
+                                        </if>
+                                    </td>
+                                </tr>
+                                <tr class="text-c">
+                                    <td>银行回单</td>
+                                    <td>
+                                        <select name="is_open_receipt" class="select" id="is_open_receipt">
+                                            <option value="1" {$finance_info['is_open_receipt'] == 1? 'selected': ''}>是</option>
+                                            <option value="2" {$finance_info['is_open_receipt'] == 2? 'selected' : ''}>否</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <if condition="$finance_info['is_open_receipt']==1">
+                                            <select name="is_consign_receipt" class="select">
+                                                <option value="1" {$finance_info['is_consign_receipt'] == 1? 'selected': ''}>是</option>
+                                                <option value="2" {$finance_info['is_consign_receipt'] == 2? 'selected' : ''}>否</option>
+                                            </select>
+                                            <else/>
+                                            --
+                                            <input type="hidden" name="is_consign_receipt" value="3"/>
+                                        </if>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row cl">
+                            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                                <input name="" type="submit" class="btn btn-primary radius Hui-iconfont" value="&#xe632;保存">
+                                <input name="" type="reset" class="btn btn-default radius size-S" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                            </div>
+                        </div>
+                        <input type="hidden" name="uid" value="{$id}"/>
+                        {:token()}
+                    </form>
+                </div>
+            </div>
+            <div class="tabCon">
+                <div class="mt-20">
+                    <form class="form form-horizontal" id="form-article-add" action="{:url('member/finance')}" method="post">
+                        <div class="row cl">
+                            <table class="table table-border table-bordered table-bg table-hover">
+                                <thead>
+                                <tr class="text-c">
+                                    <th width="20">名称</th>
+                                    <th width="15">是否开通</th>
+                                    <th width="15">是否委托</th>
+                                    <!--<th width="50">备注</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="text-c">
+                                    <td>自助开票功能</td>
+                                    <td>
+                                        <select name="is_open_billing" class="select" id="is_open_billing">
+                                            <option value="1" {$finance_info['is_open_billing'] == 1? 'selected': ''}>是</option>
+                                            <option value="2" {$finance_info['is_open_billing'] == 2? 'selected' : ''}>否</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="is_open_billing" {$finance_info['is_open_billing'] == 1 ?"": "style='display: none;'"}>
+                                        <select name="is_consign_billing" class="select">
+                                            <option value="1" {$finance_info['is_consign_billing'] == 1? 'selected': ''}>是</option>
+                                            <option value="2" {$finance_info['is_consign_billing'] == 2? 'selected' : ''}>否</option>
+                                        </select>
+                        </div>
+                        <div class="no_open_billing" {$finance_info['is_open_billing'] == 2 ?"": "style='display: none;'"}>
+                        --
+                        <input type="hidden" name="is_consign_billing" value="3"/>
+                </div>
+                <!--<if condition="$finance_info['is_open_billing']==1">
+                    <select name="is_consign_billing" class="select">
+                        <option value="1" {$finance_info['is_consign_billing'] == 1? 'selected': ''}>是</option>
+                        <option value="2" {$finance_info['is_consign_billing'] == 2? 'selected' : ''}>否</option>
+                    </select>
+                    <else/>
+                    &#45;&#45;
+                    <input type="hidden" name="is_consign_billing" value="3"/>
+                </if>-->
+                </td>
+                </tr>
+                <tr class="text-c">
+                    <td>社保</td>
+                    <td>
+                        <select name="is_open_shebao" class="select" id="is_open_shebao">
+                            <option value="1" {$finance_info['is_open_shebao'] == 1? 'selected': ''}>是</option>
+                            <option value="2" {$finance_info['is_open_shebao'] == 2? 'selected' : ''}>否</option>
+                        </select>
+                    </td>
+                    <td>
+                        <if condition="$finance_info['is_consign_shebao']==1">
+                            <select name="is_consign_shebao" class="select">
+                                <option value="1" {$finance_info['is_consign_shebao'] == 1? 'selected': ''}>是</option>
+                                <option value="2" {$finance_info['is_consign_shebao'] == 2? 'selected' : ''}>否</option>
+                            </select>
+                            <else/>
+                            --
+                            <input type="hidden" name="is_consign_shebao" value="3"/>
+                        </if>
+                    </td>
+                </tr>
+                <tr class="text-c">
+                    <td>公积金</td>
+                    <td>
+                        <select name="is_open_pfund" class="select" id="is_open_pfund">
+                            <option value="1" {$finance_info['is_open_pfund'] == 1? 'selected': ''}>是</option>
+                            <option value="2" {$finance_info['is_open_pfund'] == 2? 'selected' : ''}>否</option>
+                        </select>
+                    </td>
+                    <td>
+                        <if condition="$finance_info['is_open_pfund']==1">
+                            <select name="is_consign_pfund" class="select">
+                                <option value="1" {$finance_info['is_consign_pfund'] == 1? 'selected': ''}>是</option>
+                                <option value="2" {$finance_info['is_consign_pfund'] == 2? 'selected' : ''}>否</option>
+                            </select>
+                            <else/>
+                            --
+                            <input type="hidden" name="is_consign_pfund" value="3"/>
+                        </if>
+                    </td>
+                </tr>
+                <tr class="text-c">
+                    <td>银行回单</td>
+                    <td>
+                        <select name="is_open_receipt" class="select" id="is_open_receipt">
+                            <option value="1" {$finance_info['is_open_receipt'] == 1? 'selected': ''}>是</option>
+                            <option value="2" {$finance_info['is_open_receipt'] == 2? 'selected' : ''}>否</option>
+                        </select>
+                    </td>
+                    <td>
+                        <if condition="$finance_info['is_open_receipt']==1">
+                            <select name="is_consign_receipt" class="select">
+                                <option value="1" {$finance_info['is_consign_receipt'] == 1? 'selected': ''}>是</option>
+                                <option value="2" {$finance_info['is_consign_receipt'] == 2? 'selected' : ''}>否</option>
+                            </select>
+                            <else/>
+                            --
+                            <input type="hidden" name="is_consign_receipt" value="3"/>
+                        </if>
+                    </td>
+                </tr>
+                </tbody>
+                </table>
+            </div>
+
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <input name="" type="submit" class="btn btn-primary radius Hui-iconfont" value="&#xe632;保存">
+                    <input name="" type="reset" class="btn btn-default radius size-S" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                </div>
+            </div>
+            <input type="hidden" name="uid" value="{$id}"/>
+            {:token()}
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/ueditor.config.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+    <script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            //百度编辑器
+            var ue = UE.getEditor('editor');
+
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+            var index="<?php echo $index?>"
+            $("#tab-system").Huitab({
+                index:index //控制显示哪个选项卡，从0开始
+            });
+            /*表格插件*/
+            $('.table-sort').dataTable({
+                //"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+                "bStateSave": true,//状态保存
+                "aoColumnDefs": [
+                    //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                    //{"orderable":false,"aTargets":[0,9]}// 不参与排序的列
+                ]
+            });
+        });
+        function editLiable(id,th){
+            //console.log($(th).parent().find(".select").find("option:selected")); return false;
+            $_liable = $(th).parent().find(".select").find("option:selected").text();
+            if($_liable==""){
+                alert('请填写订单所属负责人');
+                return false;
+            }
+            $.ajax({
+                type:"POST",
+                url:"{:url('order/changeLiable')}",
+                data:{"id":id,"liable":$_liable},
+                dataType:"JSON",
+                success:function(data){
+                    switch(data.status){
+                        case "success":
+                            layer.msg('修改成功!',{icon: 5,time:1000});
+                            break;
+                        default:
+                            alert(data.msg);
+                            break;
+                    }
+                }
+            })
+        }
+        function debt(id){
+            layer.prompt({title: '费用催收', formType: 3}, function(val, index){
+                if(val==="" || val ===null || isNaN(val) ||val<=0){
+                    alert('请先正确填写费用')
+                    return false;
+                }
+
+                $.ajax({
+                    type:"POST",
+                    url:"{:url('order/debt')}",
+                    data:{"id":id,"price":val},
+                    dataType:"JSON",
+                    success:function(data){
+                        switch(data.status){
+                            case "success":
+                                layer.msg('催单成功!',{icon:1,time:800});
+                                setTimeout('location.reload(true)',800);
+                                break;
+                            default:
+                                alert(data.msg);
+                                break;
+                        }
+                    },
+                    error:function(){
+                        alert("服务器错误,请重试");
+                    }
+                });
+            });
+        }
+        function confirmWith(id,th){
+            if(confirm("确认通过？")){
+                $.ajax({
+                    type:"POST",
+                    url:"{:url('order/confirm_withdraw')}",
+                    data:{"id":id},
+                    dataType:"JSON",
+                    success:function(data){
+                        switch(data.status){
+                            case "success":
+                                console.log($(th).parents("tr").find('.order_status'))
+                                $(th).parents("tr").find('.order_status').text('已通过');//必须为$(th)
+                                $(th).parents('.td-manage').html('已处理');
+                                break;
+                            default:
+                                alert(data.msg);
+                                break;
+                        }
+                    },
+                    error:function(){
+                        alert.msg("服务器错误，请重试");
+                    }
+                })
+            }
+        }
+        function backWith(id,th){
+            if(confirm("确认退回？")){
+                $.ajax({
+                    type:"POST",
+                    url:"{:url('order/back_withdraw')}",
+                    data:{"id":id},
+                    dataType:"JSON",
+                    success:function(data){
+                        switch(data.status){
+                            case "success":
+                                alert('退回成功')
+                                $(th).parents("tr").find('.order_status').text('已退回');
+                                $(th).parent('.td-manage').html('已处理');
+                                break;
+                            default:
+                                alert(data.msg);
+                                break;
+                        }
+                    },
+                    error:function(){
+                        alert.msg("服务器错误，请重试");
+                    }
+                })
+            }
+        }
+        function intell_confirmWith(id,th){
+            if(confirm("确认处理？")){
+                $.ajax({
+                    type:"POST",
+                    url:"{:url('order/confirm_intell')}",
+                    data:{"id":id},
+                    dataType:"JSON",
+                    success:function(data){
+                        switch(data.status){
+                            case "success":
+                                console.log($(th).parents("tr").find('.order_status'))
+                                $(th).parents("tr").find('.order_status').text('已处理');//必须为$(th)
+                                $(th).parents('.td-manage').html('已处理');
+                                break;
+                            default:
+                                alert(data.msg);
+                                break;
+                        }
+                    },
+                    error:function(){
+                        alert.msg("服务器错误，请重试");
+                    }
+                })
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $('#is_open_billing').change(function() {
+            var opt=$("#is_open_billing").val();
+            if (opt==1){
+                $(".is_open_billing").css('display','');
+                $(".no_open_billing").css('display','none');
+            } else{
+                $(".no_open_billing").css('display','');
+                $(".is_open_billing").css('display','none');
+            }
+        })
+    </script>
+    <!--/请在上方写此页面业务相关的脚本-->
+</block>

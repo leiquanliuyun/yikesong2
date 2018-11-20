@@ -1,0 +1,12 @@
+.uploadify-button-text{
+	display: block;
+	width:80px;
+	height:30px;
+	text-align: center;
+	border-radius: 5px;
+	background: #00B7EE;
+	color:#fff;
+}
+.uploadify-queue{
+	display: none;
+}

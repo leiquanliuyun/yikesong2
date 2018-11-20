@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>一棵松</title>
+
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/swiper-4.1.6.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/index_.css" />
+	</head>
+	<style type="text/css">
+		.cont_list{
+	    padding: 13px 0;
+	    display: flex;
+	    justify-content: space-around;
+	    box-sizing: border-box;
+		}
+	</style>
+	<body>
+		<!--轮播-->
+		<div class="swiper-container" id="swiper1">
+			<div class="swiper-wrapper">
+				<foreach name="list_slide" item="vo">
+					<div class="swiper-slide">
+						<a href="{$vo['link']}">
+							<img src="{$vo['picture']}" />
+						</a>
+					</div>
+				</foreach>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+
+		<!--公告-->
+		<div class="gonggao gonggao">
+			<img class="tipsimg" src="__PUBLIC__/static/style/images/gonggao.png" />
+			<div class="swiper-container" id="swiper2">
+				<div class="swiper-wrapper">
+					<foreach name="list_notice" item="vo">
+						<div class="swiper-slide swiper-no-swiping">
+							<a href="{:url('center/message')}"><li>{$vo['title']}</li></a>
+						</div>
+					</foreach>
+				</div>
+			</div>
+		</div>
+		<!--推荐-->
+		<div class="gonggao tuijian">
+			<a href="{:url('index/recommends')}" target="_top">
+				<img class="tipsimg" src="__PUBLIC__/static/style/images/tuijian.png" />
+				<div class="swiper-container" id="swiper3">
+					<div class="swiper-wrapper">
+						<foreach name="rate_month1" item="vo">
+							<div class="swiper-slide swiper-no-swiping cont_list">
+								<div>{$vo['stock']['name']}({$vo['code']})</div>
+								<div>一个月</div>
+								<div>{$vo['month1']}</div>
+							</div>
+						</foreach>
+						<foreach name="rate_month3" item="vo">
+							<div class="swiper-slide swiper-no-swiping cont_list">
+								<div>{$vo['stock']['name']}({$vo['code']})</div>
+								<div>三个月</div>
+								<div>{$vo['month3']}</div>
+							</div>
+						</foreach>
+						<foreach name="rate_month6" item="vo">
+							<div class="swiper-slide swiper-no-swiping cont_list">
+								<div>{$vo['stock']['name']}({$vo['code']})</div>
+								<div>六个月</div>
+								<div>{$vo['month6']}</div>
+							</div>
+						</foreach>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<!--期权计算器-->
+		<div class="calcbox">
+			<a href="{:url('enquiry/calculator')}">
+				<div class="left">
+					<img src="__PUBLIC__/static/style/images/calc.png" />
+				</div>
+				<div class="right">
+					<h4>期权计算器</h4>
+					<p>提供便捷的期权计算器，有利于快速询价</p>
+				</div>
+			</a>
+		</div>
+
+		<!--status-->
+		<div class="imgrow">
+			<div>
+				<img class="no_statua" src="__PUBLIC__/static/style/images/qqjy-state.png"/>
+				<img class="status_img" src="__PUBLIC__/static/style/images/qqjy.png" hidden/>
+			</div>
+			<div>
+				<img class="status_img" src="__PUBLIC__/static/style/images/xjjl.png" />
+				<img class="no_statua" src="__PUBLIC__/static/style/images/xjjl-state.png" hidden />
+			</div>
+		</div>
+		<!--newbox-->
+		<div class="newbox active">
+			<foreach name="list_order" item="vo">
+				<div class="rowbox">
+					<div class="onerow">
+						<img src="__PUBLIC__/static/style/images/style-public.png" />
+						<p>{$vo['name']}</p>
+						<div>{$vo['time']}</div>
+					</div>
+					<div class="newtips">
+						<div> 询价<span class="color">{$vo['title']}</span>名义本金<span class="color">{$vo['principal']}</span>万元</div>
+						<div class="red">{$vo['royalty']}元</div>
+					</div>
+				</div>
+			</foreach>
+			<center>———股市有风险，投资需谨慎———</center>
+		</div>
+		<!--right-->
+		<div class="newbox">
+			<div class="inquiry-record-box">
+				<foreach name="list_enquiry" item="vo">
+					<div class="data_row">
+						<div>
+							<img src="__PUBLIC__/static/style/images/style-public.png" />
+							<div class="name">{$vo['title']}({$vo['code']})</div>
+							<div class="time">{$vo['create_time']}</div>
+						</div>
+						<div>
+							<div class="nbum">名义本金
+								<a href="JavaScript:void(0)">{$vo['principal']}</a>万元&nbsp;期限
+								<a href="JavaScript:void(0)">{$vo['time']}</a>
+							</div>
+							<div class="red">{$vo['price']}</div>
+						</div>
+					</div>
+				</foreach>
+				<center>———投资有风险，入市需谨慎———</center>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="__PUBLIC__/static/style/js/swiper-4.1.6.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/static/style/js/index.js"></script>
+		<script type="text/javascript">
+			$(".status_img").on("click", function() {
+				var index = $(this).parent().index();
+				if(index == 1) {
+					$(".no_statua").eq(1).show();
+					$(".status_img").eq(1).hide();
+					$(".no_statua").eq(0).hide();
+					$(".status_img").eq(0).show();
+					$(".newbox").eq(1).show();
+					$(".newbox").eq(0).hide();
+				} else {
+					$(".no_statua").eq(0).show();
+					$(".status_img").eq(0).hide();
+					$(".no_statua").eq(1).hide();
+					$(".status_img").eq(1).show();
+					$(".newbox").eq(0).show();
+					$(".newbox").eq(1).hide();
+				}
+			})
+			$(".no_statua").on("click",function(e){
+				e.preventDefault();
+			})
+			//轮播
+			var mySwiper1 = new Swiper('#swiper1', {
+				autoplay: {
+					disableOnInteraction: false,
+				},
+				loop: true,
+				pagination: {
+					el: '.swiper-pagination',
+				},
+			})
+			//公告
+			var swiper2 = document.querySelector("#swiper2").querySelectorAll(".swiper-wrapper")[0].clientHeight
+			document.querySelector("#swiper2").style['height'] = swiper2 + 'px'
+			var mySwiper2 = new Swiper('#swiper2', {
+				autoplay: true,
+				direction: "vertical",
+				loop: true,
+			})
+			//推荐
+			document.querySelector("#swiper3").style['height'] = swiper2 + 'px'
+			var mySwiper3 = new Swiper('#swiper3', {
+				autoplay: true,
+				direction: "vertical",
+				loop: true,
+			})
+
+			//公告
+			$(".gonggao.gonggao").on("click", function() {
+
+			})
+		</script>
+	</body>
+
+</html>

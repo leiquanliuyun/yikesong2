@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>个人中心</title>
+		<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+		<script src="js/index.js"></script>
+		<link rel="stylesheet" href="css/style_w.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	</head>
+	<style type="text/css">
+		span {
+			position: relative;
+			;
+			top: 3px;
+			font-size: 0.3rem
+		}
+		
+		a {
+			color: #222222;
+		}
+		
+		.shear_box_bg {
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 8;
+			background: rgba(0, 0, 0, 0.2);
+		}
+		
+		.shear_box_cont {
+			padding: 0.3rem 0;
+			width: 100%;
+			z-index: 9;
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			background: #FFFFFF;
+			display: flex;
+			justify-content: space-around;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+		}
+		.shear_box_cont div {
+			width: calc(100% / 5);
+			text-align: center;
+			font-size: 0.3rem
+		}
+		
+		.shear_box_cont div img {
+			width: 50%;
+		}
+		.shear_box_cont div:nth-child(3) img{
+			height: 50%;
+		}
+	</style>
+
+	<body>
+		<div class="wrap">
+			<div class="mine-box">
+				<div class="mine-box-head">
+					<div class="mine-avatarBox">
+						<img src="images/mine/head-my.png">
+					</div>
+					<div class="mine-userNum">
+						<span>ID:s123123</span>
+					</div>
+				</div>
+
+				<div class="mine-center_list bg-white">
+					<ul>
+						<li class="clearfix mine-item-1">
+							<a href="JavaScript:void(0)" data="message.html">
+								<img src="images/mine/Messagecenter-My.png" alt="">
+								<span>消息中心</span>
+								<img src="images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+						<li class="clearfix mine-item-2">
+							<a href="JavaScript:void(0)" data="my_list.html">
+								<img src="images/mine/bill.png" alt="">
+								<span>我的单子</span>
+								<img src="images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+						<li class="clearfix mine-item-3">
+							<a href="JavaScript:void(0)" data="help.html">
+								<img src="images/mine/help-My.png" alt="">
+								<span>帮助中心</span>
+								<img src="images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+						<li class="clearfix mine-item-4">
+							<a href="JavaScript:void(0)" data="address-management.html">
+								<img src="images/mine/Address-My.png" alt="">
+								<span>地址管理</span>
+								<img src="images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+						<li class="clearfix mine-item-5">
+							<a href="JavaScript:void(0)" data="Information.html">
+								<img src="images/mine/information-My.png" alt="">
+								<span>个人信息修改</span>
+								<img src="images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+						<li class="clearfix mine-item-6">
+							<img src="images/mine/share-My.png" alt="">
+							<span>服务与推广</span>
+							<img src="images/mine/TurnContent-Help.png" alt="" class="fr">
+						</li>
+						<!--<li class="clearfix mine-item-7">
+                        <img src="images/mine/Version-My.png" alt="">
+                        <span>版本中心</span>
+                        <img src="images/mine/TurnContent-Help.png" alt="" class="fr">
+                    </li>-->
+						<li class="clearfix mine-item-8">
+							<a href="JavaScript:void(0)" data="onlineMsg.html">
+								<img src="images/mine/message-My.png" alt="">
+								<span>在线留言</span>
+								<img src="images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="shear_box" hidden>
+			<div class="shear_box_bg"></div>
+			<div class="shear_box_cont">
+				<div>
+					<img src="images/mine/t-Friendquan-channel.png" />
+					<p>朋友圈</p>
+				</div>
+				<div>
+					<img src="images/mine/t-wechant-channel.png" />
+					<p>微信</p>
+				</div>
+				<div>
+					<img src="images/mine/t-qq-channel.png" />
+					<p>QQ</p>
+				</div>
+				<div>
+					<img src="images/mine/t-popularize-channel.png" />
+					<p>经纪通道</p>
+				</div>
+				<div>
+					<img src="images/mine/canshu.png" />
+					<p>接口</p>
+				</div>
+			</div>
+		</div>
+		<script>
+			get.fontSize();
+			$(".mine-item-6").on("click", function() {
+				$(".shear_box").show();
+			});
+			$(".shear_box_bg").on("click",function(){
+				$(".shear_box").hide();
+			})
+			$(".shear_box_cont div").on("click", function() {
+				switch($(this).index()) {
+					case 0:
+						$(".shear_box").hide();
+						console.log(0)
+						break;
+
+					case 1:
+						$(".shear_box").hide();
+						console.log(1)
+						break;
+
+					case 2:
+						$(".shear_box").hide();
+						console.log(2)
+						break;
+					case 3:
+						alert("判断登录状态")
+						$(".shear_box").hide();
+						window.location.href="achievement.html"
+						break;
+					case 4:
+						$(".share_box").hide();
+                        window.location.href="interface-service-application.html";
+                        break;
+				}
+			});
+			
+			$(".clearfix").on("click",function(){
+				var href = $(this).find("a").attr("data");
+				if(href){
+					window.location.href=href
+				}
+			})
+		</script>
+	</body>
+
+</html>

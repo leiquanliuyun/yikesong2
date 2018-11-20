@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>我的单子</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/my_list_.css"/>
+</head>
+<style type="text/css">
+	.user_row{
+		font-size: 14px;
+	}
+	.user_other{
+		font-size: 15px;
+	}
+</style>
+<body>
+	<div class="wrap">
+		<!--选项卡-->
+		<div class="tabbox">
+			<div class="list_title">
+				<div>
+					<img src="__PUBLIC__/static/style/images/Markingdisk-state.png"/>
+				</div>
+				<div class="imgs">
+					<img src="__PUBLIC__/static/style/images/Settlement-state.png"/>
+				</div>
+			</div>
+			<div class="list_title">
+				<div class="imgs">
+					<img src="__PUBLIC__/static/style/images/Markindisk.png"/>
+				</div>
+				<div>
+					<img src="__PUBLIC__/static/style/images/Settlement.png"/>
+				</div>
+			</div>
+		</div>
+		<!--内容-->
+		<div class="contentbox active">
+			<foreach name="list_order" item="vo">
+				<div class="specific_edtail">
+					<div class="specific_top">
+						<div class="top_name">
+							<span>{$vo['begin_time']}至{$vo['end_time']}</span>
+							<img class="tipsimgbtn" src="__PUBLIC__/static/style/images/note-cd.png"/>
+						</div>
+						<div class="leftbox">
+							<!-- <li>现价</li>
+							<li>{$vo['eventual_price']}</li> -->
+							<li>名义本金</li>
+							<li>{$vo['principal']}</li>
+							<li>
+								<button><a href="tel:{$list_deploy['mobile']}">联系客服</a></button>
+							</li>
+						</div>
+						<div class="rightbox">
+							<li><div>股票名称：</div><span>{$vo['title']}</span></li>
+							<li><div>股票代码：</div><span>{$vo['code']}</span></li>
+							<li><div>期初价格：</div><span>{$vo['initial_price']}元</span></li>
+							<li><div>执行价：</div><span>{$vo['execute']}</span></li>
+							<li><div>期权类型：</div><span>平值买入看涨</span></li>
+							<img class="imgbtn down" src="__PUBLIC__/static/style/images/Position-down.png"/>
+							<img class="imgbtn up" src="__PUBLIC__/static/style/images/Position-up.png"/>
+						</div>
+					</div>
+					<div class="specific_bottom">
+						<div class="bottom_leftbox">
+							<input type="button" data_numbers="{$vo['come_numbers']}" data_no="{$vo['come_no']}" order_id="{$vo['order_id']}" value="快递跟踪" />
+						</div>
+						<div class="bottom_rightbox">
+							<li><div>期限：</div><span>{$vo['time']}</span></li>
+							<li><div>对接人：</div><span>{$vo['superior_uid']}</span></li>
+							<li><div>权利金比例：</div><span>{$vo['premium']}</span></li>
+							 <li><div>权利金：</div><span class="red">{$vo['royalty']}元</span></li>
+							<!-- <li><div>行权价：</div><span>{$vo['exercise']}元</span></li>
+							<li><div>持仓量：</div><span>{$vo['inventory']}股</span></li>  
+							<li>
+								<div>创收：</div>
+								<span {$vo['income'] > 0 ? "style='color:red' " : "style='color:green'"}>{$vo['income']}元</span>
+							</li> -->
+						</div>
+					</div>
+				</div>
+			</foreach>
+		</div>
+		<!--结算-->
+		<div class="contentbox settlement">
+			<div class="settlement_title">
+				<select name="select_year" id="select_year">
+				  <volist name="array_year" id="vo">			  	 
+					<option value="{$vo}" {$vo==$year?"selected=''selected":""}>{$vo}年</option>
+				  </volist>
+				</select>
+				<div class="profit">
+					创收小计：￥{$profit}
+				</div>
+			</div>
+			<div class="settlement_datalist">
+				<foreach name="list_accounts" item="vo">
+					<div class="list_row" order_id="{$vo['order_id']}">
+						<div class="row_one">
+							<img src="__PUBLIC__/static/style/images/style-public.png"/>
+							<div>{$vo['title']}</div>
+							<div>名义本金：{$vo['principal']}</div>
+						</div>
+						<div class="row_two">
+							<div>
+								{$vo['time']}
+							</div>
+							<div {$vo['actual_income'] > 0 ? "style='color:red' " : "style='color:green'"}>
+								{$vo['actual_income']}
+							</div>
+						</div>
+						<img class="right_imgbtn" src="__PUBLIC__/static/style/images/arr-down.png">
+					</div>
+				</foreach>
+				<center class="tipsnodata">
+					亲，到底了!
+				</center>
+			</div>
+		</div>
+	</div>
+	<!--结算表-->
+	<div class="balance_sheet">
+		<div class="balance_sheet_cont">
+			<div class="balance_sheet_title">
+				<img class="tips_img" src="__PUBLIC__/static/style/images/note-cd.png"/>
+				<div>场外期权结算表</div>
+				<img class="close_img" src="__PUBLIC__/static/style/images/close.png" onclick="hidebalance($(this))"/>
+			</div>
+			<div class="balance_sheet_content">
+				<div class="user_info">
+					<div id="order_number" class="user_other">单号：</div>
+					<div class="user_other">客户ID：{$identification}</div>
+				</div>
+				<div class="user_row">
+					<div>客户名称：</div>
+					<div id="possessor_uid">生完三</div>
+				</div>
+				<div class="user_row">
+					<div>股票代码：</div>
+					<div id="order_code">000690</div>
+				</div>
+				<div class="user_row">
+					<div>股票名称：</div>
+					<div id="order_title">宝新能源</div>
+				</div>
+				<div class="user_row">
+					<div>期权类型：</div>
+					<div id="order_type">平值买入看涨</div>
+				</div>
+				<div class="user_row">
+					<div>起始日：</div>
+					<div id="order_begin_time">2017-11-12</div>
+				</div>
+				<div class="user_row">
+					<div>期限：</div>
+					<div id="order_time">一个月</div>
+				</div>
+				<div class="user_row">
+					<div>到期日：</div>
+					<div id="order_end_time">2017-12-11</div>
+				</div>
+				<div class="user_row">
+					<div>名义本金(万)：</div>
+					<div id="order_principal">300.00</div>
+				</div>
+				<div class="user_row">
+					<div>期初价格(元)：</div>
+					<div id="order_initial_price">6.064</div>
+				</div>
+				<div class="user_row">
+					<div>执行价：</div>
+					<div id="order_execute">100%</div>
+				</div>
+				<div class="user_row">
+					<div>期末价格(元)：</div>
+					<div id="order_eventual_price">7.060</div>
+				</div>
+				<div class="user_row">
+					<div>业务对接人：</div>
+					<div id="superior_uid">王安全</div>
+				</div>
+				<div class="user_row">
+					<div>权利金比例：</div>
+					<div id="order_premium">2.030%</div>
+				</div>
+				<div class="user_row">
+					<div>权利金(元)：</div>
+					<div id="order_royalty">76,100.00</div>
+				</div>
+				<div class="user_row">
+					<div>创收(元)：</div>
+					<div style="color:red;" id="order_income_format">550,950.05</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--快递选项卡-->
+	<div class="express_box" hidden="hidden">
+		<div class="express_bg" onclick="JavaScript:expresshide()"></div>
+		<div class="express_cont">
+			<div class="express_title">
+				<div class="active">来件跟踪</div>
+				<div class="">去件跟踪</div>
+				<img src="__PUBLIC__/static/style/images/close.png" onclick="JavaScript:expresshide()"/>
+			</div>
+			<div class="express_list come active" id="come_logistics_detail">
+			</div>
+			<div class="express_list">
+				<div class="input_sel">
+					<select name="company_list">
+						<foreach name="list_company" item="vo">
+							<option value="{$vo['no']}">{$vo['com']}</option>
+						</foreach>
+					</select>
+					<input type="number" name="logistics_numbers" value="" placeholder="请输入快递单号"/ class="express_num">
+					<button type="button" id="button_company" order_id="" class="express_boxbtn">确定</button>
+					<div class="express_list come active" id="go_logistics_detail">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/static/style/js/index.js" ></script>
+	<script type="text/javascript">
+		$("#select_year").change(function(){
+		    var time=$("#select_year").val();
+		    var token = "{$token}";
+		     
+		    //查询该年订单
+			$.ajax({
+				url: appIp() + "/api/center/get_year_order",
+				type: "POST",
+				dataType:"json",
+				header: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				data:{"time":time,'token':token},
+
+				success: function(ret) {
+					if(ret.status=='200'){					 
+						$(".profit").text('创收小计：￥'+ret.profit);
+						var html='';
+						$.each(ret.data,function(key,val){
+                             html+='<div class="list_row" order_id="'+val.order_id+'"><div class="row_one"><img src="__PUBLIC__/static/style/images/style-public.png"/><div>'+val.title+'</div><div>名义本金：'+val.principal+'</div></div><div class="row_two"><div>'+val.time+'</div>';
+                             if (parseInt(val['actual_income']) > 0 ) {
+                             	html+='<div  style="color:red">'+val.actual_income+'</div>';
+                             }else{
+                             	html+='<div  style="color:green">'+val.actual_income+'</div>';
+                             }
+                             html+='</div><img class="right_imgbtn" src="__PUBLIC__/static/style/images/arr-down.png"></div>'
+
+                        })
+                        html+='<center class="tipsnodata">亲，到底了!</center>';
+					console.log(html);
+				
+                        $(".settlement_datalist").html(html);
+					} else {
+						var html='<div>暂无数据，请稍后...</div>';
+						$(".settlement_datalist").html(html);
+						$(".express_box").show();
+					} 
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			});
+		});
+		 
+		
+		//盯盘与结算
+		$(".imgs").click(function(){
+			$(this).parent(".list_title").hide().css('display','none');;
+			$(".list_title").eq($(this).index()).show().css('display','flex');
+			if($(this).index()==1){
+				$(".contentbox").eq(1).addClass("active");
+				$(".contentbox").eq(0).removeClass("active");
+			}
+			else{
+				$(".contentbox").eq(0).addClass("active");
+				$(".contentbox").eq(1).removeClass("active");
+			}
+		});
+		
+		//盯盘的上下显示
+		$(".imgbtn").on("click",function(){
+			if($(this).attr("class").indexOf("up")<0){
+				$(this).hide();
+				$(this).parent().find(".up").slideDown(100);
+				$(this).parent().parent().next().css('display','flex');
+			}
+			else{
+				$(this).hide();
+				$(this).parent().find(".down").slideDown(100);
+				$(this).parent().parent().next().css('display','none')
+			}
+		});
+		
+		//弹窗
+		$(".tipsimgbtn").on("click",function(){
+			tipsbox.alertbox({ 
+				toptitle:"温馨提示",
+				conttxt:"盯市期间请注意股票价格变动。市场价格达到您预期的行权价，请您及时<a href='tel:{$list_deploy['mobile']}'>电话联系客服</a>申请行权"
+			},function(){
+				tipsbox.alertboxhide();
+			});
+		})
+		
+		//快递选项卡
+		$(".express_title div").on("click",function(){
+			if($(this).index()==0){
+				$(".express_title div").eq(0).addClass("active");
+				$(".express_title div").eq(1).removeClass("active");
+				$(".express_list").eq(0).addClass("active");
+				$(".express_list").eq(1).removeClass("active");
+			}
+			else{
+				$(".express_title div").eq(1).addClass("active");
+				$(".express_title div").eq(0).removeClass("active");
+				$(".express_list").eq(1).addClass("active")
+				$(".express_list").eq(0).removeClass("active")
+			}
+		})
+		
+		//快递隐藏
+		function expresshide(){
+			$(".express_box").hide(100);
+		}
+		//弹窗
+		$(".tips_img").on("click",function(){
+			var obj = {
+				toptitle:"温馨提示",
+				conttxt:"非常感谢您对场外个股期权的持续关注与厚爱，相信您在本次交易过程中学习并收获到不少知识，希望对您今后的交易可以提供很好的借鉴作用。<div>本软件只作为信息的展示平台，不存在任何线上交易行为，请妥善保管您的私人财产安全，并在<a href='{:url('center/online_msg')}'>在线留言</a>提出您的改进建议。</div>"
+			}
+			tipsbox.alertbox(obj,function(){
+				tipsbox.alertboxhide();
+			})
+		})
+		
+		//快递跟踪
+		$(".bottom_leftbox input").on("click",function(){
+			//修改去件跟踪快递订单id
+			$("#button_company").attr('order_id',$(this).attr('order_id'));
+			//接口参数
+			var logistics_numbers = $(this).attr('data_numbers');
+			var logistics_no = $(this).attr('data_no');
+			var data_logistics = {
+					numbers: logistics_numbers,
+					no: logistics_no
+				}
+			//查询来件快递物流详情
+			$.ajax({
+				url: appIp() + "/api/enquiry/come_logistics_detail",
+				type: "POST",
+				dataType:"json",
+				header: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				data: data_logistics,
+				success: function(ret) {
+					if(ret.status=='200'){
+						var htmls="<div>"+logistics_no+"快递:"+logistics_numbers+"</div>";
+						for (item in ret.data) {
+							htmls+="<p>"+ret.data[item].datetime+"</p><p>"+ret.data[item].remark+"</p>";
+						}
+						$("#come_logistics_detail").html(htmls);
+
+						$(".express_box").show();
+					} else if(ret.status=='501') {
+						var html='<div>暂无数据，请稍后...</div>';
+						$("#come_logistics_detail").html(html);
+						$(".express_box").show();
+					}else{
+						alert(ret.message);
+					}
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			});
+		});
+		//点击确定查询 去件跟踪
+		$("#button_company").on("click",function(){
+			//验证数据
+			if($('input[name="logistics_numbers"]').val() == '') {
+				alert('请输入快递单号!');
+				return false;
+			}
+			var data_go_logistics = {
+					numbers: $('input[name="logistics_numbers"]').val(),
+					no: $("select[name='company_list'] :selected").val(),
+					order_id: $(this).attr('order_id')
+				}
+			$.ajax({
+				url: appIp() + "/api/enquiry/logistics_detail",
+				type: "POST",
+				dataType:"json",
+				header: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				data: data_go_logistics,
+				success: function(ret) {
+					if(ret.status=='200'){
+						var htmls="";
+						for (item in ret.data) {
+							htmls+="<p>"+ret.data[item].datetime+"</p><p>"+ret.data[item].remark+"</p>";
+						}
+						$("#go_logistics_detail").html(htmls);
+					} else if(ret.status=='501') {
+						var html='<div>暂无数据，请稍后...</div>';
+						$("#go_logistics_detail").html(html);
+					}else{
+						alert(ret.message);
+					}
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			});
+		})
+
+		//查询结算订单详情
+		$(".list_row").on("click",function(){
+			var token = "{$token}";
+			//接口参数
+			var data_order_detail = {
+					token: token,
+					order_id: $(this).attr('order_id')
+				}
+			$.ajax({
+				url: appIp() + "/api/enquiry/order_detail",
+				type: "POST",
+				dataType:"json",
+				header: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				data: data_order_detail,
+				success: function(ret) {
+					if(ret.status=='200'){
+						console.log(ret.data.order_id);
+						//更新相对应的订单详情信息
+						$('#order_number').html('单号：'+ret.data.order_number);
+						$('#possessor_uid').html(ret.data.possessor_uid);
+						$('#order_code').html(ret.data.code);
+						$('#order_title').html(ret.data.title);
+						$('#order_type').html(ret.data.type);
+						$('#order_begin_time').html(ret.data.begin_time);
+						$('#order_time').html(ret.data.time);
+						$('#order_end_time').html(ret.data.end_time);
+						$('#order_principal').html(ret.data.principal);
+						$('#order_initial_price').html(ret.data.initial_price);
+						$('#order_execute').html(ret.data.execute);
+						$('#order_eventual_price').html(ret.data.eventual_price);
+						$('#superior_uid').html(ret.data.superior_uid);
+						$('#order_premium').html(ret.data.premium);
+						$('#order_royalty').html(ret.data.royalty);
+						$('#order_income_format').html(ret.data.income_format);
+						//判断创收
+						if(ret.data.income_format > 0) {
+							$('#order_income_format').attr("style","color:red");
+						} else {
+							$('#order_income_format').attr("style","color:green");
+						}
+						//打开订单详情页面
+						$(".balance_sheet").fadeIn(200);
+					} else {
+						alert(ret.message);
+						return false;
+					}
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			});
+		})
+		//js生成 查询结算订单详情
+		$("body").delegate(".list_row","click",function(){
+			var token = "{$token}";
+			//接口参数
+			var data_order_detail = {
+					token: token,
+					order_id: $(this).attr('order_id')
+				}
+			$.ajax({
+				url: appIp() + "/api/enquiry/order_detail",
+				type: "POST",
+				dataType:"json",
+				header: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				data: data_order_detail,
+				success: function(ret) {
+					if(ret.status=='200'){
+						console.log(ret.data.order_id);
+						//更新相对应的订单详情信息
+						$('#order_number').html('单号：'+ret.data.order_number);
+						$('#possessor_uid').html(ret.data.possessor_uid);
+						$('#order_code').html(ret.data.code);
+						$('#order_title').html(ret.data.title);
+						$('#order_type').html(ret.data.type);
+						$('#order_begin_time').html(ret.data.begin_time);
+						$('#order_time').html(ret.data.time);
+						$('#order_end_time').html(ret.data.end_time);
+						$('#order_principal').html(ret.data.principal);
+						$('#order_initial_price').html(ret.data.initial_price);
+						$('#order_execute').html(ret.data.execute);
+						$('#order_eventual_price').html(ret.data.eventual_price);
+						$('#superior_uid').html(ret.data.superior_uid);
+						$('#order_premium').html(ret.data.premium);
+						$('#order_royalty').html(ret.data.royalty);
+						$('#order_income_format').html(ret.data.income_format);
+						//判断创收
+						if(ret.data.income_format > 0) {
+							$('#order_income_format').attr("style","color:red");
+						} else {
+							$('#order_income_format').attr("style","color:green");
+						}
+						//打开订单详情页面
+						$(".balance_sheet").fadeIn(200);
+					} else {
+						alert(ret.message);
+						return false;
+					}
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			});
+		})
+		//结算隐藏
+		function hidebalance(obj){
+			obj.parents(".balance_sheet").fadeOut(200);
+		}
+	</script>
+</body>
+</html>

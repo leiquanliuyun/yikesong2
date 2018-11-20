@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>一棵松</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<style type="text/css">
+		footer ul{
+			display: flex;
+			list-style: none;
+			justify-content: space-around;
+			border-top: 1px solid rgba(0,0,0,0.1);
+		} 
+		footer ul li img{
+			position: relative;
+			top: 10px;
+			height: 25px;
+		}
+		footer ul li{
+			font-size: 0.875rem;
+			text-align: center;
+		}
+		footer ul li p{
+			margin-top: 10px;
+		}
+		footer ul li img.moral{
+			display: none;
+		}
+		footer ul li:first-of-type .active{
+			display: none;
+		}
+		footer ul li:first-of-type .moral{
+			
+			display: block;
+		}
+		footer ul li a{
+			color: #000;
+		}
+		footer ul li.on a{
+			color:#ff6b0d;
+		}
+	</style>
+</head>
+<body>
+	<footer>
+		<ul>
+			<li class="on">
+				<a href="index.html" target="showbootom">
+					<img class="moral" src="images/home-cd.png"/>
+					<img class="active" src="images/home.png"/>
+					<p>首页</p>
+				</a>
+			</li>
+			<li>
+				<a href="investment-education.html" target="showbootom">
+					<img class="active" src="images/Inquiry.png"/>
+					<img class="moral" src="images/Inquiry-state.png"/>
+					<p>投教</p>
+				</a>
+			</li>
+			<li>
+				<a href="mine.html" target="showbootom">
+					<img class="active" src="images/mine.png"/>
+					<img class="moral" src="images/mine-cd.png"/>
+					<p>我的</p>
+				</a>
+			</li>
+		</ul>
+	</footer>
+	<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/index.js" ></script>
+	<script type="text/javascript">
+		$("li a").click(function(){
+			$(".active").show();
+			$(".moral").hide();
+			$(this).find(".active").hide();
+			$(this).find(".moral").show();
+		})
+
+		$(function(){
+		  $("footer ul li").click(function(){
+		    $("footer ul li").eq($(this).index()).addClass("on").siblings().removeClass("on");
+		  })
+		})	
+	</script>
+</body>
+</html>

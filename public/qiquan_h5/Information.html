@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>个人信息修改</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="css/Information_.css"/>
+	<style type="text/css">
+		.btn_code{
+			position: absolute;
+			right: 11px;
+			top: 18px;
+		}
+		#v_container{
+			right: 55px;
+			top: 12px;
+		}
+		#code_input{
+			width: 50px;
+		}
+	</style>
+	<script type="text/javascript" src="js/gVerify.js"></script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="updata">
+			<div class="row">
+				<label>姓名</label>:
+				<input type="text" class="username" maxlength="20" placeholder="请输入您的姓名"/>
+			</div>
+			<div class="row">
+				<label>邮箱</label>:
+				<input type="email" class="useremail" maxlength="30" placeholder="请输入您的Email"/>
+			</div>
+			<div class="row">
+				<label>手机号</label>:
+				<input type="tel" class="usertel" maxlength="11" placeholder="请输入您的手机号码"/>
+			</div>
+			<div class="row" style="line-height: 35px;">
+				<label>图片验证码</label>:
+				<input type="text" class="user_imgcode" id="code_input" placeholder="请输入"/>
+				<div id="v_container" class="img_code" style="width: 80px;height: 35px;"></div>
+				<button id="my_button" class="btn_code">验证</button>
+				<canvas id="verifyCanvas" style="width: 80px;height: 35px;"></canvas>
+				<!-- <img class="img_code" src="images/xjjl.png"/> -->
+			</div>
+			<div class="row">
+				<label>手机验证码</label>:
+				<input type="number" class="user_phonecode" maxlength="8" placeholder="请输入手机验证码"/>
+				<img class="get_code" src="images/getcode.gif"/>
+				<div class="tips_txt"></div>
+			</div>
+			<div class="row">
+				<label>识别码</label>:
+				<input type="text" class="user_lookcode" placeholder="请输入识别码(选填)"/>
+			</div>
+			<div class="row_tips">
+				<div>确认即代表同意<a href="#">《用户服务协议及隐私政策》</a></div>
+			</div>
+			<div class="btn">
+				<button type="button" class="surebtn">确认</button>
+			</div>
+		</div>
+	</div>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="js/index.js" ></script>
+	<script type="text/javascript">
+		$(".get_code").on("click",function(){
+			var that = $(this); 
+			that.hide();
+			var num = 60;
+			$(".tips_txt").html("倒计时"+num);
+			var t = window.setInterval(function(){
+				num--;
+				$(".tips_txt").html("倒计时"+num);
+				if(num<=0){
+					window.clearInterval(t);
+					$(".tips_txt").html("");
+					that.show();
+				}
+			},1000)
+		});
+		
+		$(".surebtn").on("click",function(){
+			var username = $(".username").val();
+			var useremail = $(".useremail").val();
+			var usertel = $(".usertel").val();
+			var user_imgcode = $(".user_imgcode").val();
+			var user_phonecode = $(".user_phonecode").val();
+			var user_lookcode = $(".user_lookcode").val();
+			var obj = {
+				toptitle:"温馨提示",
+				conttxt:"请填写正确的手机验证码"
+			}
+			//姓名
+			if(!username){
+				obj.conttxt="请填写正确的姓名";
+				tipsbox.alertbox(obj,function(){
+					tipsbox.alertboxhide();
+				});
+				return false;
+			}
+			//邮箱
+			if(!test.email(useremail)){
+				obj.conttxt="请填写正确的邮箱";
+				tipsbox.alertbox(obj,function(){
+					tipsbox.alertboxhide();
+				})
+				return false;
+			}
+			//手机号
+			if(!test.phone(usertel)){
+				obj.conttxt="请填写正确的手机号";
+				tipsbox.alertbox(obj,function(){
+					tipsbox.alertboxhide();
+				});
+				return false;
+			}
+			//图形码
+			if(!user_imgcode){
+				obj.conttxt="请填写正确的图形验证码";
+				tipsbox.alertbox(obj,function(){
+					tipsbox.alertboxhide();
+				});
+				return false;
+			};
+			//验证码
+			if(!user_phonecode){
+				obj.conttxt="请填写正确的手机验证码";
+				tipsbox.alertbox(obj,function(){
+					tipsbox.alertboxhide();
+				});
+				return false;
+			}
+		});
+
+		var verifyCode = new GVerify("v_container");
+
+		document.getElementById("my_button").onclick = function(){
+			var res = verifyCode.validate(document.getElementById("code_input").value);
+			if(res){
+				alert("验证正确");
+			}else{
+				alert("验证码错误");
+			}
+		}
+	</script>
+</body>
+</html>

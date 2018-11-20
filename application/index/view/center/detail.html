@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口调用方法</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script src="__PUBLIC__/static/style/js/index.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/static/style/css/style_w.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style type="text/css">
+        input{
+            font-size: 0.3rem
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="interface-invocation-method-box bg-white">
+        <div class="ovo-methed-head">
+            <p>{$list_explain['title']}</p>
+        </div>
+        <div class="ovo-methed-text">
+            {$list_explain['content']}
+        </div>
+        <div class="ovo-methed-btn bg-white">
+            <img src="__PUBLIC__/static/style/images/backicon.png" alt="">
+        </div>
+    </div>
+</div>
+<script>
+   $(".ovo-methed-btn img").click(function(){
+       window.location.href="{:url('center/port_explain')}"
+   })
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+﻿<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+<title>
+	<if  condition="$option eq 'add'">添加<else/>编辑</if>管理员 - 用户管理
+</title>
+</head>
+<body>
+<article class="page-container">
+	<form action="{:url('user/admin_edit')}" method="post" class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>账号：</label>
+			<if  condition="$option eq 'add'">
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="至少六个字符" id="username" name="username">
+				</div>
+			<else/>
+				{$list['username']}
+			</if>
+		</div>
+		<if  condition="$option eq 'add'">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="password" class="input-text" autocomplete="off" value="" placeholder="至少六个字符" id="password" name="password">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
+				</div>
+			</div>
+		</if>
+		<if  condition="$option eq 'add'">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机号码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="{$list['mobile']?$list['mobile']: ''}" placeholder="" id="mobile" name="mobile">
+				</div>
+			</div>
+		</if>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<if condition="empty($list['admin']['sex']) || $list['admin']['sex'] == '男' ">
+					<div class="radio-box">
+						<input name="sex" value="1" type="radio" id="sex-1" checked>
+						<label for="sex-1">男</label>
+					</div>
+					<div class="radio-box">
+						<input type="radio" value="2" id="sex-2" name="sex">
+						<label for="sex-2">女</label>
+					</div>
+				<else />
+					<div class="radio-box">
+						<input name="sex" value="1" type="radio" id="sex-1">
+						<label for="sex-1">男</label>
+					</div>
+					<div class="radio-box">
+						<input type="radio" value="2" id="sex-2" name="sex" checked>
+						<label for="sex-2">女</label>
+					</div>
+				</if>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$list['admin']['name']?$list['admin']['name']: ''}" placeholder="" id="name" name="name">
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input name="" type="submit" class="btn btn-success radius size-S" value="&nbsp;提&nbsp;&nbsp;交&nbsp;">
+          		<input name="" type="reset" class="btn btn-default radius size-S" value="&nbsp;取&nbsp;&nbsp;消&nbsp;">
+			</div>
+		</div>
+		<input type="hidden" name="option" value="{$option}"/>
+        <input type="hidden" name="id" value="{$id}"/>
+		{:token()}
+	</form>
+</article>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+
+</script> 
+<!--/请在上方写此页面业务相关的脚本-->
+</block>

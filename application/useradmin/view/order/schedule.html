@@ -1,0 +1,71 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+    <title>订单进度列表</title>
+
+    </head>
+    <body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 资讯管理 <span class="c-gray en">&gt;</span> 资讯列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+
+        <form class="form form-horizontal" action="" method="post">
+
+            <div class="cl pd-5 bg-1 bk-gray mt-20">
+                <span class="l">
+                    <button type="button" class="btn btn-success radius" onclick="javascript:history.back()">返回</button>
+                </span>
+            </div>
+            <div class="mt-20">
+                <table class="table table-border table-bordered table-bg table-hover table-sort">
+                    <tr>
+                        <th>订单号:</th>
+                        <td>{$ordernum}</td>
+                    </tr>
+                    <volist name="jinduname" id="jindu">
+                        <tr>
+                            <th>{$jindu['name']}</th>
+                            <if condition="$jindu['status'] eq 1">
+                                <td>已于{$jindu['create_time']}完成</td>
+                                <else />
+                                <td>
+                                    <input type="button" value="确认完成" onclick="jindu('{$jindu.name}','{$sname}')"/>
+                                </td>
+                            </if>
+
+                        </tr>
+                    </volist>
+                </table>
+            </div>
+        </form>
+    </div>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+    <!--请在下方写此页面业务相关的脚本-->
+
+<script type="text/javascript">
+    function jindu(jindu,sname){
+        var id = "{$id}";
+        $.ajax({
+            type:"POST",
+            url:"{:url('confirm_schedule')}",
+            data:{"sname":sname,"jindu":jindu,'id':id},
+            dataType:"JSON",
+            success:function(data){
+                switch(data.status){
+                    case "success":
+                        alert("确认成功");
+                        setTimeout(function(){
+                            location.reload();
+                        },300);
+                        break;
+                    default:
+                        alert(data.msg);
+                        break;
+                }
+            },
+        })
+    }
+
+</script>
+</block>

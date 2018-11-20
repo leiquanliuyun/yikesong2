@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>投教</title>
+		<link rel="stylesheet" href="__PUBLIC__/static/style/css/style_w.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	</head>
+	<style type="text/css">
+		body{
+			background: #f0f0f0;
+		}
+		.data-item{
+			background: #FFFFFF;
+			padding: 0.5rem 0.8rem;
+			display: flex;
+		}
+		.data-item:first-of-type{			
+			border-bottom: 1px solid rgba(0,0,0,0.3);
+		}
+		ul .data-item{
+			border: none !important;
+			margin-top: 10px;
+		}
+		.data-item>img{
+			width: 30vw;
+			height: 28vw;
+		}
+		.investment-education-txt{
+			padding-top: 0.9rem;
+			padding-left: 1rem;
+			padding-right: 1rem;
+			width: calc(100% - 30vw - 10px);
+			display: flex;
+			position: relative;
+		}
+		.investment-education-txt p{
+			font-size: 0.85rem;
+			color: #777777;
+		}
+		.investment-education-txt p:first-of-type{
+			font-size: 1rem;
+			color: #111111;
+		}
+		.investment-education-txt img{
+			position: absolute;
+			width: 10px !important;
+			height: 15px;
+			right: 0;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	</style>
+
+	<body>
+		<div class="wrap">
+			<div class="investment-education-box">
+				<foreach name="list_classify" item="vo">
+					<li class="data-item" url="{:url('content/basics',['classify_id'=>$vo['classify_id']])}">
+						<img src="{$vo['picture']}" alt="" class="investment-edu-pic">
+						<div class="investment-education-txt clearfix">
+							<div class="fl" >
+								<p>{$vo['name']}</p>
+								<p>{$vo['describe']}</p>
+							</div>
+							<img src="__PUBLIC__/static/style/images/inquiry/TurnContent-Help.png" alt="" class="fr" >
+						</div>
+					</li>
+				</foreach>
+				<ul>
+					<foreach name="video_classify" item="vo">
+						<li class="data-item" url="{:url('content/teaching',['classify_id'=>$vo['classify_id']])}">
+							<img src="{$vo['picture']}" alt="" class="investment-edu-pic">
+							<div class="investment-education-txt">
+								<div class="fl" >
+									<p>{$vo['name']}</p>
+									<p>{$vo['describe']}</p>
+								</div>
+							</div>
+						</li>
+					</foreach>
+				</ul>
+			</div>
+		</div>
+		<script src="__PUBLIC__/static/style/js/index.js"></script>
+		<script>
+			$(".data-item").click(function() {
+				if(!$(this).attr("url")) {
+					return false;
+				}
+				window.location.href = $(this).attr("url")
+			})
+		</script>
+	</body>
+
+</html>

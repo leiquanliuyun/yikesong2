@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>今日推荐</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/recommends_.css"/>
+</head>
+<body>
+	<div class="wrap">
+		<div class="recommends_head bg-white">
+			<span>今日推荐</span> 	
+			<a href="{:url('index/screen')}"><button class="screen">筛选</button></a>
+		</div>
+		<div class="recommends_title bg-white">
+			<div>
+				<h4>股票</h4>
+			</div>
+			<div>
+				<h4>期限</h4>
+			</div>
+			<div>
+				<h4>期权股票</h4>
+			</div>
+		</div>
+		<div class="recommends_cont">
+			<foreach name="rate_month1" item="vo">
+				<a href="{:url('enquiry/calculator',['stock_id'=>$vo['stock']['stock_id'],'option'=>'add'])}">
+					<div class="_cont_list">
+						<div class="list_name">{$vo['stock']['name']}({$vo['code']})</div>
+						<div>一个月</div>
+						<div>{$vo['month1']}</div>
+					</div>
+				</a>
+			</foreach>
+			<foreach name="rate_month3" item="vo">
+				<a href="{:url('enquiry/calculator',['stock_id'=>$vo['stock']['stock_id'],'option'=>'add'])}">
+					<div class="_cont_list">
+						<div class="list_name">{$vo['stock']['name']}({$vo['code']})</div>
+						<div>三个月</div>
+						<div>{$vo['month3']}</div>
+					</div>
+				</a>
+			</foreach>
+			<foreach name="rate_month6" item="vo">
+				<a href="{:url('enquiry/calculator',['stock_id'=>$vo['stock']['stock_id'],'option'=>'add'])}">
+					<div class="_cont_list">
+						<div class="list_name">{$vo['stock']['name']}({$vo['code']})</div>
+						<div>六个月</div>
+						<div>{$vo['month6']}</div>
+					</div>
+				</a>
+			</foreach>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var _cont_list = document.querySelectorAll("._cont_list")
+		for (var i = 0; i < _cont_list.length; i++) {
+			_cont_list[i].innerHTML+="<img src='__PUBLIC__/static/style/images/TurnContent-Help.png'>";
+		}
+	</script>
+</body>
+</html>

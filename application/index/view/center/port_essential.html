@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本信息</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script src="__PUBLIC__/static/style/js/index.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/static/style/css/style_w.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <style type="text/css">
+        .ovo_renew{
+            height: 2em;
+            line-height: 2em;
+            font-size: .8rem;
+            color: #fff;
+            background-color: #3ca1e9;
+            padding: 0 1rem;
+            box-sizing: border-box;
+            border-radius: .25rem;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="essential-information-box">
+        <div class="essential-information-head">
+            <img src="__PUBLIC__/static/style/images/info.png" alt="">
+        </div>
+        <div class="essential-information-body">
+            <ul>
+                <li>
+                    <span>单位名称：</span>
+                    <input type="text" name="company" value="{$list_port['company'] ? $list_port['company'] : ''}" disabled="disabled">
+                </li>
+                <li>
+                    <span>接口账号：</span>
+                    <input type="text" name="useradmin" value="{$list_port['useradmin'] ? $list_port['useradmin'] : ''}" disabled="disabled">
+                </li>
+                <li>
+                    <span>接口密码：</span>
+                    <input type="text" name="password" value="{$list_port['password'] ? $list_port['password'] : ''}">
+                </li>
+                <li>
+                    <span>浮动点数：</span>
+                    <input type="number" name="float" value="{$list_port['float'] ? $list_port['float'] : '0'}">
+                    <img src="__PUBLIC__/static/style/images/note-cd.png" alt="温馨提示" class="ts">
+                    <div class="xj-reminder-box bg-white dis-no" style="width:300px;height:70px;font-size: 0.8rem">
+                        <img src="__PUBLIC__/static/style/images/close.png" alt="关闭" class="xj-reminder-close" style="width: 25px;right: -.6rem;top: -.6rem;">
+                        <p>浮动点数：</p>
+                        <p class="txt-in20">在当前期权费率基础上，+0.01表示加一个点，-0.01表示减一个点。</p>
+                    </div>
+                </li>
+                <li>
+                    <span>截止日期：</span>
+                    <input type="text" name="end_time" value="{$list_port['end_time'] ? $list_port['end_time'] : ''}" disabled="disabled">
+                    <input type="button" name="" value="续费" class="ovo_renew" hidden >
+                </li>
+            </ul>
+        </div>
+        <div class="essential-information-parameter">
+            <div class="m-parameter">
+                <div class="m-parameter-item" id="save">保存</div>
+                <div class="m-parameter-item" id="ovo_renew">续费</div>
+            </div>
+            <div class="m-parameter-info">
+                <p class="m-parameter-info-head">测试参数信息</p>
+                <p>
+                    <span>接口密码：</span>
+                    <span>{$list_port['password'] ? $list_port['password'] : ''}</span>
+                </p>
+                <p>
+                    <span>股票代码：</span>
+                    <span>平安银行(000001)</span>
+                </p>
+                <p>
+                    <span>名义本金：</span>
+                    <span>100万</span>
+                </p>
+                <p>
+                    <span>行权周期：</span>
+                    <span>一个月</span>
+                </p>
+            </div>
+            <div class="m-parameter">
+                <div class="m-parameter-item ovo-csjk">测试接口</div>
+                <div class="m-parameter-item" id="call">调用说明</div>
+            </div>
+        </div>
+        <div id="loadingDiv" style="position:fixed;display:none;z-index:5;top:0px;left:0px;width:100%;height:100%;background-color:rgba(0,0,0,0.5)"></div>
+    </div>
+</div>
+<script>
+    var token = "{$user_info['token']}";
+    $(".ts").click(function(){
+        $(".xj-reminder-box").show();
+        $("#loadingDiv").show();
+    }),
+    $(".xj-reminder-close").click(function () {
+        $(".xj-reminder-box").hide();
+        $("#loadingDiv").hide();
+    })
+    //点击保存
+    $("#save").click(function () {
+        var data_float = $('input[name="float"]').val();
+        var password = $('input[name="password"]').val();
+        //验证数据
+        if(data_float == '') {
+            data_float = '0';
+            $('input[name="float"]').val('0');
+        }
+        if(password == '') {
+            tipsbox.alertbox({
+                toptitle: "温馨提示",
+                conttxt: '接口密码不能为空'
+            },function(){
+                tipsbox.alertboxhide();
+            })
+            return false;
+        }
+        //请求修改浮动点数接口
+        $.ajax({
+            url: appIp() + "/api/center/edit_float",
+            type: "POST",
+            dataType:"json",
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+                token:token,
+                float:data_float,
+                password:password
+            },
+            success: function(ret) {
+              if(ret.status=='200'){
+                  tipsbox.alertbox({
+                        toptitle: "温馨提示",
+                        conttxt: '保存成功'
+                    },function(){
+                        tipsbox.alertboxhide();
+                    })
+              } else {
+                tipsbox.alertbox({
+                        toptitle: "温馨提示",
+                        conttxt: ret.message
+                    },function(){
+                        tipsbox.alertboxhide();
+                    })
+                return false;
+              }
+            },
+            error: function(err) {
+              console.log(err);
+            }
+        });
+    })
+    //接口测试
+    $(".ovo-csjk").click(function () {
+        window.location.href="{:url('center/port_test')}"
+    })
+    //接口续费
+    $("#ovo_renew").click(function () {
+        window.location.href="{:url('center/port_renew')}"
+    })
+    //调用说明
+    $("#call").click(function () {
+        window.location.href="{:url('center/port_explain')}"
+    })
+</script>
+</body>
+</html>

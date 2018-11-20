@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口服务</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="css/interface-service-application.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+        .ovo-methed-btn{
+            position: absolute;
+            right: 20px;
+        }
+        .ovo-methed-btn img{
+            width: 40px;
+        }
+        .w-cancel-goats{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 36px;
+            line-height: 36px;
+        }
+        .w-cancel-goats p{
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="interface-service-application-box">
+        <div class="standard-renewals">
+            <p>续费标准</p>
+            <p>
+                一个月 <span>****</span>元
+            </p>
+        </div>
+        <div class="interface-service-timeChoose">
+            <select name="time" id="">
+                <option value="one">1个月</option>
+                <option value="two">2个月</option>
+                <option value="three">3个月</option>
+                <option value="four">4个月</option>
+                <option value="five">5个月</option>
+                <option value="six">6个月</option>
+                <option value="seven">7个月</option>
+                <option value="eight">8个月</option>
+                <option value="nine">9个月</option>
+                <option value="ten">10个月</option>
+                <option value="eleven">11个月</option>
+                <option value="twelve">12个月</option>
+            </select>
+        </div>
+        <div class="interface-service-application-tj">
+            <div>提交申请</div>
+        </div>
+        <div class="ovo-methed-btn">
+            <img src="images/backicon.png" alt="">
+        </div>
+    </div>
+    <!--温馨提示-->
+    <div class="w-reminder-box bg-white dis-no">
+        <p class="w-reminder-head">温馨提示</p>
+        <p class="font-red txt-c">恭喜您！信息提交成功。</p>
+        <p class="txt-in20" style="padding: 0 20px">我们将尽快与您电话沟通，请保持手机畅通。</p>
+        <div class="w-cancel-goats clearfix">
+            <p class="fl">取消</p>
+            <p class="fr">确定</p>
+        </div>
+    </div>
+    <div id="loadingDiv" style="position:fixed;display:none;z-index:5;top:0px;left:0px;width:100%;height:100%;background-color:rgba(0,0,0,0.5)"></div>
+</div>
+<script>
+    $(".interface-service-application-tj div").click(function () {
+        $(".w-reminder-box").show();
+        $("#loadingDiv").show();
+    })
+    $(".w-cancel-goats").on('click','p',function () {
+        $("#loadingDiv").hide();
+        $(".w-reminder-box").hide();
+    })
+    $(".ovo-methed-btn img").click(function () {
+        window.location.href="mine.html"
+    })
+</script>
+</body>
+</html>

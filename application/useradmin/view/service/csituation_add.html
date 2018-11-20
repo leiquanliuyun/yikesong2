@@ -1,0 +1,142 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+    <title>
+        <if  condition="$option eq 'add'">添加<else/>编辑</if>服务选项
+    </title>
+    </head>
+    <body>
+    <div class="page-container">
+        <form class="form form-horizontal" id="form-article-add" action="{:url('service/csituation_add')}" method="post" onSubmit="return check()">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">所属服务：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box">
+                    <select name="service_name" id="service_name" class="select">
+                       <option value="">--请选择所属服务--</option>
+                        <option value="资质转让">资质转让</option>
+                        <option value="公司注册">公司注册</option>
+                        <option value="工商变更">工商变更</option>
+                        <option value="验资审计">验资审计</option>
+                        <option value="政策规划">政策规划</option>
+                        <option value="财税管理">财税管理</option>
+                        <option value="APP制作">APP制作</option>
+                        <option value="知识产权">知识产权</option>
+                        <option value="园区服务">园区服务</option>
+                        <option value="pos机">pos机</option>
+                        <option value="宣传优化">宣传优化</option>
+                        <option value="大规模广告">大规模广告</option>
+                    </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">上级类目：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box">
+                    <select name="pid" id="pid" class="select">
+                        <option value="">--请选择--</option>
+                    </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">选项名称：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+                </div>
+            </div>
+
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <input name="" type="submit" class="btn btn-primary radius Hui-iconfont" value="&#xe632;保存">
+                    <input name="" type="reset" class="btn btn-default radius size-S" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                </div>
+            </div>
+            <input type="hidden" name="option" value="{$option}"/>
+            <input type="hidden" name="id" value="{$id}"/>
+            {:token()}
+        </form>
+    </div>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+    <!--此页面业务相关的脚本-->
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+        });
+        $(function(){
+            $("#service_name").change(function(){
+                var html = '<option value="">--请选择--</option>';
+                var ser = $(this).val();
+                if(ser!=""){
+                    $.ajax({
+                        type:"POST",
+                        url:"{:url('getClass')}",
+                        data:{"service":ser},
+                        dataType:"JSON",
+                        success:function(data){
+                            switch(data.status){
+                                case "success":
+                                    var msg = data.msg;
+                                    for(var i in msg){
+                                        html+='<option value='+msg[i]['cs_id']+'>'+msg[i]['name']+'</option>';
+                                    }
+                                    $("#pid").html(html);
+                                    break;
+                                case "fail":
+                                    break;
+                                default:
+                                    alert(data.msg);
+                                    break;
+                            }
+                        }
+                    });
+                }else{
+                    $("#pid").html(html);
+                }
+            });
+        });
+        function check(){
+            var ser = $("#service_name option:selected").val();
+            if(ser==""){
+                alert("请选择所属服务");
+                return false;
+            }
+            var title = $("#name").val();
+            if(title==""){
+                alert("请填写名称");
+                return false;
+            }
+            var check = true;
+            $.ajax({
+                type:"POST",
+                async:false,
+                url:"{:url('checkClass')}",
+                data:{"service":ser,"name":title},
+                dataType:"JSON",
+                success:function(data){
+                    switch(data.status){
+                        case "success":
+                            break;
+                        default:
+                            check=false;
+                            alert(data.msg);
+                            break;
+                    }
+                }
+            });
+            if(!check){
+                return false;
+            }
+        }
+    </script>
+</block>

@@ -1,0 +1,763 @@
+body::-webkit-scrollbar{
+	display: none;
+}
+*{
+    margin: 0;
+    padding:0;
+}
+ul,li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.clearfix:before{
+    content: "";
+    display: inline-block;
+    clear: both;
+}
+.clearfix:after{
+    content: "";
+    display: inline-block;
+    clear: both;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.bg-white{
+    background-color: #fff;
+}
+.font-red{
+    color: red;
+}
+.mr-20{
+    margin-right: .2rem;
+}
+.mb-20{
+    margin-bottom: .2rem;
+}
+.dis-no{
+    display: none;
+}
+.txt-c{
+    text-align: center;
+}
+.txt-in20{
+    text-indent: .2rem;
+}
+.m-head{
+    /*height: 1.1rem;
+    line-height: 1.1rem;*/
+    height: 50px;
+    line-height: 50px;
+    font-size: .18rem;
+    text-indent: 1em;
+    border-bottom: 1px solid #ddd;
+}
+.m-radius-20{
+    border-radius: .2rem;
+}
+.m-submit-box{
+    /*padding: .4rem 0 0.45rem;*/
+    padding: .1rem 0 .45rem;
+}
+.m-submit{
+    width: 7rem;
+    height: .85rem;
+    line-height: .85rem;
+    text-align: center;
+    font-size: .18rem;
+    color: #fff;
+    margin: auto;
+    background-color: #3ca1e9;
+    border-radius: .1rem;
+}
+.get_code{z-index: 2!important}
+.wrap{
+    width: 100%;
+}
+/*询价-计算器 begin*/
+.calculator_head{
+    height: 3em;
+    line-height: 3em;
+    font-size: .25rem;
+    text-align: center;
+    overflow: hidden;
+}
+.calculator_head>img{
+    width: .72rem;
+    vertical-align: uiddle;
+}
+.calculator_body_item{
+    font-size: .18rem;
+    margin-top: .2rem;
+    padding: .2rem;
+    box-sizing: border-box;
+}
+.calculator_body_item_head{
+    margin-bottom: .25rem;
+}
+.calculator_body_item_head img.ts{
+    width: .3rem;
+}
+.choose-ipt{
+    width: 3.75rem;
+    height: .5rem;
+    font-size: .22rem;
+    text-align: center;
+    border-radius: .05rem;
+    border: none;
+    outline: none;
+    background-color: #ededed;
+}
+.choose-stock-box img{
+    width: .34rem;
+    vertical-align: uiddle;
+}
+.choose-stock-box{
+    /*height: .85rem;*/
+    line-height: .85rem;
+}
+.choose-month-box,.tabBar ul,.tabBar ul li{
+    text-align: center;
+}
+.choose-month-box input+label{
+    display: inline-block;
+    width: 20%;
+    height: .5rem;
+    line-height: .5rem;
+    text-align: center;
+    font-size: .22rem;
+    color: #3ca1e9;
+    background-color: #ededed;
+    border-radius: .05rem;
+    cursor: pointer;
+}
+.choose-month-box input:checked+label,.onlineMsg_box_body input:checked+label{
+    color: #fff;
+    background-color: #3ca1e9;
+}
+/*底部栏*/
+body{
+    position: relative;
+    background-color: #f3f3f3;
+}
+/*.tabBar{*/
+    /*position: absolute;*/
+    /*bottom: 0;left: 0;*/
+    /*width: 100%;*/
+    /*overflow: hidden;*/
+/*}*/
+/*.tabBar ul li{*/
+    /*display: inline-block;*/
+    /*width: 30%;*/
+    /*font-size: .18rem;*/
+/*}*/
+/*.tabBar ul li:last-child img{*/
+    /*width: .6rem;*/
+/*}*/
+/*.tabBar ul li.current{*/
+    /*color: #ff6b0d;*/
+/*}*/
+
+/*平值买入看涨*/
+.styled-select {
+    width: 3.7rem;
+    height: .5rem;
+    /*overflow: hidden;*/
+    margin: auto;
+    background: #ddd url("../images/arr-down.png") no-repeat 3.2rem;
+    background-size: .3rem;
+    text-align: left;
+    border-radius: 5px;
+    position: relative;
+}
+div.styled-select:after{
+    content: "1";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.7rem;
+    height: 1.5rem;
+    background:red;
+}
+.styled-select select {
+    background: transparent;
+    width: 3.7rem;
+    height:.5rem;
+    position: relative;
+    padding: 5px;
+    font-size: .16rem;
+    text-indent: .5rem;
+    border: 1px solid #ccc;
+    outline: none;
+    -webkit-appearance: none;
+}
+/*xj提示框*/
+.xj-reminder-box{
+    position: absolute;
+    top: 0;bottom: 0;left: 0;right: 0;
+    margin: auto;
+    width: 5.35rem;
+    font-size: .18rem;
+    border: 1px solid #ddd;
+    border-radius: .1rem;
+    padding: .25rem;
+    padding-bottom: 0.5rem;
+    z-index: 15;
+}
+.xj-reminder-box p{
+    line-height: 2em;
+}
+.xj-reminder-close{
+    position: absolute;
+    right: -.1rem;top: -.1rem;
+    width: .55rem;
+}
+.query-result-box ul li{
+	display: flex;
+    height: .65rem;
+    line-height: .65rem;
+}
+.query-result-box ul li span:first-child{
+    display: inline-block;
+    width: 2.2rem;
+    text-align: right;
+}
+.query-result-box ul li span:last-child{
+	padding-left: 0.2rem;
+    display: inline-block;
+    /*width: 3rem;*/
+    text-align: left;
+}
+.rights-gold-ts{
+    position: absolute;
+    right: .3rem;
+    top: -.5rem;
+    width: 4rem;
+    color: #3ca1e9;
+    text-align: center;
+    padding: 0 .15rem;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: .1rem;
+    box-shadow: 0 0 10px #ddd;
+    z-index: 5;
+}
+/*询价-计算器 end*/
+
+
+/*投教基础知识*/
+.inquiry-basic-info{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.inquiry-basic-info,.datalist{
+    width: 100%;
+    height: 100%;
+    color: #000;
+}
+.row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .28rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: .3rem;
+    box-sizing: border-box;
+    background: #fff;
+}
+.row img{
+    padding: 0.2rem 0;
+    height: .2rem;
+}
+.row:last-of-type{
+    border-bottom: none;
+}
+/*投教 end*/
+
+/*在线留言 begin*/
+.onlineMsg_box{
+    position: relative;
+}
+.onlineMsg_box{
+    width: 7rem;
+    margin:auto;
+    padding-top: .15rem;
+}
+.onlineMsg_box_body{
+	padding: 0.2rem;
+    display: flex;
+    justify-content: space-around;
+}
+.onlineMsg_box_body input+label{
+    display: inline-block;
+    width: 17%;
+    height: .75rem;
+    line-height: .75rem;
+    /*margin-bottom: .15rem;*/
+    text-align: center;
+    font-size: .26rem;
+    color: #a2a2a2;
+    /*margin-right: .1rem;*/
+    background-color: #fff;
+    border-radius: .1rem;
+    border: 1px solid #a2a2a2;
+    cursor: pointer;
+}
+.onlineMsg_box_body input:last-child+label{
+    margin-right: 0;
+}
+.mine-feedbackInfo{
+    height: 2.95rem;
+    overflow: hidden;
+}
+.mine-feedbackInfo textarea{
+    width: 100%;
+    height: 100%;
+    color: #b3b3b3;
+    font-size: .18rem;
+    padding: .25rem 0;
+    box-sizing: border-box;
+    text-indent: 1em;
+    resize: none;
+    border: none;
+    outline: none;
+}
+.mine-photo-explain{
+    overflow: hidden;
+}
+.mine-photo-up{
+    height: 1.4rem;
+    text-indent: .2em;
+}
+.mine-photo-up input+label{
+    display: inline-block;
+    width: .68rem;
+    height: .68rem;
+}
+.mine-photo-up input+label img{
+    width: 100%;
+    height: 100%;
+}
+.phone-number{
+    width: 4.6rem;
+    color: #999;
+    font-size: .18rem;
+    margin-left: .35rem;
+    border: none;
+    outline: none;
+}
+.m-reminder-box{
+    position: absolute;
+    top: 0;bottom: 0;left: 0;right: 0;
+    margin: auto;
+    width: 85%;
+    font-size: .18rem;
+    border: 1px solid #ddd;
+    border-radius: .1rem;
+    z-index: 10;
+}
+.m-reminder-close-img{
+    position: absolute;
+    right: -.25rem;
+    top: -.15rem;
+    width: .5rem;
+}
+.m-reminder-head{
+    height: .8rem;
+    line-height: .8rem!important;
+    font-size: .26rem;
+    text-align: center;
+    border-top-left-radius: .1rem;
+    border-top-right-radius: .1rem;
+    background-color: #ccc;
+}
+.m-reminder-box p{
+    line-height: .55rem;
+}
+.m-reminder-close{
+    width: 85%;
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+    margin: .2rem auto;
+    color: #fff;
+    border-radius: .1rem;
+    background-color: #9999ff;
+}
+.bg-light{
+    background-color: #ebebeb;
+}
+.bg-blue{
+    background-color: #3ca1e9;
+}
+/*在线留言 end*/
+/*个人中心 begin*/
+.mine-box-head{
+    width: 100%;
+    height: 2.75rem;
+    background-image: url("../images/mine/bg-My.png");
+    background-position:center -1.6rem;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-color: #f3f3f3;
+    padding-top: .45rem;
+    box-sizing: border-box;
+}
+.mine-avatarBox{
+    width: 1.45rem;
+    height: 1.45rem;
+    margin: auto;
+   /* background-image: url("../images/mine/head-My.png");
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: 100% auto;*/
+}
+.mine-avatarBox>img{
+    width: 100%;
+    height: 100%;
+}
+.mine-userNum{
+    height: 2em;
+    line-height: 2em;
+    color: #fff;
+    font-size: .16rem;
+    text-align: center;
+}
+.mine-center_list ul li{
+    height: 1.1rem;
+    line-height: 1.1rem;
+    font-size: .16rem;
+    color: #4c4747;
+    padding: 0 .3rem;
+    border-bottom: 1px solid #ddd;
+}
+.mine-center_list ul li:last-child{
+    border-bottom: none;
+}
+.mine-center_list ul li img{
+    vertical-align: uiddle;
+}
+.mine-center_list ul li span{
+    margin-left: .15rem;
+}
+.mine-center_list ul li img:first-child{
+    width: .36rem;
+}
+.mine-center_list ul li img:last-child{
+    width: .22rem;
+    margin-top: .38rem;
+}
+/*个人中心 end*/
+/*地址管理*/
+.address-btn{
+    display: flex;
+    justify-content: space-between;
+}
+.address-management-box ul li{
+    background-color: #fff;
+    /*padding: .2rem;*/
+    padding: 15px;
+    box-sizing: border-box;
+    margin: .3rem 0;
+}
+.address-management-box ul li:first-child{
+    color: #3ca1e9;
+    font-size: .3rem;
+}
+.address-txt{
+    width: 85%;
+    line-height: 2em;
+}
+.address-add{
+    width: .7rem;
+    height: .7rem;
+/*    vertical-align: uiddle;
+    margin-left: .8rem;*/
+    margin-top: 13px;
+}
+.address-info-1{
+    color: #000;
+    /*font-size: .18rem;*/
+    font-size: 15px;
+    margin-bottom: .25rem;
+}
+.address-info-2{
+    color: gray;
+    /*font-size: .18rem;*/
+    font-size: 14px;
+}
+.address-edit{
+    position: absolute;
+    top: 270px;bottom: 0;left: 0;right: 0;
+    margin: auto;
+    width: 5.4rem;
+    height: 2.1rem;
+    border: 1px solid #ddd;
+    border-radius: .1rem;
+    background-color: #fff;
+    z-index: 15;
+}
+.address-edit p{
+    height: 50%;
+    line-height: 1.15rem;
+    text-indent: .55rem;
+    font-size: .3rem;
+}
+.address-edit p:first-child{
+    border-bottom: 1px solid #ddd;
+}
+/*地址管理*/
+/*编辑地址*/
+.address-edit-details ul li{
+    height: 1.05rem;
+    line-height: 1.05rem;
+    font-size: .3rem;
+    padding: 0 .3rem;
+    box-sizing: border-box;
+    margin: .15rem ;
+    background-color: #fff;
+}
+.address-edit-details ul li span:first-child{
+    display: inline-block;
+    width: 1.5rem;
+    text-align: right;
+}
+.address-edit-details ul li input{
+    width: 3rem;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: .3rem;
+}
+.ovo-map{
+    width: .3rem;
+    margin-top: 6%;
+}
+.address-edit-ts{
+    background-color: #f3f3f3!important;
+}
+.address-edit-ts img{
+    /*width: .3rem;*/
+    width: 20px;
+    margin-top: 6%;
+}
+#edit-submit-box{
+    height: .9rem;
+    line-height: .9rem;
+    padding: 30px 0;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+.edit-submit{
+    width: 100%;
+    color: #fff;
+    font-size: .32rem;
+    text-align: center;
+    border-radius: .1rem;
+    background-color: #ccc;
+}
+.edit-submit.on{
+    background-color: #3ca1e9;
+}
+/*编辑地址*/
+/*经济注册*/
+.econmic-registration-head{
+    padding: 1.1rem 0;
+    text-align: center;
+}
+.econmic-registration-head img{
+    width: 3.6rem;
+}
+.econmic-registration-body ul li{
+    height:1.15rem;
+    line-height: 1.15rem;
+    font-size: .18rem;
+    margin: .1rem auto;
+    background-color: #fff;
+}
+.econmic-registration-body ul li span:first-child{
+    display: inline-block;
+    font-size: .2rem;
+    width: 30%;
+    text-align: right;
+}
+.econmic-registration-body ul li input,.econmic-registration-body ul li select{
+    width: 35%;
+    font-size: 15px;
+    color: gray;
+    border: none;
+    outline: none;
+}
+.picture-verification-code{
+    position: relative;
+    top: .2rem;
+    display: inline-block;
+    width: 1.2rem;
+    height: .55rem;
+    margin-right: .15rem;
+    background-color: #ddd;
+}
+.ovo-send{
+    width: .4rem;
+    vertical-align: uiddle;
+}
+.econmic-refresh,.econmic-agreement a{
+    font-size: .25rem;
+    color: #3ca1e9;
+}
+.econmic-agreement{
+    height: 3em;
+    line-height: 3em;
+    font-size: .25rem;
+    color: gray;
+    text-align: center;
+}
+/*经济注册*/
+/*平台推广协议*/
+.econmic-agreement-box{
+    padding: 0 .2rem;
+    background-color: #fff;
+}
+.econmic-agreement-tit{
+    height: 3em;
+    line-height: 3em;
+    font-size: .24rem;
+    font-weight: bold;
+    text-align: center;
+}
+.econmic-agreement-body{
+    font-size: .3rem;
+    line-height: 2em;
+    text-indent: .2rem;
+}
+/*平台推广协议*/
+/*接口申请加入*/
+.interface-application-body ul li span:first-child{
+    font-size: 15px;
+}
+.interface-application-body .picture-verification-code{
+    right: -5.3rem;
+}
+#ckb-1{
+    width: .2rem;
+    height: .2rem;
+}
+.ovo-cancel-goats{
+    height: .9rem;
+    line-height: .9rem;
+    margin-top: .715rem;
+}
+.ovo-cancel-goats p{
+    float: left;
+    width: 50%;
+    color: #fff;
+    text-align: center;
+}
+.ovo-cancel-goats p:first-child{
+    background-color: #ddd;
+    border-bottom-left-radius: .1rem;
+}
+.ovo-cancel-goats p:last-child{
+    background-color: #3ca1e9;
+    border-bottom-right-radius: .1rem;
+}
+/*接口申请加入*/
+/*接口基本信息*/
+.essential-information-head{
+    padding: .5rem 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+.essential-information-head img{
+    width: 65%;
+}
+.essential-information-body ul li{
+    height: 50px;
+    line-height: 50px;
+    background-color: #fff;
+    margin: 10px 0;
+    padding-left: 35px;
+}
+.essential-information-body ul li span{
+    font-size: 16px;
+}
+.essential-information-body ul li input{
+    border: none;
+    outline: none;
+}
+.essential-information-body ul li img.ts{
+    width: 20px;
+    height:20px;
+    margin-left: 2rem;
+    vertical-align: uiddle;
+}
+.essential-information-parameter{
+    text-align: center;
+    margin-top: 1rem;
+}
+.m-parameter-item{
+    display: inline-block;
+    width: 85px;
+    height: 2.5em;
+    line-height: 2.5em;
+    color: #fff;
+    margin: 0 20px;
+    background-color: #3ca1e9;
+}
+.m-parameter-info{
+    margin: 20px 0;
+}
+.m-parameter-info-head{
+    font-size: 22px;
+    font-weight: bold;
+}
+.m-parameter-info p span:first-child{
+    display: inline-block;
+    width: 100px;
+}
+.m-parameter-info p:not(.m-parameter-info-head){
+    height: 2em;
+    line-height: 2em;
+}
+/*接口基本信息*/
+
+/*接口调用方法*/
+.ovo-methed-head{
+    height: 105px;
+    line-height: 105px;
+    font-size: 24px;
+    text-align: center;
+}
+.ovo-methed-img{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.ovo-methed-img>img{
+    width: 320px;
+}
+.ovo-methed-text{
+    /*height: 220px;*/
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+.ovo-methed-text p{
+    line-height: 1.5em;
+    font-size: 16px;
+    text-indent: 2em;
+}
+.ovo-methed-btn{
+    height: 55px;
+}
+.ovo-methed-btn img{
+    position: absolute;
+    right: 25px;
+    width: 40px;
+    height: 40px;
+}
+/*接口调用方法*/

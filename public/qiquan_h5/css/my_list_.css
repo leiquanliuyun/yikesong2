@@ -1,0 +1,432 @@
+body{
+	background: #f1f1f1;
+}
+.list_title{
+	padding-top: 10px;
+	background: #FFFFFF;
+	display: flex;
+	justify-content:space-around;
+}
+.list_title:last-of-type{
+	display: none;
+}
+.list_title div{
+	width: 45%;	
+}
+.list_title div img{
+	height: 90%;
+	width: 100%;
+}
+/*内容*/
+.contentbox{
+	display: none;
+}
+.contentbox.active{
+	display: block;
+}
+/*列表*/
+.specific_top{
+	display: flex;
+	flex-wrap: wrap;
+}
+.specific_edtail{
+	margin: 0 auto;
+	margin-top: 10px;
+	border-radius: 5px;
+	width: calc(100% - 40px);
+	background: #FFFFFF;
+	padding: 10px;
+}
+.top_name{
+	width: 100%;
+	color: #ff6c0f;
+	text-align: center;
+	font-size: 0.85rem;
+	position: relative;
+}
+.top_name img{
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+/*left*/
+.specific_top .leftbox{
+	width: 35%;
+	text-align: center;
+	margin-top: 10px;
+}
+.specific_top .leftbox li{	
+	font-size: 0.95rem;
+}
+.specific_top .leftbox li:nth-of-type(2n){
+	font-size: 1.1rem;
+	margin: 0.5rem 0 0.4rem 0;
+	color: #3ca1e9;	
+}
+.specific_top .leftbox li button{
+	padding: 0.4rem 0;
+	color: #FFFFFF;
+	border-radius: 0.2rem;
+	border: none;
+	background: #3ca1e9;
+	width: 75%;
+	max-width: 100px;
+}
+.specific_top .leftbox li button a{
+	color: #FFFFFF;
+}
+/*right*/
+.specific_top .rightbox{
+	position: relative;
+	width: 65%;
+	text-align: left;
+	margin-top: 10px;
+}
+.specific_top .rightbox img{
+	position: absolute;
+	right: 0;
+	top: 30%;
+	height: 30px;
+	width: 30px;
+	background: #d2d2d2;
+	border-radius: 50%;
+}
+.specific_top .rightbox img:last-of-type{
+	display: none;
+}
+.specific_top .rightbox li{
+	width: 100%;
+	white-space: normal;
+	text-overflow: ellipsis;
+	/*font-size: 0.95rem;*/
+	font-size: 14px;
+	margin-bottom: 0.6rem;
+	display: flex;
+}
+.specific_top .rightbox li div{
+	max-width: 100px;
+	width: 45%;
+	text-align: justify;
+	text-align-last: justify;
+}
+
+/*下面*/
+.specific_bottom{
+	display: none;
+}
+.specific_bottom .bottom_leftbox{
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 10px;
+	width: 35%;
+}
+.specific_bottom .bottom_leftbox input{
+	padding: 0.4rem 0;
+	color: #3CA1E9;
+	border-radius: 0.2rem;
+	border: 1px solid #3ca1e9;
+	background: none;
+	max-width: 100px;
+	width: 75%;
+}
+.specific_bottom .bottom_rightbox{
+	width: 65%;
+	margin-top: -5px;
+}
+.specific_bottom .bottom_rightbox li{
+	/*margin-bottom: 0.6rem;*/
+	margin-bottom: .35rem;
+	display: flex;
+}
+.specific_bottom .bottom_rightbox li div{
+	font-size: 14px;
+	max-width: 100px;
+	width: 45%;
+	text-align: justify;
+	text-align-last: justify;
+}
+.specific_bottom .bottom_rightbox li span{
+	font-size: 14px;
+}
+
+/*快递选项卡*/
+.express_bg{
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 9;
+	background: rgba(0,0,0,0.5);
+}
+.express_cont{
+	position: fixed;
+	z-index: 10;
+	background: #FFFFFF;
+	border-radius: 10px;
+	top: 20vh;
+	width: 70vw;
+	min-width: 280px;
+	max-width: 500px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.express_title{
+	position: relative;
+	display: flex;
+}
+.express_title img{
+	position: absolute;
+	transform: translateY(-40%);
+	top: 0;
+	right: -10px;
+	width: 25px;
+	height: 25px;
+}
+.express_title div{
+	transition: 0.2s all;
+	padding: 0.5rem 0;	
+	text-align: center;
+	background: #b3afae;
+	width: 50%;
+	color: #FFF;
+}
+.express_title .active{
+	background: #3CA1E9;
+}
+.express_title div:first-of-type,
+.express_title div:first-of-type.active{
+	border-top-left-radius: 8px;
+}
+.express_title div:last-of-type,
+.express_title div:last-of-type.active{
+	border-top-right-radius: 8px
+}
+
+/*结算*/
+.settlement_title{
+	display: flex;
+	flex-wrap: wrap;
+	background: #ffffff;
+	margin-top: 10px;
+}
+.settlement_title select{
+	border: none;
+	color: #3CA1E9;
+	font-size: 1.2rem;
+	margin: 0 1rem 0.1rem 1rem;
+	height: 2rem;
+}
+.settlement_title div{
+	width: 100%;
+	padding: 0 1rem 0.5rem 1rem;
+	color: red;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+/*结算列表*/
+.list_row{
+	background: #FFFFFF;
+	padding: 0.8rem 1.56rem 0.8rem 1rem;
+	border-bottom:1px solid rgba(0,0,0,0.1);
+	position: relative;
+}
+.list_row .right_imgbtn{
+	width: 20px;
+	height: 10px;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%) rotate(-90deg);
+}
+.row_one,
+.row_two {
+	position: relative;
+	display: flex;
+	font-size: 0.85rem;
+	justify-content:space-between;
+}
+.row_one div:first-of-type{
+	margin-left: 1rem;
+}
+.row_two {
+	margin-top: 5px;
+}
+.row_one img{
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	left: 0;
+	top: 4px;
+}
+.row_two div:first-of-type{
+	color: #aaaaaa;
+}
+.row_two div:last-of-type{
+	color: red;
+	font-weight: bold;
+}
+
+/*快递*/
+.express_list{
+	display: none;
+}
+.express_list.active{
+	padding: 10px;
+	display: block;
+	max-height: 340px;
+	overflow-y: scroll;
+}
+.express_list.come::-webkit-scrollbar-button{
+	display: none;
+}
+.express_list.come::-webkit-scrollbar{
+	width: 5px;
+	height: 100%;
+}
+.express_list.come::-webkit-scrollbar-thumb{
+	width: 5px;
+	background: rgba(59,161,234,0.5);
+}
+.express_list.come div{
+	margin-bottom: 10px;
+}
+.express_list.come p{
+	color: #3CA1E9;
+	margin-top: 3px;
+	font-size: 0.85rem;
+}
+.express_list.come p:nth-of-type(2n){
+	color: #555555;
+}
+
+.input_sel{
+	padding: 0.5rem 1rem 3rem 1rem;
+}
+.input_sel select{
+	outline: none;
+	height: 2rem;
+	border: none;
+	border-bottom: 1px solid #3CA1E9;
+	width: 50%;
+}
+.input_sel input{
+	margin-top: 10px;
+	height: 2rem;
+	width: 65%;
+}
+.input_sel button{
+	margin-top: 2px;
+	background: #3CA1E9;
+	border: none;
+	border-radius: 5px;
+	color: #FFFFFF;
+	padding: 0.58rem 1.2rem;
+}
+
+
+/*结算表*/
+.balance_sheet{
+	display: none;
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+	background: rgba(0,0,0,0.2);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.balance_sheet .balance_sheet_cont{
+	position: fixed;
+	width: 90%;
+	height: 90%;
+	z-index: 2;
+	border-radius: 0.5rem;
+	background: #FFFFFF;
+	top: 5%;
+	right: 0;
+	bottom: 0;
+	left: 5%;
+}
+.balance_sheet .balance_sheet_cont:before{
+	position: absolute;
+	content: "本表仅作为信息展示，最终以实际成交为准";
+	font-size: 0.75rem;
+	color: #aaaaaa;
+	width: 100%;
+	left: 0;
+	text-align: center;
+	bottom: 8px;
+}
+.balance_sheet .balance_sheet_content::-webkit-scrollbar-button{
+	display: none;
+}
+.balance_sheet .balance_sheet_content::-webkit-scrollbar{
+	width: 5px;
+	height: 100%;
+}
+.balance_sheet .balance_sheet_content::-webkit-scrollbar-thumb{
+	width: 5px;
+	background: rgba(59,161,234,0.5);
+}
+.balance_sheet .balance_sheet_content{
+	height: calc(100% - 70px);
+	overflow-y: scroll;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.balance_sheet_title{
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	position: relative;
+}
+.balance_sheet_title img{
+	position: absolute;
+	width: 30px;
+	height:30px;
+}
+.balance_sheet_title div{
+	width: 100%;
+	padding: 0.6rem 0;
+	color: #3ba1ea;
+	font-weight: bold;
+	text-align: center;
+}
+.tips_img{
+	top: -10px;
+	left: -10px;
+	border-radius: 50%;
+	background: #3ba1ea;
+	border: 1px solid #3ba1ea;
+}
+.close_img{
+	top: -10px;
+	right: -10px;
+}
+
+/*用户信息*/
+.user_info{
+	padding: 0.5rem 0;
+	display: flex;
+	justify-content: space-around;
+	color: #aaaaaa;
+}
+.user_row{
+	display: flex;
+	margin-bottom: 0.5rem;
+	justify-content: center;
+}
+.user_row div:nth-child(1){
+	width: 40vw;
+	text-align: right;
+}
+.user_row div:nth-child(2){
+	width: 40vw;
+	text-align: left;
+}

@@ -1,0 +1,129 @@
+<aside class="Hui-aside">
+	<input runat="server" id="divScrollValue" type="hidden" value="" />
+	<div class="menu_dropdown bk_2">
+		<switch name="$group_id">
+			<case value='1'>
+				<dl id="menu-system">
+					<dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('system/parameter')}" data-title="系统参数设置" href="javascript:void(0)">系统参数设置</a></li>
+							<li><a data-href="{:url('system/clear_cache')}" data-title="清除缓存" href="javascript:void(0)">清除缓存</a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-admin">
+					<dt><i class="Hui-iconfont">&#xe62d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('member/member')}" data-title="用户列表" href="javascript:void(0)">用户列表</a></li>
+							<li><a data-href="{:url('member/admin')}" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-picture">
+					<dt><i class="Hui-iconfont">&#xe613;</i> 幻灯片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('content/slide')}" data-title="幻灯片管理" href="javascript:void(0)">幻灯片管理</a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-news">
+					<dt><i class="Hui-iconfont">&#xe637;</i> 服务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('service/index')}" data-title="服务管理" href="javascript:void(0)">服务管理</a></li>
+							<li><a data-href="{:url('service/csituation')}" data-title="服务选项管理" href="javascript:void(0)">服务选项管理</a></li>
+							<li><a data-href="{:url('service/schedule')}" data-title="服务进度管理" href="javascript:void(0)">服务进度管理</a></li>
+							<li><a data-href="{:url('service/integral')}" data-title="服务积分管理" href="javascript:void(0)">服务积分管理</a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-news">
+					<dt><i class="Hui-iconfont">&#xe72d;</i> 特殊服务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('specialservice/phone')}" data-title="客服管理" href="javascript:void(0)">客服管理</a></li>
+							<li><a data-href="{:url('specialservice/filter')}" data-title="分类筛选管理" href="javascript:void(0)">分类筛选管理</a></li>
+							<li><a data-href="{:url('specialservice/housecontent')}" data-title="园区服务内容管理" href="javascript:void(0)">园区服务内容管理</a></li>
+							<li><a data-href="{:url('specialservice/companycontent')}" data-title="资质转让内容管理" href="javascript:void(0)">资质转让内容管理</a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-article">
+					<dt><i class="Hui-iconfont">&#xe685;</i> 内容管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('content/demand')}" data-title="需求管理" href="javascript:void(0)">需求管理</a></li>
+							<li><a data-href="{:url('content/coupon')}" data-title="优惠券管理" href="javascript:void(0)">优惠券管理</a></li>
+							<li><a data-href="{:url('content/notice')}" data-title="公告管理" href="javascript:void(0)">公告管理</a></li>
+							<li><a data-href="{:url('content/news')}" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-article">
+					<dt><i class="Hui-iconfont">&#xe636;</i> 合同管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('pact/pact_option')}" data-title="合同项管理" href="javascript:void(0)">合同项管理</a></li>
+							<li><a data-href="{:url('pact/pact_temp')}" data-title="合同模板管理" href="javascript:void(0)">合同模板管理</a></li>
+							<li><a data-href="{:url('pact/pact')}" data-title="合同管理" href="javascript:void(0)">合同管理</a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-article">
+					<dt><i class="Hui-iconfont">&#xe687;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('order/index')}" data-title="订单管理" href="javascript:void(0)">订单管理</a></li>
+							<!--<li><a data-href="{:url('order/fiscal')}" data-title="财税管理" href="javascript:void(0)">财税管理</a></li>-->
+							<li><a data-href="{:url('order/integral_withdraw')}" data-title="积分提现管理" href="javascript:void(0)">积分提现管理</a></li>
+						</ul>
+					</dd>
+				</dl>
+
+				<dl id="menu-admin">
+					<dt><i class="Hui-iconfont">&#xe63c;</i> 权限管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('role/role')}" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
+							<!--<li><a data-href="{:url('role/jurisdiction_classify')}" data-title="权限分类管理" href="javascript:void(0)">权限分类管理</a></li>
+							<li><a data-href="{:url('role/jurisdiction')}" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>-->
+						</ul>
+					</dd>
+				</dl>
+			</case>
+			<case value="客服">
+				<dl id="menu-article">
+					<dt><i class="Hui-iconfont">&#xe616;</i> 内容管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('content/consult_classify')}" data-title="栏目分类管理" href="javascript:void(0)">栏目分类管理</a></li>
+							<li><a data-href="{:url('content/consult')}" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li>
+							<li><a data-href="{:url('content/notice')}" data-title="公告管理" href="javascript:void(0)">公告管理</a></li>
+							<li><a data-href="{:url('content/cooperator')}" data-title="合作单位管理" href="javascript:void(0)">合作单位管理</a></li>
+							<li><a data-href="{:url('content/center')}" data-title="帮助中心管理" href="javascript:void(0)">帮助中心管理</a></li>
+							<li class="tip_span"><a data-href="{:url('content/leave_word')}" data-title="留言管理" href="javascript:void(0)">留言管理</a></li>
+						</ul>
+					</dd>
+				</dl>
+				<dl id="menu-picture">
+					<dt><i class="Hui-iconfont">&#xe61e;</i> 期权管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+					<dd>
+						<ul>
+							<li><a data-href="{:url('stock/rate')}" data-title="股票汇率" href="javascript:void(0)">股票汇率</a></li>
+							<li><a data-href="{:url('stock/stock_data')}" data-title="股票数据" href="javascript:void(0)">股票数据</a></li>
+							<li><a data-href="{:url('stock/order')}" data-title="期权持仓订单" href="javascript:void(0)">期权持仓订单</a></li>
+							<li><a data-href="{:url('stock/enquiry')}" data-title="询价记录" href="javascript:void(0)">询价记录</a></li>
+						</ul>
+					</dd>
+				</dl>
+
+
+			</case>
+			<default />
+		</switch>
+	</div>
+</aside>
+<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

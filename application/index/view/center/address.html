@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>地址管理</title>
+		<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+		<script src="__PUBLIC__/static/style/js/index.js"></script>
+		<link rel="stylesheet" href="__PUBLIC__/static/style/css/style_w.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	</head>
+
+	<body>
+		<div class="wrap">
+			<div class="address-management-box">
+				<ul>
+					<li class="address-btn">
+						<p class="address-txt">地址填写主要为了方便合同文件等重要资料的收寄，请务必填写正确的可用地址。</p>
+						<img src="__PUBLIC__/static/style/images/mine/add.png" alt="" class="address-add">
+					</li>
+					<foreach name="list_address" item="vo">
+						<li class="address-item" address_id="{$vo['address_id']}">
+							<p class="address-info-1">
+								<span>{$vo['name']}</span>
+								<span>{$vo['mobile']}</span>
+							</p>
+							<p class="address-info-2">
+								{$vo['address']}
+							</p>
+						</li>
+					</foreach>
+				</ul>
+			</div>
+			<div class="address-edit dis-no" address_id="">
+				<p class="edit-btn">编辑</p>
+				<p class="edit-delete">删除</p>
+			</div>
+			<div id="loadingDiv" class="loadingDiv" style="position:fixed;display:none;z-index:5;top:0px;left:0px;width:100%;height:100%;background-color:rgba(0,0,0,0.5)"></div>
+		</div>
+		<script>
+			var token = "{$token}";
+			get.fontSize();
+			$(".address-management-box ul").on('click', '.address-item', function() {
+				//绑定相对应的地址表id
+				$(".address-edit").attr('address_id',$(this).attr('address_id'));
+				$(".address-edit").show();
+				$("#loadingDiv").show();
+			})
+
+			$(".edit-btn").click(function() {
+				window.location.href = "{:url('center/address_edit')}?option=update&id="+$(".address-edit").attr('address_id');
+			})
+			$(".address-add").click(function() {
+				window.location.href = "{:url('center/address_edit')}?option=add";
+			})
+
+			$(".edit-delete").click(function() {
+				//接口参数
+				var data_address = {
+					token: token,
+					address_id: $(".address-edit").attr('address_id')
+				}
+				//删除收货地址
+				$.ajax({
+					url: appIp() + "/api/center/address_delete",
+					type: "POST",
+					dataType:"json",
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					data: data_address,
+					success: function(ret) {
+						if(ret.status=='200'){
+							location.reload(true);
+						} else {
+							alert(ret.message);
+							return false;
+						}
+					},
+					error: function(err) {
+						console.log(err);
+					}
+				});
+				$(this).parent().hide();
+				$("#loadingDiv").hide();
+			})
+			
+			$(".loadingDiv").on("click",function(){
+				$(this).hide();
+				$(".address-edit").hide();
+			})
+		</script>
+	</body>
+
+</html>

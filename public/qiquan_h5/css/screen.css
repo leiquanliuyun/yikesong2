@@ -1,0 +1,61 @@
+.recommends_title{
+	border-bottom: 2px solid #AAAAAA;
+	width: calc(100% - 20px);
+	padding: 10px;
+	display: flex;
+	justify-content: space-around	
+}
+._cont_list{
+	background: #FFFFFF;
+	padding: 10px 0;
+	display: flex;
+	border-bottom: 1px solid #aaaaaa;
+	justify-content: space-around;
+	position: relative;
+}
+._cont_list div:last-of-type{
+	color: #FF0000;
+}
+._cont_list img{
+	position: absolute;
+	right: 10px;
+	height: 60%;
+	top: 50%;
+	transform: translateY(-50%);
+}
+/*ovo*/
+.bg-white{
+	background-color: #fff;
+}
+.recommends_head{
+	height: 2.5em;
+	line-height: 2.5em;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+.screen{
+	border: 0;
+    height: 2em;
+    line-height: 2em;
+    padding: 0 10px;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 5px;
+	margin-left: 43vw;
+	background-color:#1E90FF;
+}
+.time_box{
+	text-align: center;
+	margin-bottom: 20px;
+}
+.interval_selection{
+	text-align: center;
+}
+.interval_selection input{
+	width: 20vw;
+	height: 1.5em;
+	line-height: 1.5em;
+	margin: 0 5px;
+	text-align: center;
+}

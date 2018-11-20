@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口测试信息</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script src="__PUBLIC__/static/style/js/index.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/static/style/css/style_w.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/style/css/interface-fw.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style type="text/css">
+        input{
+            font-size: 0.3rem
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="interface-fw-box">
+        <div class="ovo-methed-head">
+            <p>接口测试信息</p>
+        </div>
+        <div class="ovo-fw-info">
+            <ul>
+                <li>
+                    返回结果如下：
+                </li>
+                <li>
+                    <span> 标的股票：</span>
+                    <span>平安银行(000001)</span>
+                </li>
+                <li>
+                    <span> 名义本金：</span>
+                    <span>100万元</span>
+                </li>
+                <li>
+                    <span>行权周期：</span>
+                    <span>一个月</span>
+                </li>
+                <li>
+                    <span>期权费率：</span>
+                    <span>{$rate}</span>
+                </li>
+                <li>
+                    <span>权利金：</span>
+                    <span>{$royalty}元</span>
+                </li>
+                <li>
+                    <span>开始时间：</span>
+                    <span>{$begin_time}</span>
+                </li>
+                <li>
+                    <span>结束时间：</span>
+                    <span>{$end_time}</span>
+                </li>
+                <li>
+                    <span>期权类型：</span>
+                    <span>平值买入看涨</span>
+                </li>
+            </ul>
+            <div class="ovo-methed-btn">
+                <img src="__PUBLIC__/static/style/images/backicon.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".ovo-methed-btn img").click(function(){
+        window.history.back();
+    })
+</script>
+</body>
+</html>

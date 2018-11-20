@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口服务</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script src="__PUBLIC__/static/style/js/index.js"></script>
+    <script src="__PUBLIC__/static/style/js/swiper-4.1.6.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/static/style/css/interface.css">
+    <link rel="stylesheet" href="__PUBLIC__/static/style/css/swiper-4.1.6.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+</head>
+<style type="text/css">
+    body{
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+    
+    .swiper-slide{
+        width: 100vw;
+        height: 100vh
+    }
+    .swiper-slide img{
+        width: 100%;
+        height: 100%
+    }
+</style>
+<body>
+    <div class="wrap">
+        <div class="interface-box">
+            <div class="swiper-container" id="swiper2">
+                <div class="swiper-wrapper">
+                    <foreach name="list_slide" item="vo">
+                        <div class="swiper-slide" style="background-color: #ddd">
+                            <img src="{$vo['picture']}" />
+                        </div>
+                    </foreach>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="interface-btn-box">
+                    <div class="interface-btn">申请加入</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        var mySwiper1 = new Swiper('#swiper2', {
+            autoplay: {
+                disableOnInteraction: false,
+            },
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        })
+
+        $(".interface-btn").click(function(){
+            window.location.href="{:url('center/port_application')}";
+        })
+    </script>
+</body>
+</html>

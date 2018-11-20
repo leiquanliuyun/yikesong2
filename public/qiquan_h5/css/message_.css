@@ -1,0 +1,37 @@
+body{
+	background: #F3F3F3;
+}
+.msgcont{
+	margin-bottom: 10px;	
+}
+.listrow{
+	margin: 0 auto;
+	margin-top: 10px;
+	border-radius: 10px;
+	background: #ffffff;
+	padding: 0.7rem 1rem;
+	padding-bottom: 0.5rem;
+	width: calc(100% - 2rem - 30px);
+	border:1px solid #ddd;
+	/*box-shadow: 0 1px 2px rgba(0,0,0,0.5);*/
+}
+.data_title{
+	font-size: 15px;
+	color: #333;
+}
+.data_time{
+	font-size: 13px;
+	color: #999;
+	margin-bottom: 0.7rem;
+}
+.data_cont{
+	font-size: 14px;
+	color: #4c4c4c;
+	margin-bottom: 0.5rem;
+	text-indent: 2rem;
+}
+.data_name{
+	text-align: right;
+	font-size: 14px;
+	color: #999;
+}

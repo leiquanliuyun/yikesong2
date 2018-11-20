@@ -1,0 +1,76 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+    <title>
+        <if  condition="$option eq 'add'">添加<else/>编辑</if>服务积分
+    </title>
+    <link href="__PUBLIC__/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/ueditor.config.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+    <script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+    </head>
+    <body>
+    <div class="page-container">
+        <form class="form form-horizontal" id="form-article-add" action="{:url('service/integral_edit')}" method="post">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">所属服务：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box">
+                    <select name="service_name" id="sname" class="select">
+                        <option value="">--请选择所属服务--</option>
+                        <option value="资质转让">资质转让</option>
+                        <option value="公司注册">公司注册</option>
+                        <option value="工商变更">工商变更</option>
+                        <option value="验资审计">验资审计</option>
+                        <option value="政策规划">政策规划</option>
+                        <option value="财税管理">财税管理</option>
+                        <option value="APP制作">APP制作</option>
+                        <option value="知识产权">知识产权</option>
+                        <option value="园区服务">园区服务</option>
+                        <option value="pos机">pos机</option>
+                        <option value="宣传优化">宣传优化</option>
+                        <option value="大规模广告">大规模广告</option>
+                    </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">返分值：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="{$list['integral'] ?$list['integral']: ''}" placeholder="" id="" name="integral">
+                </div>
+            </div>
+
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <input name="" type="submit" class="btn btn-primary radius Hui-iconfont" value="&#xe632;保存">
+                    <input name="" type="reset" class="btn btn-default radius size-S" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                </div>
+            </div>
+            <input type="hidden" name="option" value="{$option}"/>
+            <input type="hidden" name="id" value="{$id}"/>
+            {:token()}
+        </form>
+    </div>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+    <!--此页面业务相关的脚本-->
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            var ser = "{$list.service_name}";
+            $("#sname option[value="+ser+"]").attr("selected",true);
+
+
+        });
+        function article_save(){
+            alert("刷新父级的时候会自动关闭弹层。")
+            window.parent.location.reload();
+        }
+
+    </script>
+</block>

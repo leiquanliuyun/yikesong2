@@ -1,0 +1,251 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+<title>添加打新 - 打新管理</title>
+<!-- tree-multiselect 树状分支控件  -->
+<link href="__PUBLIC__/lib/tree-multiselect/jquery.tree-multiselect.css" rel="stylesheet" type="text/css">
+<!--图片上传css-->
+<link href="__PUBLIC__/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<article class="page-container">
+	<form action="{:url('admin/artwork/issue_edit')}" method="post" class="form form-horizontal" id="form-admin-role-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>打新标题：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$list['title'] ?$list['title']: ''}" placeholder="" id="" name="title">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>打新描述：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="describe" cols="" rows="" class="textarea"  placeholder="说点什么..." datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)">{$list['describe'] ? $list['describe'] : ''}</textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>参与优先级别：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$list['precedence'] ? $list['precedence'] : 0}" placeholder="0~9" id="" name="precedence">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>打新开始时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" name="start_time" id="countTimestart" onfocus="selecttime(1)" value="{$list['start_time'] ?$list['start_time']: ''}" size="17" class="input-text Wdate" style="width:170px;" readonly>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>打新结束时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" name="end_time" id="countTimeend" onfocus="selecttime(2)" value="{$list['end_time']?$list['end_time']: ''}" size="17"  class="input-text Wdate" style="width:170px;" readonly>
+			</div>
+		</div>
+		
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>打新封面图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="hidden" name="picture" id="picture" value="{$list['picture'] ? $list['picture'] : ''}">
+				<if condition="empty($list['picture'])">
+					<img src="__PUBLIC__/static/h-ui.admin/images/default-thumbnail.png" id="thumb-preview" width="200" style="cursor: hand"/>
+				<else />
+					<img src="{$list['picture_show']}" id="thumb-preview" width="200" style="cursor: hand"/>
+				</if>
+				<input type="button" class="btn btn-small" onclick="$('#thumb-preview').attr('src','__PUBLIC__/static/h-ui.admin/images/default-thumbnail.png');$('#picture').val('');return false;" value="取消图片">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"></label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-thum-container">
+					<div id="fileList" class="uploader-list"></div>
+					<div id="filePicker">上传图片</div>
+					<span class="c-red">*</span>支持格式:gif,jpg,jpeg,bmp,png
+				</div>
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>艺术品：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<select id="artwork" name="artwork[]" multiple="multiple">
+					<volist name="list_classify" id='classify' key="key">
+						<volist name="list_artwork[$classify['classify_id']]" id='artwork' key="k">
+							<if condition="in_array($artwork['artwork_id'],$list['artwork'])">
+                                <option value="{$artwork['artwork_id']}" data-section="{$classify['name']}" selected="selected" data-index="1">{$artwork['title']}</option>
+                            <else />
+                                <option value="{$artwork['artwork_id']}" data-section="{$classify['name']}"  data-index="1">{$artwork['title']}</option>
+                            </if>
+						</volist>
+					</volist>
+                </select>
+                <span class="c-red">*</span>列表为空表示没有可发布的艺术品。
+			</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<input name="" type="submit" class="btn btn-primary radius Hui-iconfont" value="&#xe632;保存">
+          		<input name="" type="reset" class="btn btn-default radius size-S" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+			</div>
+		</div>
+		<input type="hidden" name="option" value="{$option}"/>
+        <input type="hidden" name="id" value="{$id}"/>
+		{:token()}
+	</form>
+</article>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/tree-multiselect/jquery.tree-multiselect.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript">
+/*时间插件函数*/
+function selecttime(flag){
+    if(flag==1){
+        var endTime = $("#countTimeend").val();
+        if(endTime != ""){
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:endTime})}else{
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})}
+    }else{
+        var startTime = $("#countTimestart").val();
+        if(startTime != ""){
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:startTime})}else{
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})}
+    }
+}
+//艺术品树状列表
+var options = {sortable: false,startCollapsed: true};
+function artwork(){
+    $("select#artwork").treeMultiselect(options);
+}
+artwork();
+
+//图片上传js
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	
+	$list = $("#fileList"),
+	$btn = $("#btn-star"),
+	state = "pending",
+	$file_id = 0,		//上传成功图片id
+	// 优化retina, 在retina下这个值是2
+    ratio = window.devicePixelRatio || 1,
+    // 缩略图大小
+    thumbnailWidth = 110 * ratio,
+    thumbnailHeight = 110 * ratio,
+	uploader;
+
+	var uploader = WebUploader.create({
+		auto: true,
+		swf: '__PUBLIC__/lib/webuploader/0.1.5/Uploader.swf',
+	
+		// 文件接收服务端。
+		server: "{:url('admin/upload/upload_image')}",
+	
+		// 选择文件的按钮。可选。
+		// 内部根据当前运行是创建，可能是input元素，也可能是flash.
+		pick: '#filePicker',
+	
+		// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+		resize: true,
+		// 只允许选择图片文件。
+		/*accept: {
+			title: 'Images',
+			extensions: 'gif,jpg,jpeg,bmp,png',
+			mimeTypes: 'image/*'
+		}*/
+	});
+	uploader.on( 'fileQueued', function( file ) {
+		var $li = $(
+			'<div id="' + file.id + '" class="item">' +
+				'<div class="pic-box"><img></div>'+
+				'<div class="info">' + file.name + '</div>' +
+				'<p class="state">等待上传...</p>'+
+			'</div>'
+		),
+		$img = $li.find('img');
+		$list.append( $li );
+	
+		// 创建缩略图
+		// 如果为非图片文件，可以不用调用此方法。
+		// thumbnailWidth x thumbnailHeight 为 100 x 100
+		/*uploader.makeThumb( file, function( error, src ) {
+			if ( error ) {
+				$img.replaceWith('<span>不能预览</span>');
+				return;
+			}
+	
+			$img.attr( 'src', src );
+		}, thumbnailWidth, thumbnailHeight );*/
+	});
+	// 文件上传过程中创建进度条实时显示。
+	uploader.on( 'uploadProgress', function( file, percentage ) {
+		var $li = $( '#'+file.id ),
+			$percent = $li.find('.progress-box .sr-only');
+	
+		// 避免重复创建
+		if ( !$percent.length ) {
+			$percent = $('<div class="progress-box"><span class="progress-bar radius"><span class="sr-only" style="width:0%"></span></span></div>').appendTo( $li ).find('.sr-only');
+		}
+		$li.find(".state").text("上传中");
+		$percent.css( 'width', percentage * 100 + '%' );
+	});
+	
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader.on( 'uploadSuccess', function( file,response) {
+		//显示缩略图
+		$('#thumb-preview').attr('src','__PUBLIC__/uploads/images/'+response._raw);
+		//表单图片地址
+		$('#picture').val(response._raw);
+		//删除上一张上传成功的图片
+		$( '#'+$file_id ).remove();
+		//获取最新上传图片的id
+		$file_id = file.id;
+		$( '#'+file.id ).addClass('upload-state-success').find(".state").text("已上传");
+	});
+	
+	// 文件上传失败，显示上传出错。
+	uploader.on( 'uploadError', function( file ) {
+		$( '#'+file.id ).addClass('upload-state-error').find(".state").text("上传出错");
+	});
+	
+	// 完成上传完了，成功或者失败，先删除进度条。
+	uploader.on( 'uploadComplete', function( file ) {
+		$( '#'+file.id ).find('.progress-box').fadeOut();
+	});
+	uploader.on('all', function (type) {
+        if (type === 'startUpload') {
+            state = 'uploading';
+        } else if (type === 'stopUpload') {
+            state = 'paused';
+        } else if (type === 'uploadFinished') {
+            state = 'done';
+        }
+
+        if (state === 'uploading') {
+            $btn.text('暂停上传');
+        } else {
+            $btn.text('开始上传');
+        }
+    });
+
+    $btn.on('click', function () {
+        if (state === 'uploading') {
+            uploader.stop();
+        } else {
+            uploader.upload();
+        }
+    });
+
+});
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</block>

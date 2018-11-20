@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>个人中心</title>
+		<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+		<link rel="stylesheet" href="__PUBLIC__/static/style/css/style_w.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	</head>
+	<style type="text/css">
+		span {
+			position: relative;
+			;
+			top: 3px;
+			font-size: 0.3rem
+		}
+		
+		a {
+			color: #222222;
+		}
+		
+		.shear_box_bg {
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 8;
+			background: rgba(0, 0, 0, 0.2);
+		}
+		
+		.shear_box_cont {
+			padding: 0.3rem 0;
+			width: 100%;
+			z-index: 9;
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			background: #FFFFFF;
+			display: flex;
+			justify-content: space-around;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+		}
+		.shear_box_cont div {
+			width: calc(100% / 5);
+			text-align: center;
+			font-size: 0.3rem
+		}
+		
+		.shear_box_cont div img {
+			width: 50%;
+		}
+		.shear_box_cont div:nth-child(3) img{
+			height: 55%;
+		}
+		 #alertbox{
+            font-size: 20px !important;
+        }
+        .box_close{
+            height: 3em!important;
+            line-height: 3em!important;
+            padding: 0!important;
+        }
+        .cont_txt_cont{
+            font-size: .2rem;
+            line-height: 5rem;
+            text-indent:0;
+        }
+        #alertbox input{
+            padding: .15rem 0;
+        }
+        .cont_txt_cont{
+            font-size: .3rem!important;
+            line-height: 0.5rem!important;
+            text-indent: 0!important;
+            text-align: center!important;
+            text-align-last: center!important;
+        }
+        .share_hidden{
+			position: absolute;
+			top: 0;right: 0;bottom: 0;left: 0;
+			background-color: rgba(0,0,0,0.5);
+			z-index: 50;
+		}
+		.share_hidden>img{
+			position: absolute;
+			top:20px;right: 20px;
+			width: 150px;
+		}
+		.share_hidden>p{
+			position: absolute;
+			top: 82px;
+    		left: 110px;
+			font-size: 30px;
+			color: #fff;
+			transform:rotate(-15deg);
+		}
+	</style>
+
+	<body>
+		<div class="wrap">
+			<div class="mine-box">
+				<div class="mine-box-head">
+					<div class="mine-avatarBox"  style="background-image:url({$user_info['client']['avatar']})"></div>
+					<div class="mine-userNum">
+						<span>ID:{$user_info['identification']}</span>
+					</div>
+				</div>
+
+				<div class="mine-center_list bg-white">
+					<ul>
+						<li class="clearfix mine-item-1">
+							<a href="JavaScript:void(0)" data="{:url('center/message')}">
+								<img src="__PUBLIC__/static/style/images/mine/Messagecenter-My.png" alt="">
+								<span>消息中心</span>
+								<img src="__PUBLIC__/static/style/images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+						<li class="clearfix mine-item-2">
+							<a href="JavaScript:void(0)" data="{:url('center/my_list')}">
+								<img src="__PUBLIC__/static/style/images/mine/bill.png" alt="">
+								<span>我的单子</span>
+								<img src="__PUBLIC__/static/style/images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+						<li class="clearfix mine-item-3">
+							<a href="JavaScript:void(0)" data="{:url('center/help')}">
+								<img src="__PUBLIC__/static/style/images/mine/help-My.png" alt="">
+								<span>帮助中心</span>
+								<img src="__PUBLIC__/static/style/images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+						<li class="clearfix mine-item-4">
+							<a href="JavaScript:void(0)" data="{:url('center/address')}">
+								<img src="__PUBLIC__/static/style/images/mine/Address-My.png" alt="">
+								<span>地址管理</span>
+								<img src="__PUBLIC__/static/style/images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+						<li class="clearfix mine-item-5">
+							<a href="JavaScript:void(0)" data="{:url('center/information')}">
+								<img src="__PUBLIC__/static/style/images/mine/information-My.png" alt="">
+								<span>个人信息修改</span>
+								<img src="__PUBLIC__/static/style/images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+						<li class="clearfix mine-item-6">
+							<img src="__PUBLIC__/static/style/images/mine/share-My.png" alt="">
+							<span>服务与推广</span>
+							<img src="__PUBLIC__/static/style/images/mine/TurnContent-Help.png" alt="" class="fr">
+						</li>
+						<!--<li class="clearfix mine-item-7">
+                        <img src="images/mine/Version-My.png" alt="">
+                        <span>版本中心</span>
+                        <img src="images/mine/TurnContent-Help.png" alt="" class="fr">
+                    </li>-->
+						<li class="clearfix mine-item-8">
+							<a href="JavaScript:void(0)" data="{:url('center/online_msg')}">
+								<img src="__PUBLIC__/static/style/images/mine/message-My.png" alt="">
+								<span>在线留言</span>
+								<img src="__PUBLIC__/static/style/images/mine/TurnContent-Help.png" alt="" class="fr">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="shear_box" hidden>
+			<div class="shear_box_bg"></div>
+			<div class="shear_box_cont">
+				<div id="time_line">
+					<img src="__PUBLIC__/static/style/images/mine/t-Friendquan-channel.png" />
+					<p>朋友圈</p>
+				</div>
+				<div id="app_message">
+					<img src="__PUBLIC__/static/style/images/mine/t-wechant-channel.png" />
+					<p>微信</p>
+				</div>
+				<div id="share_qq">
+					<img src="__PUBLIC__/static/style/images/mine/t-qq-channel.png" />
+					<p>QQ</p>
+				</div>
+				<div id="economics">
+					<img src="__PUBLIC__/static/style/images/mine/t-popularize-channel.png" />
+					<p>经纪通道</p>
+				</div>
+				<div id="port">
+					<img src="__PUBLIC__/static/style/images/mine/canshu.png" />
+					<p>接口</p>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="share_hidden dis-no">
+			<img src="__PUBLIC__/static/style/images/share.png">
+			<p>点这里~</p>
+		</div> -->
+		<script src="__PUBLIC__/static/style/js/index.js"></script>
+		<script>
+
+			get.fontSize();
+			$(".mine-item-6").on("click", function() {
+				$(".shear_box").show();
+			});
+			$(".shear_box_bg").on("click",function(){
+				$(".shear_box").hide();
+			})
+			var html="<div class='share_hidden'><img src='__PUBLIC__/static/style/images/share.png'><p>点这里~</p></div>";
+			// 分享朋友圈
+			$('#time_line').on("click", function() {
+				// tipsbox.alertbox({
+				// 		toptitle: "温馨提示",
+				// 		conttxt: '点击微信右上方按钮分享到朋友圈'
+				// },function(){
+				// 	tipsbox.alertboxhide();
+				// })
+				$(".shear_box").hide();
+				$('body').append(html)
+				console.log(html)
+				//break;
+			});
+			// 分享微信
+			$('#app_message').on("click", function() {
+				// tipsbox.alertbox({
+				// 		toptitle: "温馨提示",
+				// 		conttxt: '点击微信右上方按钮分享到微信'
+				// },function(){
+				// 	tipsbox.alertboxhide();
+				// })
+				$(".shear_box").hide();
+				$('body').append(html)
+				console.log(html)
+				//break;
+			});
+			// 分享QQ
+			$('#share_qq').on("click", function() {
+				/*tipsbox.alertbox({
+						toptitle: "温馨提示",
+						conttxt: '点击微信右上方按钮分享到QQ'
+				},function(){
+					tipsbox.alertboxhide();
+				})*/
+				$(".shear_box").hide();
+				$('body').append(html)
+				console.log(html)
+			});
+			// $(".share_hidden").click(function(){
+			// 	alert(555);
+			// 	$(".share_hidden").hide();
+			// })
+			$("body").on("click",".share_hidden",function(){
+				console.log(222)
+				$(".share_hidden").hide();
+			})
+			//点击经济通道
+			$("#economics").on("click", function() {
+				switch("{$user_info['group_id']}") {
+					case '代理人' :
+						window.location.href = "{:url('center/achievement',array('group_id'=>3))}";
+						break;
+					case '机构' :
+						window.location.href = "{:url('center/achievement',array('group_id'=>5))}";
+						break;
+					case '前端管理员' :
+						window.location.href = "{:url('center/achievement',array('group_id'=>6))}";
+						break;
+					case '普通用户' :
+						window.location.href = "{:url('center/registration',array('group_id'=>4))}";
+						break;
+					default:
+						$(".shear_box").hide();
+				}
+			})
+			//点击接口
+			$("#port").on("click", function() {
+				switch({$user_info['port_type']}) {
+					case 2 :
+						window.location.href = "{:url('center/port')}";
+						break;
+					case 1 :
+						var port_type = {$port_type};
+						if(port_type == 1) {
+							alert('数据接口用户状态未启用,请联系管理员!');return;
+						}
+						window.location.href = "{:url('center/port_essential')}";
+						break;
+					default:
+						$(".shear_box").hide();
+				}
+			})
+			
+			$(".clearfix").on("click",function(){
+				var href = $(this).find("a").attr("data");
+				if(href){
+					window.location.href=href
+				}
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>经纪业绩</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/achievement_.css" />
+	</head>
+	</style>
+
+	<body>
+		<div class="wrap">
+			<div class="achievement_title">
+				<div>我的业绩</div>
+				<div class="tipsnum">已累计成交
+					<a href="JavaScript:void(0)">{$order_count}</a>单</div>
+				<img class="tips_imgbtn" src="__PUBLIC__/static/style/images/note-cd.png" />
+			</div>
+			<switch name="$group_id">
+				<case value="代理人">
+					<div class="achievement_cont agent">
+						<foreach name="response" item="vo">
+							<div class="cont_data_list">
+								<div>
+									<img src="__PUBLIC__/static/style/images/style-public.png" />
+									<div class="name">{$vo['name']}</div>
+									<div class="red">名义本金：{$vo['principal']}万</div>
+								</div>
+								<div class="time">
+									{$vo['time']}
+								</div>
+							</div>
+						</foreach>
+					</div>
+				</case>
+				<case value="机构">
+					<div class="achievement_cont mechanism">
+						<foreach name="response" item="vo">
+							<div class="mechanism_title">
+								<div class="name">
+									<img class="down" src="__PUBLIC__/static/style/images/arr-down.png" />
+									<img class="right" src="__PUBLIC__/static/style/images/TurnContent-Help.png" />
+									<span>{$vo['name']}</span>
+								</div>
+								<div class="deal_num">以累计成交
+									<a href="JavaScript:void(0)">{$vo['order_count']}</a>单</div>
+								<div class="red">名义本金：{$vo['principal_count']}万</div>
+							</div>
+							<foreach name="vo['client']" item="v">
+								<div class="mechanism_cont">
+									<div class="cont_data_list">
+										<div>
+											<img src="__PUBLIC__/static/style/images/style-public.png" />
+											<div class="name">{$v['name']}</div>
+											<div class="red">名义本金：{$v['principal']}万</div>
+										</div>
+										<div class="time">
+											{$v['time']}
+										</div>
+									</div>
+								</div>
+							</foreach>
+						</foreach>
+					</div>
+				</case>
+				<case value="前端管理员">
+					<div class="achievement_cont super">
+						<div class="one">
+							<foreach name="response" item="value">
+								<li>
+									<span>{$value['name']}</span>
+									<div>累计成交
+										<a href="JavaScript:void(0)">{$value['order_count']}</a>单</div>
+									<div>名义本金：<span class="red">{$value['principal_count']}万</span></div>
+								</li>
+								<ul>
+									<foreach name="value['agent']" item="vo">
+										<li>
+											<span>{$vo['name']}</span>
+											<div>累计成交
+												<a href="JavaScript:void(0)">{$vo['order_count']}</a>单</div>
+											<div>名义本金：<span class="red">{$vo['principal_count']}万</span></div>
+										</li>
+										<ul class="user_info">
+											<foreach name="vo['client']" item="v">
+												<li class="user_list">
+													<div class="user_money">
+														<img src="__PUBLIC__/static/style/images/style-public.png" />
+														<div class="name">{$v['name']}</div>
+														<div>名义本金：<span class="red">{$v['principal']}万</span></div>
+													</div>
+													<div class="time">
+														{$v['time']}
+													</div>
+												</li>
+											</foreach>
+										</ul>
+									</foreach>
+								</ul>
+							</foreach>
+						</div>
+					</div>
+				</case>
+			</switch>
+			<center class="nodata">
+				亲，到底了！
+			</center>
+		</div>
+		<script type="text/javascript" src="__PUBLIC__/static/style/js/index.js"></script>
+		<script type="text/javascript">
+			$(".mechanism_cont").attr('falg', "");
+			$(".mechanism_title").on("click", function() {
+				var falg = $(this).next(".mechanism_cont").attr('falg');
+				if(falg) {
+					$(this).next(".mechanism_cont").attr('falg', "").hide();
+					$(this).find(".down").show();
+					$(this).find(".right").hide();
+				} else {
+					$(".mechanism_cont").hide();
+					$('.down').show();
+					$('.right').hide();
+					$(".mechanism_cont").attr('falg', "");
+					$(this).next(".mechanism_cont").attr('falg', true).show();
+					$(this).find(".down").hide();
+					$(this).find(".right").show();
+				}
+			});
+
+			$(".one ul").css({
+				"display": "none"
+			});
+			$(".one li>span").attr("class", "moral")
+			$(".one li").not(".user_list").on("click", function() {
+				$(this).find("span").toggleClass("active moral");
+				$(this).next().toggle();
+			})
+			
+			$(".tips_imgbtn").on("click",function(){
+				tipsbox.alertbox({
+					toptitle:"温馨提示",
+					conttxt:"本表仅作为信息展示，最终以实际成交为准"
+				},function(){
+					tipsbox.alertboxhide();
+				})
+			})
+		</script>
+	</body>
+
+</html>

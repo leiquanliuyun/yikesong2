@@ -1,0 +1,99 @@
+/*接口服务*/
+.bg-white{
+    background-color: #fff;
+}
+.font-red{
+    color: red;
+}
+.txt-c{
+    text-align: center;
+}
+.txt-in20{
+    text-indent: 20px;
+}
+.dis-no{
+    display: none;
+}
+.clearfix:before{
+    content: "";
+    display: inline-block;
+    clear: both;
+}
+.clearfix:after{
+    content: "";
+    display: inline-block;
+    clear: both;
+}
+.interface-service-application-box{
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../images/d.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.standard-renewals{
+    padding-top: 70px;
+}
+.standard-renewals p{
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    font-weight: bold;
+}
+.interface-service-timeChoose{
+    padding-top: 310px;
+    text-align: center;
+}
+.interface-service-timeChoose select{
+    width: 195px;
+    height: 2em;
+}
+.interface-service-application-tj>div{
+    color: #fff;
+    text-align: center;
+    font-size: 23px;
+    background-color: #ff6b0d;
+    width: 65%;
+    line-height: 2em;
+    margin: 20px auto;
+    border-radius: 10px;
+}
+.w-reminder-box{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 260px;
+    height: 214px;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 10;
+}
+.w-reminder-head{
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #ccc;
+    margin: 0;
+}
+.w-cancel-goats p{
+    float: left;
+    width: 50%;
+    height: 2em;
+    line-height: 2em;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+.w-cancel-goats p:first-child{
+    background-color: #b3afaf;
+}
+.w-cancel-goats p:last-child{
+    background-color: #3ca1e9;
+}
+/*接口服务*/

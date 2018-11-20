@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>一棵松</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css"/>
+	<style type="text/css">
+		footer ul{
+			display: flex;
+			list-style: none;
+			justify-content: space-around;
+			border-top: 1px solid rgba(0,0,0,0.1);
+		} 
+		footer ul li img{
+			position: relative;
+			top: 10px;
+			height: 25px;
+		}
+		footer ul li{
+			font-size: 0.875rem;
+			text-align: center;
+		}
+		footer ul li p{
+			margin-top: 10px;
+		}
+		footer ul li img.moral{
+			display: none;
+		}
+		footer ul li:first-of-type .active{
+			display: none;
+		}
+		footer ul li:first-of-type .moral{
+			
+			display: block;
+		}
+		footer ul li{
+			color: #000;
+		}
+		footer ul li.on{
+			color:#ff6b0d;
+		}
+	</style>
+</head>
+<body>
+	<footer>
+		<ul>
+			<li class="on li_click" data-href="{:url('index/index')}" >
+				<!-- <a href="{:url('index/index')}" target="showbootom"> -->
+					<img class="moral" src="__PUBLIC__/static/style/images/home-cd.png"/>
+					<img class="active" src="__PUBLIC__/static/style/images/home.png"/>
+					<p>首页</p>
+				<!-- </a> -->
+			</li>
+			<li class="li_click" data-href="{:url('content/investment_education')}">
+				<!-- <a href="{:url('content/investment_education')}" target="showbootom"> -->
+					<img class="active" src="__PUBLIC__/static/style/images/Inquiry.png"/>
+					<img class="moral" src="__PUBLIC__/static/style/images/Inquiry-state.png"/>
+					<p>投教</p>
+				<!-- </a> -->
+			</li>
+			<li class="li_click" data-href="{:url('center/mine')}" >
+			<!-- 	<a href="{:url('center/mine')}" target="showbootom"> -->
+					<img class="active" src="__PUBLIC__/static/style/images/mine.png"/>
+					<img class="moral" src="__PUBLIC__/static/style/images/mine-cd.png"/>
+					<p>我的</p>
+				<!-- </a> -->
+			</li>
+		</ul>
+	</footer>
+	<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/static/style/js/index.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+		  $("footer ul li").click(function(){
+		  	$(".active").show();
+			$(".moral").hide();
+			$(this).find(".active").hide();
+			$(this).find(".moral").show();
+		    $("footer ul li").eq($(this).index()).addClass("on").siblings().removeClass("on");
+		    var url= $(this).attr('data-href');
+		    window.parent.showbootom.location.href= url;
+		   /* var index=$(this).index();
+		    if (index==0) {
+		    	window.location.href = "{:url('index/index')}";
+		    }else if(index==1){
+		    	window.location.href = "{:url('content/investment_education')}";
+		    }else{
+		    	window.location.href = "{:url('center/mine')}";
+		    }*/
+		    
+		  })
+		})	
+	</script>
+</body>
+</html>

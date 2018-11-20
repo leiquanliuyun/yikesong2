@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>消息中心</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/message_.css"/>
+</head>
+<body>
+	<div class="wrap">
+		<div class="msgcont">
+			<foreach name="list_notice" item="vo">
+				<div class="listrow">
+					<div class="data_title">
+						{$vo['title']}
+					</div>
+					<div class="data_time">
+						{$vo['update_time']}
+					</div>
+					<div class="data_cont">
+						{$vo['content']}
+					</div>
+					<div class="data_name">
+						{$vo['author']}
+					</div>
+				</div>
+			</foreach>
+		</div>
+	</div>
+</body>
+</html>

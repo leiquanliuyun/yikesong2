@@ -1,0 +1,74 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+    <title>审核订单</title>
+    </head>
+    <body>
+    <article class="page-container">
+        <form action="{:url('order/audit')}" method="post" class="form form-horizontal" id="form-change-password">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">订单号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    {$list['ordernum']}
+                </div>
+            </div>
+            <if condition="$option=='fiscal'">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">公司名称：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="{$list['company_name'] ?$list['company_name']: ''}" placeholder="" id="" name="company_name">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">法人：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text" value="{$list['corporation'] ?$list['corporation']: ''}" placeholder="" id="" name="corporation">
+                    </div>
+                </div>
+            </if>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>审核：</label>
+                <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                    <div class="radio-box">
+                        <input name="audit" value="1" type="radio" id="audit-1" {$list['audit'] == 1 ?'checked': ''}>
+                        <label for="audit-1">正常</label>
+                    </div>
+                    <div class="radio-box">
+                        <input type="radio" value="0" id="audit-2" name="audit" {$list['audit'] == 0?'checked': ''}>
+                        <label for="audit-2">非正常</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row cl" id="reason" {$list['audit'] == 0 ?"": "style='display: none;'"}>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>订单备注：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="{$list['remark']}" name="remark">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-6 col-xs-offset-4 col-sm-offset-2">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+            <input type="hidden" name="option" value="{$option}"/>
+            <input type="hidden" name="id" value="{$id}"/>
+            {:token()}
+        </form>
+    </article>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript">
+        $(function() {
+            //点击按钮显隐审核理由框
+            $('#audit-1').on('click',function() {
+                $('#reason').css('display','none');
+            })
+            $('#audit-2').on('click',function() {
+                $('#reason').css('display','');
+            })
+        });
+    </script>
+    <!--/请在上方写此页面业务相关的脚本-->
+</block>

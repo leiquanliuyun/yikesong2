@@ -1,0 +1,84 @@
+body{
+	background: #F3F3F3;
+	overflow-x: hidden;
+}
+.row{	
+	margin-top: 10px;
+	width: calc(100% - 2rem);
+	padding: 0.7rem 1.5rem;
+	box-sizing: border-box;
+	background: #FFFFFF;
+	display: flex;
+	position: relative;
+}
+.row label{
+	font-size: 14px;
+	width: 25%;
+	white-space: nowrap;
+	text-align: justify;
+	text-align-last:justify;
+}
+.row input{
+	position: relative;
+	top: 2px;
+	margin-left: 10px;
+	font-size: 14px;
+	color: #999;
+	border: none;
+}
+.row input:focus{
+	border-bottom: 1px solid #3CA1E9;
+}
+.row .img_code{
+	position: absolute;
+	right: 25px;
+	top: 13%;
+	width: 25%;
+	height: 75%;
+	z-index: 5;
+}
+.row .tips_txt,
+.row .get_code{
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	right: 3rem;
+	top: 50%;
+	z-index: 9;
+	transform: translateY(-50%);
+}
+.row .tips_txt{
+	width: 0;
+	top: 68%;
+	font-size: 0.85rem;
+	right: 5rem;
+	white-space: nowrap;
+	color: red;
+}
+.row_tips div{
+	margin-top: 2rem;
+	text-align: center;
+	font-size: 0.85rem;
+}
+.row_tips div a{
+	color: #3CA1E9;
+}
+.btn {
+	text-align: center;
+	margin-top: 2rem;
+}
+.btn button{
+	width: 80%;
+	border: none;
+	margin: 0 auto;
+	background: #3CA1E9;
+	color: #FFF;
+	font-size: 1.1rem;
+	letter-spacing: 2rem;
+	padding: 0.7rem 0;
+	border-radius: 5px;
+	padding-left: 1.5rem;
+}
+/*.alertbox_cont .cont_txt .cont_txt_cont{
+	width: 93%;
+}*/

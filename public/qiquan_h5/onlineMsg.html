@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>在线留言</title>
+		<link rel="stylesheet" href="css/style_w.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<style type="text/css">
+			.cont_txt_cont {
+				font-size: 0.4rem
+			}
+			
+			.selimg {
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+				padding: 0.3rem calc(1rem - 2rem) 0 calc(1rem - 2rem);
+			}
+			
+			.imgbox {
+				width: calc(100vw / 4);
+				height: calc(100vw / 4);
+				background: #FFFFFF;
+				position: relative;
+				border-radius: 0.2rem;
+				margin: 0 0.2rem 0.5rem 0.2rem;
+			}
+			
+			.imgbox img {
+				width: 100%;
+				height: 100%;
+				border-radius: 0.2rem;
+				border: 1px solid rgba(0,0,0,0.1);
+			}
+			
+			.imgbox span {
+				font-size: 0.52rem;
+				position: absolute;
+				right: -7px;
+				top: -15px;
+				color: red;
+			}
+			
+			.txt-c {
+				font-size: 0.35rem;
+				width: 90%;
+			}
+			/*弹窗*/
+			.alertbox_cont{
+				top: 30%;
+			}
+			.alertbox_cont .box_close {
+				font-size: 0.3rem;
+				padding: 0.2rem 0;
+				margin-bottom: 0.2rem;
+			}
+			.alertbox_cont .cont_txt{
+				padding: 0 .47rem .4rem;
+			}
+			.alertbox_cont .cont_txt .cont_txt_title {
+				margin-bottom: 0.2rem;
+				font-size: 0.3rem;
+				text-align: center;
+			}
+			.alertbox_cont .cont_txt .cont_txt_cont{
+				text-align: left;
+				text-indent: 1.5em;
+				font-size: 0.3rem
+			}
+			
+			.contbox>input{
+				padding: 0.2rem 0;
+				margin-bottom: 0.4rem;
+			}
+			
+		/*	.choose-month-box input:checked+label, .onlineMsg_box_body input:checked+label{
+				width: initial;
+				height: initial;
+				line-height: initial;
+				padding: 0.2rem 0.3rem;
+				border: 1px solid #3ca1e9;
+			}*/
+			.onlineMsg_box_body input:checked+label{
+				background-color: #3ca1e9;
+			}
+			span{
+				font-size: 15px;
+			}
+			/*.m-head{*/
+				/*padding: 0.3rem 0;*/
+				/*flex-wrap: wrap;*/
+				/*height: inherit;*/
+				/*line-height: inherit;*/
+				/*display: flex;*/
+			/*}*/
+			.mine-feedbackInfo textarea
+			{
+				color: #555555;
+				font-size: 0.3rem;
+				overflow-x: hidden;
+			}
+			.mine-feedbackInfo textarea::-webkit-scrollbar{
+				display: none;
+			}
+			.selimg:empty{
+				padding: 0;
+			}
+			.phone-number{
+				font-size: 0.3rem
+			}
+			.tips{
+				display: none;
+			}
+			.m-submit{
+	          font-size: .3rem;
+	        }
+	        .m-submit-box{
+	        	margin: 50px auto 20px;
+	        }
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap">
+			<div class="onlineMsg_box">
+				<div class="onlineMsg_box_head bg-white mb-20 m-radius-20">
+					<p class="m-head">
+						<span class="font-red">*</span>
+						<span>请选择您的意见类型:</span>
+					</p>
+					<div class="onlineMsg_box_body">
+						<input type="radio" name="question" id="ques_1" class="dis-no" checked="">
+						<label for="ques_1">提建议</label>
+
+						<input type="radio" name="question" id="ques_2" class="dis-no">
+						<label for="ques_2">流程问题</label>
+
+						<input type="radio" name="question" id="ques_3" class="dis-no">
+						<label for="ques_3">功能问题</label>
+
+						<input type="radio" name="question" id="ques_4" class="dis-no">
+						<label for="ques_4">数据问题</label>
+
+						<input type="radio" name="question" id="ques_5" class="dis-no">
+						<label for="ques_5">其他</label>
+					</div>
+				</div>
+
+				<div class="mine-feedbackInfo bg-white mb-20 m-radius-20">
+					<div class="m-head">
+						<span class="font-red">*</span>
+						<span>请输入您的反馈内容:</span>
+					</div>
+					<div class="mine-feedbackInfo">
+						<textarea name="mine-feedbackInfo"  placeholder="请输入..."></textarea>
+					</div>
+				</div>
+
+				<div class="mine-photo-explain bg-white mb-20 m-radius-20">
+					<div class="m-head">
+						<span>请添加照片说明:</span>
+					</div>
+					<!--图片地区-->
+					<div class="selimg"></div>
+					<div class="mine-photo-up">
+						<input type="file" id="photo-up" class="dis-no">
+						<label for="photo-up">
+							<img src="images/mine/add.png" alt="" width=".68rem">
+						</label>
+					</div>
+				</div>
+
+				<div class="mine-contactInfo bg-white mb-20 m-radius-20">
+					<div class="m-head">
+						<span>联系方式:</span>
+						<input type="tel" maxlength="11" class="phone-number" placeholder="请输入有效的联系方式" id="inp">
+						<div class="tips red">请输入正确的手机号</div>
+					</div>
+				</div>
+
+				<!---->
+				<div class="m-submit-box">
+					<div class="m-submit">确认提交</div>
+				</div>
+
+				<div class="m-reminder-box bg-white dis-no" style="height: 50vh;">
+					<img src="images/close.png" alt="关闭" class="m-reminder-close-img">
+					<p class="m-reminder-head">温馨提示</p>
+					<p class="font-red txt-c" style="margin-top: .5rem">反馈信息提交成功！</p>
+					<p class="txt-c">非常感谢您的宝贵建议，我们将尽快完善。</p>
+					<div class="m-reminder-close">确定</div>
+				</div>
+			</div>
+		</div>
+		<div id="loadingDiv" style="position:fixed;display:none;z-index:5;top:0px;left:0px;width:100%;height:100%;background-color:rgba(0,0,0,0.5)"></div>
+		<script src="js/index.js"></script>
+		<script>
+			get.fontSize();
+			window.onload = function() {
+				var inpEle = document.getElementById('inp');
+				var myreg = /^1[3458]\d{9}$/;
+				inpEle.onblur = function() {
+					var inpVal = this.value;
+					if(!myreg.exec(inpVal)) {
+						$(".tips.red").show();
+					} else {
+						$(".tips.red").hide()
+					}
+				}
+			}
+
+			//在input file内容改变的时候触发事件
+			var selimgarr = [];
+			$("#photo-up").change(function(e) {
+				if(selimgarr.length > 4) {
+					tipsbox.show({
+						conttxt: "最多可以选择5张图片"
+					})
+					return false;
+				}
+				if(!/.(gif|jpg|jpeg|png|gif|jpg|png)$/.test(this.files[0].type)) {
+					tipsbox.show({
+						conttxt: "请选择正确的图片"
+					})
+					return false;
+				}
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					selimgarr.push(e.target.result)
+					var imgbox = '<div class="imgbox">\
+		        					<span>&#8855;</span>\
+		        					<img src="' + e.target.result + '">\
+		        				</div>';
+					$(".selimg").append(imgbox);
+					$(".imgbox span").on("click", function() {
+						selimgarr.splice($(this).parent(".imgbox").index(), 1);
+						$(this).parent(".imgbox").remove();
+					})
+				}
+				reader.readAsDataURL(this.files[0]);
+
+			})
+
+			//			$("#photo-up").on("change", function() {
+			//				var objUrl = getObjectURL(this.files[0]); //获取图片的路径，该路径不是图片在本地的路径
+			//				if(objUrl) {
+			//					$(".selimg").append("<img src="+objUrl+">");
+			//				}
+			//			});
+			//			//建立一個可存取到該file的url
+			//			function getObjectURL(file) {
+			//				var url = null;
+			//				if(window.createObjectURL != undefined) { // basic
+			//					url = window.createObjectURL(file);
+			//				} else if(window.URL != undefined) { // mozilla(firefox)
+			//					url = window.URL.createObjectURL(file);
+			//				} else if(window.webkitURL != undefined) { // webkit or chrome
+			//					url = window.webkitURL.createObjectURL(file);
+			//				}
+			//				return url;
+			//			}
+
+			$(".m-submit").click(function() {
+				tipsbox.alertbox({
+					toptitle: "温馨提示",
+					title: '反馈信息提交成功',
+					conttxt: '非常感谢您的宝贵建议，我们将尽快完善'
+				},function(){
+					tipsbox.alertboxhide();
+				})
+				//				$("#loadingDiv").show();
+				//				$(".m-reminder-box").show();
+			})
+			$(".m-reminder-close-img").click(function() {
+				$(".m-reminder-box").hide();
+				$("#loadingDiv").hide();
+			})
+
+			$(".m-reminder-close").click(function() {
+				$(".m-reminder-box").hide();
+				$("#loadingDiv").hide();
+			})
+		</script>
+	</body>
+
+</html>

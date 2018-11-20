@@ -1,0 +1,150 @@
+﻿<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+<title>
+	<if  condition="$option eq 'add'">添加<else/>编辑</if>普通用户 - 用户管理
+</title>
+<link href="__PUBLIC__/lib/select/css/combo.select.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<article class="page-container">
+	<form action="{:url('user/client_edit')}" method="post" class="form form-horizontal" id="form-client-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>账号：</label>
+			<if  condition="$option eq 'add'">
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="至少六个字符" id="username" name="username">
+				</div>
+			<else/>
+				{$list['username']}
+			</if>
+		</div>
+		<if  condition="$option eq 'add'">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="password" class="input-text" autocomplete="off" value="" placeholder="至少六个字符" id="password" name="password">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
+				</div>
+			</div>
+		</if>
+		<if  condition="$option eq 'add'">
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机号码：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="{$list['mobile']?$list['mobile']: ''}" placeholder="" id="mobile" name="mobile">
+				</div>
+			</div>
+		</if>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<if condition="empty($list['client']['sex']) || $list['client']['sex'] == '男' ">
+					<div class="radio-box">
+						<input name="sex" value="1" type="radio" id="sex-1" checked>
+						<label for="sex-1">男</label>
+					</div>
+					<div class="radio-box">
+						<input type="radio" value="2" id="sex-2" name="sex">
+						<label for="sex-2">女</label>
+					</div>
+				<else />
+					<div class="radio-box">
+						<input name="sex" value="1" type="radio" id="sex-1">
+						<label for="sex-1">男</label>
+					</div>
+					<div class="radio-box">
+						<input type="radio" value="2" id="sex-2" name="sex" checked>
+						<label for="sex-2">女</label>
+					</div>
+				</if>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$list['client']['name']?$list['client']['name']: ''}" placeholder="" id="name" name="name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$list['client']['email']?$list['client']['email']: ''}" placeholder="" id="email" name="email">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">用户角色：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select name="group_id" class="select">
+					<option value="6" {$list['group_id'] == '前端管理员'? 'selected' : ''}>前端管理员</option>
+					<option value="5" {$list['group_id'] == '机构'? 'selected' : ''}>机构</option>
+					<option value="3" {$list['group_id'] == '代理人'? 'selected' : ''}>代理人</option>
+					<option value="4" {$list['group_id'] == '普通用户'? 'selected' : ''}>普通用户</option>
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">数据接口用户标识：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select name="port_type" class="select">
+					<option value="1" {$list['port_type'] == 1 ? 'selected' : ''}>是</option>
+					<option value="2" {$list['port_type'] == 2 ? 'selected' : ''}>否</option>
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">所属上级：</label>
+			<div class="formControls col-xs-8 col-sm-9"> 
+				<div class="dowebok">
+					<select name="belong_id" id="belong_select">
+						<option value="0">--请选择上级--</option>
+						<if condition="empty($list['belong_id'])">
+							<volist name='list_agent' id='vo'>
+								<option value="{$vo['uid']}">{$vo['client']['name']}</option>
+							</volist>
+						<else />
+							<volist name='list_agent' id='vo'>
+								<option value="{$vo['uid']}" {$list['belong_id'] == $vo['uid'] ? 'selected' : ''}>{$vo['client']['name']}</option>
+							</volist>
+						</if>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input name="" type="submit" class="btn btn-success radius size-S" value="&nbsp;提&nbsp;&nbsp;交&nbsp;">
+          		<input name="" type="reset" class="btn btn-default radius size-S" value="&nbsp;取&nbsp;&nbsp;消&nbsp;">
+			</div>
+		</div>
+		<input type="hidden" name="option" value="{$option}"/>
+        <input type="hidden" name="id" value="{$id}"/>
+		{:token()}
+	</form>
+</article>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/lib/select/js/jquery.combo.select.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+
+	$('#belong_select').comboSelect();
+});
+</script>
+</block>

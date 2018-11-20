@@ -1,0 +1,96 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+<title>期权持仓订单列表</title>
+<!-- 放大图片插件 -->
+<link href="__PUBLIC__/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户管理 <span class="c-gray en">&gt;</span> 绩效订单列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a><a href="javascript:history.back(-1)" style="color:#5A98DE;">返回</a></nav>
+<div class="page-container">
+
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="10"><input name="" type="checkbox" value=""></th>
+					<th width="40">持有人姓名</th>
+					<th width="40">对接人姓名</th>
+					<th width="40">股票代码</th>
+					<th width="40">股票名称</th>
+					<th width="40">期限</th>
+					<th width="80">开始时间</th>
+					<th width="80">结束时间</th>
+					<th width="110">更新时间</th>
+					<th width="110">创建时间</th>
+					<th width="30">审核状态</th>
+					<th width="30">结算状态</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name='list' id='vo'>
+					<tr class="text-c">
+						<td><input name="check" type="checkbox" value="{$vo['order_id']}"></td>
+						<td>{$vo['possessor']['client']['name'] ? $vo['possessor']['client']['name'] : '暂无'}</td>
+						<td>{$vo['superior']['client']['name'] ? $vo['superior']['client']['name'] : '暂无'}</td>
+						<td>{$vo['code']}</td>
+						<td>{$vo['title']}</td>
+						<td>{$vo['time']}</td>
+						<td>
+							<?php echo date("Y/m/d",$vo['begin_time']);?>
+						</td>
+						<td>
+							<?php echo date("Y/m/d",$vo['end_time']);?>
+						</td>
+						<td>{$vo['update_time']}</td>
+						<td>{$vo['create_time']}</td>
+						<td class="td-status">
+							<span class="label {$vo['audit'] == '成功' ? 'label-success' : 'label-defaunt'} radius">{$vo['audit']}</span>
+						</td>
+						<td class="td-status">
+							<span class="label {$vo['status'] == '已结算' ? 'label-success' : 'label-defaunt'} radius">{$vo['status']}</span>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+</div>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__PUBLIC__/lib/lightbox2/lightbox-2.6.min.js"></script>
+
+<script type="text/javascript">
+
+/*时间插件函数*/
+function selecttime(flag){
+    if(flag==1){
+        var endTime = $("#countTimeend").val();
+        if(endTime != ""){
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:endTime})}else{
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})}
+    }else{
+        var startTime = $("#countTimestart").val();
+        if(startTime != ""){
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:startTime})}else{
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})}
+    }
+}
+
+
+$('.table-sort').dataTable({
+	//"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+	"bStateSave": true,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  //{"orderable":false,"aTargets":[0,6]}// 制定列不参与排序
+	]
+});
+
+</script>
+</block>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>股票搜索</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/search_.css" />
+	</head>
+
+	<body>
+		<div class="wrap">
+			<div class="search_title">
+				<input type="search" placeholder="请输入需要搜索的股票" id="search">
+				<input type="button" value="清空" class="clearbtn" />
+				<p>浏览记录</p>
+			</div>
+			<!-- 搜索数据 -->
+			<div class="datalist"></div>
+			<!--记录列表-->
+			<div class="recordlist"></div>
+		</div>
+		<script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/static/style/js/index.js"></script>
+		<script type="text/javascript">
+			// 加载请求
+			var token = "{$token}";
+			var data = {
+					token: token,
+					page: 1,
+					page_size: 10
+				}
+				$.ajax({
+					url: appIp() + "/api/enquiry/search_list",
+					type: "POST",
+					dataType:"json",
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					data: data,
+					success: function(ret) {
+						//console.log(ret)
+						if(ret.status=='200'){
+							if(ret.data.length)
+							{
+								var htmls="";
+								for (item in ret.data) {
+									htmls+="<a href='{:url('enquiry/calculator')}?option=search&stock_id="+ret.data[item].stock_id+"'><div>"+ret.data[item].name+'('+ret.data[item].symbol+')</div></a>';
+								}
+								$(".recordlist").html(htmls)	
+							}
+							else{
+								$(".recordlist").html("<center>暂无</center>");	
+							}
+						}
+						else{
+							$(".recordlist").html("<center>暂无</center>");	
+						}
+					},
+					error: function(err) {
+						$(".recordlist").html("<center>暂无</center>");	
+					}
+				});
+
+			$("#search").on("keyup", function() {
+				var searchdata = $(this).val();
+				var data = {
+					keyword: searchdata,
+					page: 1,
+					page_size: 10
+				}
+				$.ajax({
+					url: appIp() + '/api/enquiry/search_stock',
+					type: "POST",
+					dataType:"json",
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					data: data,
+					success: function(ret) {
+						if(ret.status=='200'){
+							if(ret.data.length>0)
+							{
+								var htmls="";
+								for (item in ret.data) {
+									htmls+="<a href='{:url('enquiry/calculator')}?option=add&stock_id="+ret.data[item].stock_id+"'><div>"+ret.data[item].name+'('+ret.data[item].symbol+')</div></a>';
+								}
+								$(".datalist").html(htmls);
+								$(".recordlist").html("");	
+							}
+							else{
+								$(".datalist").html("<center>暂无</center>");	
+							}
+						}
+						else{
+							$(".datalist").html("<center>暂无</center>");	
+						}
+					},
+					error: function(err) {
+						$(".datalist").html("<center>暂无</center>");	
+					}
+				});
+			});
+
+			$(".clearbtn").on("click", function() {
+				var data = {
+					token: token
+				}
+				$.ajax({
+					url: appIp() + "/api/enquiry/search_delete",
+					type: "POST",
+					dataType:"json",
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					data: data,
+					success: function(ret) {
+						if(ret.status=='200'){
+							tipsbox.alertbox({
+								toptitle: "温馨提示",
+								conttxt: "清空成功"
+							}, function() {
+								tipsbox.alertboxhide()
+							})
+							$(".datalist").html("");
+							$(".recordlist").html("<center>暂无</center>");	
+						}
+						else{
+							tipsbox.alertbox({
+								toptitle: "温馨提示",
+								conttxt: "没有可清空的记录"
+							}, function() {
+								tipsbox.alertboxhide()
+							})
+							$(".recordlist").html("<center>暂无</center>");	
+						}
+					},
+					error: function(err) {
+						tipsbox.alertbox({
+								toptitle: "温馨提示",
+								conttxt: "清空失败"
+							}, function() {
+								tipsbox.alertboxhide()
+							})
+						$(".recordlist").html("<center>暂无</center>");	
+					}
+				});
+			})
+		</script>
+	</body>
+</html>

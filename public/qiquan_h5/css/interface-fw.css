@@ -1,0 +1,11 @@
+.ovo-fw-info{
+    padding-left: 90px;
+    box-sizing: border-box;
+}
+.ovo-fw-info ul li{
+    height: 2em;
+    line-height: 2em;
+}
+.ovo-methed-btn img{
+    bottom: -135px;
+}

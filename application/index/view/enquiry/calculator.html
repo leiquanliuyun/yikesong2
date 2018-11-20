@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>询价</title>
+		<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+		<script src="__PUBLIC__/static/style/js/index.js"></script>
+		<link rel="stylesheet" href="__PUBLIC__/static/style/css/style_w.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style_w.css"/>
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	</head>
+	<style type="text/css">
+		html{
+			font-size: 70px;
+		}
+		span{
+			font-size: 0.23rem
+		}
+		#query-prompting-box{
+			font-size: 0.35rem;
+		}
+		.m-submit{
+			width: 80%;
+			height: 3em;
+			line-height: 3em;
+		}
+		.calculator_body_item_body.choose-month-box{
+			display: flex;
+			justify-content: space-between;
+		}
+		.choose-month-box input+label{
+			height: 2.5em;
+			line-height: 2.5em;
+			width: 23%;
+		}
+		.choose-ipt,
+		.fl.choose-ipt{
+			width: 50%;
+		}
+		.choose-stock-box{
+			line-height:0.55rem;	
+		}
+		.xj-reminder-box.bg-white.dis-no{
+			width: 70%;
+		}
+		#other-month+label input{
+			width: 100%;
+		    height: 100%;
+		    background-color: transparent;
+		    border: 0;
+		    outline: none;
+		    text-align: center;
+		    color: #3ca1e9;
+		}
+		.query-result-box ul li{
+			height: 3em;
+			line-height: 3em;
+			overflow: hidden;
+		}
+
+		.query-result-box ul li span:first-child{
+			width:1.45rem;
+		}	
+		.m-reminder-box{
+			top: -157px;
+		}
+	</style>
+	<body>
+		<div class="wrap">
+			<div class="moudle">
+				<div class="calculator_head bg-white">
+					<img src="__PUBLIC__/static/style/images/calc.png" alt="">
+					<span  style="font-size: .35rem;">期权计算器</span>
+				</div>
+				<div class="calculator_body">
+					<div class="calculator_body_item bg-white">
+						<div class="calculator_body_item_head clearfix">
+							<span>标的股票：</span>
+							<img src="__PUBLIC__/static/style/images/note-cd.png" alt="温馨提示" class="fr ts" id="click-note">
+						</div>
+
+						<div class="xj-reminder-box bg-white dis-no" style="height: 110px;">
+							<img src="__PUBLIC__/static/style/images/close.png" alt="关闭" class="xj-reminder-close">
+							<p>标的股票：</p>
+							<p class="txt-in20">标记有ST、*ST、上市新股、连续涨停、企业亏损或其他被限制的股票不能咨询。</p>
+							<p>现价会有延时，仅作参考。</p>
+						</div>
+
+						<div class="calculator_body_item_body clearfix choose-stock-box">
+							<a href="{:url('enquiry/search')}">
+								<input type="text" name="stock_title" value="{$list_stock['title'] ? $list_stock['title'] : ''}" class="fl choose-ipt" placeholder="请选择标的股" readonly="">
+							</a>
+							<input type="hidden" name="symbol" value="{$list_stock['symbol'] ? $list_stock['symbol'] : ''}"/>
+							<!-- <div class="fr font-red">
+								<img src="__PUBLIC__/static/style/images/moution.png"> 现价：
+								<span>{$list_stock['trade'] ? $list_stock['trade'] : '0.00'}</span>
+							</div> -->
+						</div>
+					</div>
+
+					<div class="calculator_body_item bg-white">
+						<div class="calculator_body_item_head clearfix">
+							<span>名义本金：</span>
+							<img src="__PUBLIC__/static/style/images/note-cd.png" alt="温馨提示" class="fr ts">
+						</div>
+
+						<div class="xj-reminder-box bg-white dis-no" style="height:55px">
+							<img src="__PUBLIC__/static/style/images/close.png" alt="关闭" class="xj-reminder-close">
+							<p>名义本金：</p>
+							<p class="txt-in20">即合约规模。最低100万起且必须为10万的整数倍。</p>
+						</div>
+
+						<div class="calculator_body_item_body">
+							<input type="text" value="" name="principal" placeholder="最低100万元起" class="choose-ipt mr-20">万元
+						</div>
+					</div>
+
+					<div class="calculator_body_item bg-white">
+						<div class="calculator_body_item_head clearfix">
+							<span>行权周期：</span>
+							<img src="__PUBLIC__/static/style/images/note-cd.png" alt="温馨提示" class="fr ts">
+						</div>
+
+						<div class="xj-reminder-box bg-white dis-no" style="height:80px">
+							<img src="__PUBLIC__/static/style/images/close.png" alt="关闭" class="xj-reminder-close">
+							<p>行权周期：</p>
+							<p class="txt-in20">即行使权力的时间周期，用户可在行权周期内任意时间自主行权，或者到期自动行权。</p>
+							<p>所选行权周期越长，所需的权利金越高。</p>
+						</div>
+
+						<div class="calculator_body_item_body choose-month-box">
+							<input type="radio" value="1" id="one-month" class="dis-no" checked name="month-choose">
+							<label for="one-month">
+                            一个月
+                        </label>
+							<input type="radio" value="3" id="three-month" class="dis-no" name="month-choose">
+							<label for="three-month">
+                            三个月
+                        </label>
+							<input type="radio" value="6" id="six-month" class="dis-no" name="month-choose">
+							<label for="six-month">
+                            六个月
+                        </label>
+							<input type="radio" value="" id="other-month" class="dis-no" name="month-choose">
+							<label for="other-month">
+                            <input type="text" name="" value="" placeholder="其他" id="ipt_qt">
+                        </label>
+						</div>
+					</div>
+
+					<div class="calculator_body_item bg-white">
+						<div class="calculator_body_item_head clearfix">
+							<span>期权类型：</span>
+							<img src="__PUBLIC__/static/style/images/note-cd.png" alt="温馨提示" class="fr ts">
+						</div>
+
+						<div class="xj-reminder-box bg-white dis-no" style="height: 35px">
+							<img src="__PUBLIC__/static/style/images/close.png" alt="关闭" class="xj-reminder-close">
+							<p>期权类型：</p>
+							<p class="txt-in20">目前只提供为平值买入看涨的期权业务。</p>
+						</div>
+
+						<div class="calculator_body_item_body">
+							<div class="styled-select">
+								<select>
+									<option>平值买入看涨</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="m-submit-box">
+						<div class="m-submit">查询</div>
+					</div>
+
+					<!--查询提示-->
+					<div class="m-reminder-box bg-white dis-no" style="height: 4rem;font-size: 0.2rem" id="query-prompting-box">
+						<img src="__PUBLIC__/static/style/images/close.png" alt="关闭" width=".4rem" class="m-reminder-close-img">
+						<p class="m-reminder-head bg-light">查询提示</p>
+						<p class="font-red txt-c" style="margin-top: .3rem">恭喜您提交成功！</p>
+						<p class="txt-in20" style="padding-left: .35rem;">
+							您所查询的股票<span id="stcok-num stock" class="font-red">平安银行(000005)</span>将通过客服电话反馈结果，请保持手机畅通。
+						</p>
+						<div class="m-reminder-close bg-blue">确定</div>
+					</div>
+
+					<!--查询结果-->
+					<div class="m-reminder-box bg-white dis-no" style="height: 6rem;" id="query-result">
+						<img src="__PUBLIC__/static/style/images/close.png" alt="关闭" width=".4rem" class="m-reminder-close-img">
+						<p class="m-reminder-head bg-light">查询结果</p>
+						<div class="query-result-box">
+							<ul>
+								<li>
+									<span>标的股票:</span><span id="stock_title">平安银行(000001)</span>
+								</li>
+								<li>
+									<span>名义本金:</span><span class="font-red" id="principal">1,000,000</span>
+								</li>
+								<li>
+									<span>行权周期:</span><span id="month-choose">一个月</span>
+								</li>
+								<li>
+									<span>期权类型:</span><span>平值看涨期权</span>
+								</li>
+								<li>
+									<span>买入方式:</span><span>市价买入</span>
+								</li>
+								<li>
+									<span>期权费率:</span><span id="rate">123123</span>
+								</li>
+								<li style="position: relative">
+									<span>权利金:</span>
+									 <p style="text-align: center;display: inline-block"> 
+										<span style="position: relative;top: -0.08rem" class="font-red" id="royalty">76100.00元</span>
+										<img src="__PUBLIC__/static/style/images/note-cd.png" alt="温馨提示" style="margin-left: .2rem;margin-top: 10px;width: 20px;height: 20px;" class="rights-gold">
+									 </p> 
+									<!-- <div class="rights-gold-ts bg-white dis-no">
+										包含券商收取的权利金，平台服务费等。
+									</div> -->
+								</li>
+								<div class="rights-gold-ts bg-white dis-no">
+										<div class="conetn_cnm">
+											包含券商收取的权利金，平台服务费等。
+										</div>
+								</div>
+							</ul>
+							<div class="m-reminder-close bg-blue postbtn" style="width: 85%;height: 3em;line-height: 3em;margin: .4rem auto;">提交咨询</div>
+						</div>
+					</div>
+
+					<!--审核提示-->
+					<div class="m-reminder-box bg-white dis-no" style="height: 4rem;" id="audit-hints">
+						<img src="__PUBLIC__/static/style/images/close.png" alt="关闭" width=".4rem" class="m-reminder-close-img">
+						<p class="m-reminder-head bg-light">审核提示</p>
+						<p class="font-red txt-c" style="margin-top: .4rem;font-size: 16px">恭喜您提交成功！</p>
+						<p class="txt-in20" style="padding-left: .35rem;font-size: 15px">
+							您的咨询表已经提交。我们将尽快与您联系，请保持手机畅通。
+						</p>
+						<div class="m-reminder-close bg-blue shenhe" style="margin: .4rem auto;">确定</div>
+					</div>
+				</div>
+				<div id="loadingDiv" style="position:fixed;display:none;z-index:5;top:0px;left:0px;width:100%;height:100%;background-color:rgba(0,0,0,0.5)"></div>
+			</div>
+
+			<script>
+				var token = "{$token}";
+				//验证名义本金
+				function textnum(num) {
+					var r = /^[1-9]\d*0$/;
+					return r.test(num);
+				}
+				//验证期限
+				function textnum_1(num){
+					var a=/^(0?[[1-9]|1[0-2])$/;
+					return a.test(num);
+				}
+
+				//关闭弹窗
+				$(".m-reminder-close").on("click",function(){
+					if($(this).attr("class").indexOf("postbtn")>0){
+							//调用立即认购 接口
+							var time=document.getElementById("ipt_qt").value;
+							if(time == '') {
+								time = $("input[name='month-choose']:checked").val();
+							}
+							//接口参数
+							var data_subscription = {
+								token: token,
+								code:$('input[name="symbol"]').val(),
+								time: time,
+								principal:$('input[name="principal"]').val()*10000
+							}
+							//调用询价结果接口
+							$.ajax({
+							url: appIp() + '/api/enquiry/immediately_subscription',
+							type: "POST",
+							dataType:"json",
+							header: {
+								'content-type': 'application/x-www-form-urlencoded'
+							},
+							data: data_subscription,
+							success: function(ret) {
+								if(ret.status=='200'){
+									//提交咨询 窗口
+									$("#audit-hints").show();
+									$("#query-result").hide();
+									$(this).parents(".dis-no").hide();
+								} else {
+									alert(ret.status.message);
+									return false;
+								}
+							},
+							error: function(err) {
+								console.log(err);
+							}
+						});
+					} else	{
+						$(this).parents(".dis-no").hide();
+						$("#loadingDiv").hide();
+					}
+				})
+				
+				//显示查询提示
+				$(".m-submit-box div").on("click",function(){
+					//获取数据并验证
+					var symbol = $('input[name="symbol"]').val();
+					if(symbol == '') {
+						alert('请选择股票数据。');
+						return false;
+					}
+					var principal = $('input[name="principal"]').val();
+					if(principal == '' || !textnum(principal)) {
+						alert('请正确输入名义本金,10的倍数。');
+						return false;
+					}
+					if(principal < 100) {
+						alert('最低100万起。');
+						return false;
+					}
+					var month=document.getElementById("ipt_qt").value;
+					if(month == '') {
+						month = $("input[name='month-choose']:checked").val();
+					} else {
+						if(!textnum_1(month)) {
+							alert('请输入正确期限,1~12月份。');
+							return false;
+						}
+					}
+
+					//接口参数
+					var data = {
+						token: token,
+						symbol:symbol,
+						month: month,
+						principal:principal
+					}
+					//调用询价结果接口
+					$.ajax({
+					url: appIp() + '/api/enquiry/enquiry_float_result',
+					type: "POST",
+					dataType:"json",
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					data: data,
+					success: function(ret) {
+						if(ret.status=='200'){
+							//查询结果 窗口
+							$('#stock_title').html($('input[name="stock_title"]').val());
+							$('#principal').html(ret.data.principal+'元');
+							$('#month-choose').html(ret.data.month);
+							$('#rate').html(ret.data.rate);
+							$('#royalty').html(ret.data.royalty+'元');
+
+							$("#loadingDiv").show();
+							$("#query-result").show();
+						} else if(ret.status== 601) {
+							//查询提示 窗口
+							$('#stcok').html($('input[name="stock_title"]').val());
+
+							$("#loadingDiv").show();
+							$("#query-prompting-box").show();
+						} else if(ret.status== 402) {
+							alert('请先填写手机号等个人信息');
+							//跳转到我的地址管理页面
+                            window.location.href = "{:url('center/information')}";
+						} else {
+							alert(ret.message);
+						}
+					},
+					error: function(err) {
+						console.log(err);
+					}
+				});
+
+					
+				})
+				//隐藏查询提示
+				$(".m-reminder-close-img").on("click",function(){
+					$("#loadingDiv").hide();
+					$(this).parent(".dis-no").hide();
+				})
+				
+//				get.fontSize();
+				$(".calculator_body_item_head").on('click', '.ts', function() {
+					$(this).parent().next().show();
+					$("#loadingDiv").show();
+				})
+
+				$(".xj-reminder-box").on('click', '.xj-reminder-close', function() {
+					$(this).parent().hide();
+					$("#loadingDiv").hide();
+				})
+
+				$(".rights-gold").click(function() {
+					$(".rights-gold-ts").show();
+					$(".rights-gold-ts.bg-white.dis-no").css({
+						"position":"fixed",
+						"width":"100vw",
+						"height":"100vh",
+						"top":"0",
+						"left":"0",
+						"line-height":"100vh",
+						"overflow":"hidden",
+						"z-index":"100",
+						"display":"flex",
+						"justify-content":"center",
+						"align-tiem":"center",
+						"background-color":"rgba(0,0,0,0.5)",
+						"color":"#fff",
+						'margin':'0',
+						'padding':'0'
+					});
+					$(".conetn_cnm").css({
+						"position":"fixed",
+						"width":"80vw",
+						"height":"30vh",
+						"border-radius":"0.2rem",
+						"top":"10vw",
+						"left":"50vw",
+						"transform":"translateX(-50%)",
+						"line-height":"30vh",
+						"overflow":"hidden",
+						"z-index":"102",
+						"display":"flex",
+						"justify-content":"center",
+						"align-tiem":"center",
+						"background-color":"rgba(255,255,255,1)",
+						"color":"#000",
+						'margin':'0',
+						'padding':'0'
+					})
+				})
+				$(".rights-gold-ts.bg-white.dis-no").click(function(){
+					$(".rights-gold-ts.bg-white.dis-no").hide();
+				})
+				$(".rights-gold-ts").click(function() {
+					$(this).hide();
+				})
+			</script>
+	</body>
+
+</html>

@@ -1,0 +1,102 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+    <title>
+        <if  condition="$option eq 'add'">添加<else/>编辑</if>合同
+    </title>
+    <!-- <link href="__PUBLIC__/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />-->
+    <script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/ueditor.config.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+    <script type="text/javascript" src="__PUBLIC__/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+    </head>
+    <body>
+    <div class="page-container">
+        <form class="form form-horizontal" id="form-article-add" action="{:url('pact/pact_edit')}" method="post">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">订单号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="{$list['order']['ordernum']}" placeholder="" id="" name="ordernum">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">合同名称：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="{$list['name'] ?$list['name']: ''}" placeholder="" id="" name="name">
+                </div>
+            </div>
+            <volist name="alloptions" id="o_info">
+
+                <div class="row cl pact_option {$o_info.option_id}" id="pact_option" name="pact_option" data_id="{$o_info.option_id}" style="display:none;">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{$o_info.name}：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <script id="{$o_info.name}" name="{$o_info.name}" type="text/plain" style="width:99.6%; height:300px">{$pact[$o_info['name']]?$pact[$o_info['name']]:''}</script>
+                        <script type="text/javascript">
+                        var ue = UE.getEditor('{$o_info.name}');
+                        </script>
+                    </div>
+                </div>
+
+            </volist>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">雇主名称：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="{$list['master'] ?$list['master']: ''}" placeholder="" id="" name="master">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">合同负责人：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="{$list['liable'] ?$list['liable']: ''}" placeholder="" id="" name="liable">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <input name="" type="submit" class="btn btn-primary radius Hui-iconfont" value="&#xe632;保存">
+                    <input name="" type="reset" class="btn btn-default radius size-S" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                </div>
+            </div>
+            <input type="hidden" name="option" value="{$option}"/>
+            <input type="hidden" name="order_id" value="{$id}"/>
+            <input type="hidden" name="uid" value="{$list['uid']}"/>
+            {:token()}
+        </form>
+    </div>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+    <!--此页面业务相关的脚本-->
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+   <!-- <script type="text/javascript" src="__PUBLIC__/lib/webuploader/0.1.5/webuploader.min.js"></script>-->
+
+    <script type="text/javascript">
+        function article_save(){
+            alert("刷新父级的时候会自动关闭弹层。")
+            window.parent.location.reload();
+        }
+
+        $(function(){
+            //先隐藏所有合同项，如果某合同项在选中的模板里，将其显示
+            var options='{$options}';
+            var stringoptions='{$stringoptions}';
+            console.log(options);
+            stringoptions = JSON.parse(stringoptions)
+            console.log(stringoptions);
+            $.each(stringoptions,function(key,val){
+                for(var i=0; i<options.length;i++){
+                    if (val.option_id==options[i]){
+                        $('[data_id='+val.option_id+']').show();
+                    }
+                }
+            })
+
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+        });
+
+    </script>
+</block>

@@ -1,0 +1,380 @@
+body::-webkit-scrollbar{
+	display: none;
+}
+*{
+    margin: 0;
+    padding:0;
+    outline: none;
+}
+ul,li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+center{
+	font-family: cursive;
+	margin: 0.5rem auto;
+	text-align: center;
+	color: #AAAAAA;
+	font-size: 14px;
+}
+.clearfix:before{
+    content: "";
+    display: inline-block;
+    clear: both;
+}
+.clearfix:after{
+    content: "";
+    display: inline-block;
+    clear: both;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.bg-white{
+    background-color: #fff;
+}
+.font-red{
+    color: red;
+}
+.mr-20{
+    margin-right: .2rem;
+}
+.dis-no{
+    display: none;
+}
+.wrap{
+    width: 100%;
+    background-color: #f3f3f3;
+}
+/*询价-计算器*/
+.calculator_head{
+    height: 3em;
+    line-height: 3em;
+    font-size: .25rem;
+    text-align: center;
+    overflow: hidden;
+}
+.calculator_head>img{
+    vertical-align: uiddle;
+}
+.calculator_body_item{
+    font-size: .18rem;
+    margin-top: .2rem;
+    padding: .25rem;
+    box-sizing: border-box;
+}
+.calculator_body_item_head{
+    margin-bottom: .25rem;
+}
+.choose-ipt{
+    width: 3.75rem;
+    height: .65rem;
+    font-size: .18rem;
+    text-align: center;
+    border-radius: .2rem;
+    border: none;
+    outline: none;
+    background-color: #ededed;
+}
+.choose-stock-box img{
+    width: .34rem;
+    vertical-align: uiddle;
+}
+.choose-stock-box{
+    height: .85rem;
+    line-height: .85rem;
+}
+.choose-month-box,.tabBar ul,.tabBar ul li{
+    text-align: center;
+}
+.choose-month-box input+label{
+    display: inline-block;
+    width: 20%;
+    height: .8rem;
+    line-height: .8rem;
+    text-align: center;
+    font-size: .18rem;
+    color: #3ca1e9;
+    background-color: #ededed;
+    border-radius: .2rem;
+    cursor: pointer;
+}
+.choose-month-box input:checked+label{
+    color: #fff;
+    background-color: #3ca1e9;
+}
+.calculator-submit-box{
+    padding: .4rem 0 2.45rem;
+}
+.calculator-submit{
+    width: 7rem;
+    height: .85rem;
+    line-height: .85rem;
+    text-align: center;
+    font-size: .18rem;
+    color: #fff;
+    margin: auto;
+    background-color: #3ca1e9;
+    border-radius: .1rem;
+}
+/*底部栏*/
+body{
+    position: relative;
+}
+.tabBar{
+    position: absolute;
+    bottom: 0;left: 0;
+    width: 100%;
+    overflow: hidden;
+}
+.tabBar ul li{
+    display: inline-block;
+    width: 30%;
+    font-size: .18rem;
+}
+.tabBar ul li:last-child img{
+    width: .6rem;
+}
+.tabBar ul li.current{
+    color: #ff6b0d;
+}
+.styled-select {
+    width: 3.7rem;
+    height:.56rem;
+    overflow: hidden;
+    margin: auto;
+    background: url("../images/arr-down.png") no-repeat 3.2rem #ddd;
+}
+
+.styled-select select {
+    background: transparent;
+    width: 3.7rem;
+    height:.56rem;
+    padding: 5px;
+    font-size: .16rem;
+    text-indent: .5rem;
+    border: 1px solid #ccc;
+    outline: none;
+    -webkit-appearance: none;
+}
+/*提示框*/
+.reminder-box{
+    position: absolute;
+    top: 0;bottom: 0;left: 0;right: 0;
+    margin: auto;
+    width: 3.55rem;
+    height: 1.7rem;
+    border: 1px solid #ddd;
+    border-radius: .1rem;
+    padding: .15rem;
+}
+.reminder-box p{
+    line-height: 2em;
+}
+.reminder-box p:nth-child(2){
+    text-indent: 1.5em;
+}
+.reminder-close{
+    position: absolute;
+    right: -.1rem;top: -.1rem;
+}
+
+/*无按钮弹窗*/
+#tipsbox{
+	display: none;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+#tipsbox .bg{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	background: rgba(0,0,0,0.4);
+}
+#tipsbox.show{
+	display: block;
+}
+.tipsbox_cont{
+	border-radius: 5px;
+	position: absolute;
+	z-index: 9;
+	width: calc(50vw - 1rem);
+	min-width: calc(300px - 1rem);
+	max-width: calc(500px - 1rem);
+	padding: 10px 0.5rem;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%);
+	border: 1px solid rgba(0,0,0,0.2);
+	background: #FFFFFF;
+	box-shadow: 0 0 1px rgba(0,0,0,0.5);
+}
+.box_close{
+	position: absolute;
+	top: -0.65rem;
+	right: -0.2rem;
+}
+.cont_txt{
+	font-size: 1.1rem
+}
+.cont_txt_cont {
+	font-size: 0.9rem;
+/*	text-indent: 1rem;
+	text-align: center;
+	width: 90%;*/
+}
+.box_close img{
+	width: 30px;
+	height: 30px;
+}
+
+/*有按钮弹窗*/
+#alertbox{
+	/*display: none;*/
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+#alertbox .bg{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	background: rgba(0,0,0,0.4);
+}
+.alertbox_cont{
+	border-radius: 5px;
+	position: absolute;
+	z-index: 9;
+	width: calc(50vw - 1rem);
+	min-width: calc(300px - 1rem);
+	max-width: calc(500px - 1rem);
+	/*padding: 0 0.5rem;*/
+	top: 20%;
+	left: 50%;
+	transform: translate(-50%);
+	border: 1px solid rgba(0,0,0,0.2);
+	background: #FFFFFF;
+	box-shadow: 0 0 1px rgba(0,0,0,0.5);
+}
+.alertbox_cont .contbox{
+	position: relative;
+}
+.alertbox_cont .box_close{
+	text-align: center;
+	position: initial;
+	width: 100%;
+	padding: 1rem 0;
+	color: #000000;
+	background: rgba(0,0,0,0.2);
+	margin-bottom: 1rem;
+}
+.alertbox_cont .box_close img{
+	position: absolute;
+	right: 0;
+	top: 0;
+	transform: translateX(40%) translateY(-40%);
+}
+.alertbox_cont .cont_txt{
+	padding-bottom: 1rem;
+	text-align: center;
+}
+.alertbox_cont .cont_txt .cont_txt_title{
+	margin-bottom: 1rem;
+	color: red;
+}
+
+.alertbox_cont .cont_txt .cont_txt_cont{
+	/*font-size: 1rem;*/
+/*	text-indent: 2.2rem;
+	text-align: justify;
+	text-align-last: left;
+	margin: 0 auto;
+	width: 90%;*/
+}
+.contbox>input{
+	display: flex;
+	justify-content: center;
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+	padding: 0.6rem 0;
+	color: #FFFFFF;
+	border-radius: 5px;
+	background: #3ca1e9;
+	margin-bottom: 1rem;
+	border: none;
+}
+
+.newbox{
+	display: none;
+}
+.newbox.active{
+	display: block;
+}
+
+
+.red{
+	color: red;
+}
+
+
+/*询价记录*/
+.data_row{
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	padding: 0.8rem 0.2rem;
+}
+.data_row>div{
+	margin-bottom: 5px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	position: relative;
+	font-size: 0.85rem;
+	display: flex;
+	justify-content: space-between;
+}
+.data_row div img{
+	position: absolute;
+	top: 3px;
+	left: 0;
+	width: 10px;
+	height: 10px;
+}
+.data_row div .name{
+	margin-left: 1rem;
+}
+.data_row div .time{
+	color: #aaaaaa;
+}
+.data_row div .nbum{
+	color: #777777;
+}
+.ovo-tit{
+    font-size: .86rem;
+    color:gray;
+    text-align: center;
+    padding: .8rem 0;
+    box-sizing: ;
+}
+/*询价记录*/

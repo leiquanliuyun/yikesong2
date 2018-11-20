@@ -1,0 +1,90 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+    <title>
+        修改订单价格
+    </title>
+
+    </head>
+    <body>
+    <div class="page-container">
+        <form class="form form-horizontal" id="form-article-add" action="{:url('order/change_price')}" method="post">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">订单号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    {$list['ordernum']}
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">用户名：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    {$list['member']['realname']}
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">手机号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    {$list['member']['mobile']}
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">价格：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="{$list['price'] ?$list['price']: ''}" placeholder="" id="" name="price">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">所属服务/底价：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    {$list['service_name']}/{$list['sprice']}
+                </div>
+            </div>
+            <if condition="($list['service_name']!=='资质转让')&& ($list['service_name']!=='园区服务') ">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">用户选择内容：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    {$list['content']}
+                </div>
+            </div>
+            </if>
+            <if condition="$list['service_name']=='财税管理'">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">收费方式：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <select name="mtc" id="sname">
+                        <option value="">--请选择--</option>
+                        <option value="1" {$list['mtc'] == 1? 'selected': ''}>季付</option>
+                        <option value="2" {$list['mtc'] == 2? 'selected': ''}>半年付</option>
+                        <option value="3" {$list['mtc'] == 3? 'selected': ''}>年付</option>
+                    </select>
+                </div>
+            </div>
+            </if>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <input name="" type="submit" class="btn btn-primary radius Hui-iconfont" value="&#xe632;保存">
+                    <input name="" type="reset" class="btn btn-default radius size-S" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{$id}"/>
+            <input type="hidden" name="uid" value="{$list['uid']}"/>
+            {:token()}
+        </form>
+    </div>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+    <!--此页面业务相关的脚本-->
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+
+    <script type="text/javascript">
+
+        function article_save(){
+            alert("刷新父级的时候会自动关闭弹层。")
+            window.parent.location.reload();
+        }
+
+    </script>
+</block>

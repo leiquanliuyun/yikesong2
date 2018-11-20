@@ -1,0 +1,22 @@
+body{
+	background: #f3f3f3;
+}
+.datalist{
+	margin-top: 10px;
+}
+.row{
+	padding: 0.5rem 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	background: #FFFFFF;
+}
+
+.row img{
+	padding: 0.2rem 0;
+	height: 20px;
+}
+.datalist a{
+	color: #222222;
+}

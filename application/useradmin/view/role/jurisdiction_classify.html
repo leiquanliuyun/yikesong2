@@ -1,0 +1,120 @@
+﻿<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+<title>权限分类管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 权限分类管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="text-c">
+		<form class="Huiform" method="post" action="{:url('role/jurisdiction_classify')}" target="_self">
+			<input type="text" class="input-text" style="width:250px" placeholder="权限规则分类名称" id="" value="{$name ?$name: ''}" name="name">
+			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜权限规则分类名称</button>
+		</form>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l">
+			<a href="javascript:;" onclick="admin_permission_batch_del()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+			<a href="{:url('role/jurisdiction_classify_edit','option=add')}" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加权限规则分类</a>
+		</span> 
+	</div>
+	<table class="table table-border table-bordered table-bg table-sort">
+		<thead>
+			<tr>
+				<th scope="col" colspan="7">权限规则分类</th>
+			</tr>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="40">ID</th>
+				<th width="200">权限规则分类名称</th>
+				<th width="100">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='vo'>
+				<tr class="text-c">
+					<td><input type="checkbox" value="{$vo['classify_id']}" name="check"></td>
+					<td>{$vo['classify_id']}</td>
+					<td>{$vo['name']}</td>
+					<td>
+						<a title="编辑" href="{:url('role/jurisdiction_classify_edit',['id'=>$vo['classify_id'],'option'=>'update'])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont" style="font-size:20px;">&#xe6df;</i></a> 
+						<a title="删除" href="javascript:;" onclick="admin_permission_del(this,'{$vo[\'classify_id\']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont" style="font-size:20px;">&#xe6e2;</i></a>
+					</td>
+					<input type="hidden" name="id_array[]" value="{$vo['classify_id']}"/>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript">
+
+$('.table-sort').dataTable({
+	"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+	"bStateSave": true,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  //{"orderable":false,"aTargets":[0,3]}// 制定列不参与排序
+	]
+});
+
+/*管理员-权限分类-删除*/
+function admin_permission_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: "{:url('role/jurisdiction_classify_delete')}",
+			data:{id:id},
+			dataType: 'json',
+			success: function(data){
+				if(data.msg == 'success') {
+					//$(obj).parents("tr").remove();
+					layer.msg('已删除!',{icon:1,time:800});
+					setTimeout('location.reload(true)',800);
+				} else {
+					layer.msg('删除失败!',{icon:1,time:1000});
+				}
+			},
+			error:function(data) {
+				console.log(data);
+			},
+		});		
+	});
+}
+
+/*管理员-权限分类-批量删除*/
+function admin_permission_batch_del(){
+	layer.confirm('确认要批量删除吗？',function(index){
+		var check_value =[];
+		$('input[name="check"]:checked').each(function(){
+			//封装被选中的checkbox值
+			check_value.push($(this).val()); 
+		})
+
+		$.ajax({
+			type: 'POST',
+			url: "{:url('role/jurisdiction_classify_batch_delete')}",
+			data:{"id_array":check_value},
+			dataType: 'json',
+			success: function(data){
+				if(data.msg == 'success') {
+					//$(obj).parents("tr").remove();
+					layer.msg('已批量删除!',{icon:1,time:800});
+					setTimeout('location.reload(true)',800);
+				} else {
+					layer.msg('批量删除失败!',{icon:1,time:1000});
+				}
+			},
+			error:function(data) {
+				console.log(data);
+			},
+		});
+		
+	});
+}
+</script>
+</block>

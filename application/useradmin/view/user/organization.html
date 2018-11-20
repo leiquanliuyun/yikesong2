@@ -1,0 +1,178 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+<title>机构列表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 机构管理 <span class="c-gray en">&gt;</span> 机构列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="text-c">
+		<form class="form form-horizontal" action="{:url('user/organization')}" method="post">
+			创建日期范围：<input type="text" name="start_time" id="countTimestart" onfocus="selecttime(1)" value="{$start_time ?$start_time: ''}" size="17" class="input-text Wdate" style="width:150px;" readonly> 
+			- 
+			<input type="text" name="end_time" id="countTimeend" onfocus="selecttime(2)" value="{$end_time ?$end_time: ''}" size="17"  class="input-text Wdate" style="width:150px;" readonly>
+			<input type="text" class="input-text" style="width:250px" placeholder="输入账号查询" id="" value="{$username ?$username: ''}" name="username">
+			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜机构用户</button>
+		</form>
+	</div>
+	
+	<table class="table table-border table-bordered table-bg table-hover table-sort">
+		<thead>
+			<tr>
+				<th scope="col" colspan="15">机构列表</th>
+			</tr>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="180">账号</th>
+				<th width="110">姓名</th>
+				<th width="50">性别</th>
+				<th width="100">手机</th>
+				<th width="50">询价次数</th>
+				<th>角色</th>
+				<th width="130">创建时间</th>
+				<th width="130">上次登录时间</th>
+				<th width="120">是否已启用</th>
+				<th width="120">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' id='vo'>
+				<tr class="text-c">
+					<td><input type="checkbox" value="{$vo['uid']}" name="check"></td>
+					<td>{$vo['username']}</td>
+					<td>{$vo['client']['name']}</td>
+					<td>{$vo['client']['sex']}</td>
+					<td>{$vo['mobile']}</td>
+					<td>{$vo['client']['hits']}</td>
+					<td>{$vo['group_id']}</td>					
+					<td>{$vo['create_time']}</td>
+					<td>{$vo['last_login_time']}</td>
+					<td class="td-status">
+						<span class="label {$vo['status'] == '启用' ? 'label-success' : 'label-defaunt'} radius">{$vo['status']}</span>
+					</td>
+					<td class="td-manage">
+						<a title="绩效" href="{:url('user/organization_performance',['id'=>$vo['uid']])}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont" style="font-size:20px;">&#xe687;</i></a>
+						<a title="查看代理人" href="{:url('user/organization_subordinate',['id'=>$vo['uid']])}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont" style="font-size:20px;">&#xe667;</i></a>
+						<if condition="$vo['status'] == '启用'">
+							<a style="text-decoration:none" onClick="status_stop(this,'{$vo['uid']}',2)" href="javascript:;" title="停用"><i class="Hui-iconfont" style="font-size:20px;">&#xe631;</i></a>
+						<else />
+							<a style="text-decoration:none" onClick="status_start(this,'{$vo['uid']}',1)" href="javascript:;" title="启用"><i class="Hui-iconfont" style="font-size:20px;">&#xe615;</i></a>
+						</if>
+						<a title="编辑" href="{:url('user/organization_edit',['id'=>$vo['uid'],'option'=>'update'])}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont" style="font-size:20px;">&#xe6df;</i></a>
+						<a title="修改手机号码" href="{:url('user/change_mobile',['id'=>$vo['uid'],'option'=>'organization'])}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont" style="font-size:20px;">&#xe6a3;</i></a>
+						<a title="修改密码" href="{:url('user/change_password',['id'=>$vo['uid'],'option'=>'organization'])}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont" style="font-size:20px;">&#xe63f;</i></a>
+						<a title="删除" href="javascript:;" onclick="organization_del(this,'{$vo['uid']}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont" style="font-size:20px;">&#xe6e2;</i></a>
+					</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+</div>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+/*时间插件函数*/
+function selecttime(flag){
+    if(flag==1){
+        var endTime = $("#countTimeend").val();
+        if(endTime != ""){
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',maxDate:endTime})}else{
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})}
+    }else{
+        var startTime = $("#countTimestart").val();
+        if(startTime != ""){
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',minDate:startTime})}else{
+            WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})}
+    }
+}
+
+/*表格插件*/
+$('.table-sort').dataTable({
+	//"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+	"bStateSave": true,//状态保存
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  //{"orderable":false,"aTargets":[0,9]}// 不参与排序的列
+	]
+});
+
+/*机构-删除*/
+function organization_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: "{:url('user/organization_delete')}",
+			data:{id:id},
+			dataType: 'json',
+			success: function(data){
+				if(data.msg == 'success') {
+					//$(obj).parents("tr").remove();
+					layer.msg('已删除!',{icon:1,time:800});
+					setTimeout('location.reload(true)',800);
+				} else {
+					layer.msg('删除失败!',{icon:1,time:1000});
+				}
+			},
+			error:function(data) {
+				console.log(data);
+			},
+		});
+	});
+}
+
+/*机构-停用*/
+function status_stop(obj,id,show){
+	layer.confirm('确认要停用吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: "{:url('user/status')}",
+			data:{id:id,show:show},
+			dataType: 'json',
+			success: function(data){
+				if(data.msg == 'success') {
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="status_start(this,'+id+',1)" href="javascript:;" title="启用"><i class="Hui-iconfont" style="font-size:20px;">&#xe615;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">停用</span>');
+					$(obj).remove();
+					layer.msg('已停用!',{icon: 5,time:1000});
+				} else {
+					layer.msg('设为停用失败!',{icon:1,time:1000});
+				}
+			},
+			error:function(data) {
+				console.log(data);
+			},
+		});
+	});
+}
+
+/*机构-启用*/
+function status_start(obj,id,show){
+	layer.confirm('确认要启用吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: "{:url('user/status')}",
+			data:{id:id,show:show},
+			dataType: 'json',
+			success: function(data){
+				if(data.msg == 'success') {
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="status_stop(this,'+id+',2)" href="javascript:;" title="停用"><i class="Hui-iconfont" style="font-size:20px;">&#xe631;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">启用</span>');
+					$(obj).remove();
+					layer.msg('已启用!',{icon: 6,time:1000});
+				} else {
+					layer.msg('启用失败!',{icon:1,time:1000});
+				}
+			},
+			error:function(data) {
+				console.log(data);
+			},
+		});
+	});
+}
+</script>
+</block>

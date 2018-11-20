@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基本信息</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="css/style_w.css">
+    <style type="text/css">
+        .ovo_renew{
+            height: 2em;
+            line-height: 2em;
+            font-size: .8rem;
+            color: #fff;
+            background-color: #3ca1e9;
+            padding: 0 1rem;
+            box-sizing: border-box;
+            border-radius: .25rem;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+</head>
+<body>
+<div class="wrap">
+    <div class="essential-information-box">
+        <div class="essential-information-head">
+            <img src="images/info.png" alt="">
+        </div>
+        <div class="essential-information-body">
+            <ul>
+                <li>
+                    <span>单位名称：</span>
+                    <input type="text">
+                </li>
+                <li>
+                    <span>接口密码：</span>
+                    <input type="text">
+                </li>
+                <li>
+                    <span>浮动点数：</span>
+                    <input type="text">
+                    <img src="images/note-cd.png" alt="温馨提示" class="ts">
+                    <div class="xj-reminder-box bg-white dis-no" style="width:300px;height:70px">
+                        <img src="images/close.png" alt="关闭" class="xj-reminder-close" style="width: 25px;right: -.6rem;top: -.6rem">
+                        <p>浮动点数：</p>
+                        <p class="txt-in20">在当前期权费率基础上，+0.01表示加一个点，-0.01表示减一个点。</p>
+                    </div>
+                </li>
+                <li>
+                    <span>截止日期：</span>
+                    <input type="date">
+                    <input type="button" name="" value="续费" class="ovo_renew">
+                </li>
+            </ul>
+        </div>
+        <div class="essential-information-parameter">
+            <div class=m-parameter">
+                <div class="m-parameter-item">保存</div>
+                <div class="m-parameter-item">取消</div>
+            </div>
+            <div class="m-parameter-info">
+                <p class="m-parameter-info-head">参数信息</p>
+                <p>
+                    <span>接口密码：</span>
+                    <span>123</span>
+                </p>
+                <p>
+                    <span>股票代码：</span>
+                    <span>123</span>
+                </p>
+                <p>
+                    <span>名义本金：</span>
+                    <span>123</span>
+                </p>
+                <p>
+                    <span>行权周期：</span>
+                    <span>123</span>
+                </p>
+            </div>
+            <div class=m-parameter">
+                <div class="m-parameter-item ovo-csjk">测试接口</div>
+                <div class="m-parameter-item">调用说明</div>
+            </div>
+        </div>
+        <div id="loadingDiv" style="position:fixed;display:none;z-index:5;top:0px;left:0px;width:100%;height:100%;background-color:rgba(0,0,0,0.5)"></div>
+    </div>
+</div>
+<script>
+    $(".ts").click(function(){
+        $(".xj-reminder-box").show();
+        $("#loadingDiv").show();
+    }),
+    $(".xj-reminder-close").click(function () {
+        $(".xj-reminder-box").hide();
+        $("#loadingDiv").hide();
+    })
+    $(".ovo-csjk").click(function () {
+        window.location.href="interface-fw.html"
+    })
+</script>
+</body>
+</html>

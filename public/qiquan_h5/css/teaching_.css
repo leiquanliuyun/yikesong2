@@ -1,0 +1,35 @@
+body{
+	background: #f3f3f3;
+}
+.tipstitle{
+	width: calc(100% - 2rem);
+	padding: 0.5rem 1rem;
+	color: #555555;
+	background: #dddddd;
+}
+
+.stock_list{
+	padding: 0 10px 10px 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.stock_list div{
+	width: 45%;
+	margin-top: 10px;
+	text-align: center;
+	background: #FFFFFF;
+	padding-bottom: 5px;
+}
+.stock_list div img{
+	padding: 10px;
+	padding-bottom: 0;
+	width: calc(100% - 20px);
+}
+.stock_list div span{
+	font-size: 0.85rem;
+	display: inline-block;
+	width: 80%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;

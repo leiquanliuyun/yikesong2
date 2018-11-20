@@ -1,0 +1,40 @@
+<extend name="common/base" />
+<!--模板继承 业务内容-->
+<block name="content">
+<title>艺术品展示</title>
+<!-- 放大图片插件 -->
+<link href="__PUBLIC__/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 打新管理 <span class="c-gray en">&gt;</span> 艺术品展示 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l"> 
+			<a href="{:url('admin/artwork/issue_edit',['id'=>$issue_id,'option'=>'update'])}" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe6df;</i> 编辑打新活动</a>
+		</span>
+	</div>
+	<div class="portfolio-content">
+		<ul class="cl portfolio-area">
+			<volist name='list' id='vo'>
+				<li class="item">
+					<div class="portfoliobox">
+						<span>{$vo['title']}</span>
+						<div class="picbox"><a href="{$vo['picture_show']}" data-lightbox="gallery" data-title="{$vo['title']}"><img src="{$vo['picture_show']}"></a></div>
+						<div class="textbox">当前价:{$vo['current_price']}元</div>
+					</div>
+				</li>
+			</volist>
+		</ul>
+	</div>
+</div>
+</block>
+<!--模板继承 业务相关的脚本-->
+<block name="js">
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__PUBLIC__/lib/lightbox2/lightbox-2.6.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.Huihover(".portfolio-area li");
+});
+</script>
+</block>

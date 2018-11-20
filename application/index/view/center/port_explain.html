@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口调用方法</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/basics_.css" />
+    <script src="__PUBLIC__/static/style/js/index.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+</head>
+<body>
+<div class="wrap">
+    <div class="datalist">
+        <foreach name="data_explain" item="vo">
+            <a href="{:url('center/detail',['port_id'=>$vo['port_id']])}">
+                <div class="row">
+                    <div>{$vo['title']}</div>
+                    <img src="__PUBLIC__/static/style/images/inquiry/TurnContent-Help.png" />
+                </div>
+            </a>
+        </foreach>
+        <div class="row">
+            <img id="ovo-methed-btn"style="height: 40px;width: 40px;padding: 1px 1px 1px 300px" src="__PUBLIC__/static/style/images/backicon.png" alt="">
+        </div>
+    </div>
+</div>
+<script>
+   $("#ovo-methed-btn").click(function(){
+       window.location.href="{:url('center/port_essential')}"
+   })
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>地址管理</title>
+		<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+		<script src="js/index.js"></script>
+		<link rel="stylesheet" href="css/style_w.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	</head>
+
+	<body>
+		<div class="wrap">
+			<div class="address-management-box">
+				<ul>
+					<li class="address-btn">
+						<p class="address-txt">地址填写主要为了方便合同文件等重要资料的收寄，请务必填写正确的可用地址。</p>
+						<img src="images/mine/add.png" alt="" class="address-add">
+					</li>
+					<li class="address-item">
+						<p class="address-info-1">
+							<span>李某某</span>
+							<span>123456789</span>
+						</p>
+						<p class="address-info-2">
+							地址xxxxxxxxx
+						</p>
+					</li>
+					<li class="address-item">
+						<p class="address-info-1">
+							<span>李某某</span>
+							<span>123456789</span>
+						</p>
+						<p class="address-info-2">
+							地址xxxxxxxxx
+						</p>
+					</li>
+				</ul>
+			</div>
+			<div class="address-edit dis-no">
+				<p class="edit-btn">编辑</p>
+				<p class="edit-delete">删除</p>
+			</div>
+			<div id="loadingDiv" class="loadingDiv" style="position:fixed;display:none;z-index:5;top:0px;left:0px;width:100%;height:100%;background-color:rgba(0,0,0,0.5)"></div>
+		</div>
+		<script>
+			get.fontSize();
+			$(".address-management-box ul").on('click', '.address-item', function() {
+				$(".address-edit").show();
+				$("#loadingDiv").show();
+			})
+
+			$(".edit-btn,.address-add").click(function() {
+				window.location.href = 'address-edit-details.html';
+			})
+
+			$(".edit-delete").click(function() {
+				$(this).parent().hide();
+				$("#loadingDiv").hide();
+			})
+			
+			$(".loadingDiv").on("click",function(){
+				$(this).hide();
+				$(".address-edit").hide();
+			})
+		</script>
+	</body>
+
+</html>

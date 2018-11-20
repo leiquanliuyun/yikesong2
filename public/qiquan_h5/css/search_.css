@@ -1,0 +1,61 @@
+input{
+	outline: none;
+	border: none;
+	background: none;
+}
+
+.search_title{
+	flex-wrap: wrap;
+	padding: 10px 10px 5px 10px;
+	background: #FFFFFF;
+	display: flex;
+	/*padding-bottom: 2rem;*/
+	border-bottom: 1px solid rgba(0,0,0,0.09);
+}
+.search_title input[type='search']{
+	padding-left: 15%;
+	font-size: 1rem;
+	width: 80%;
+	height: 40px;
+	background: rgba(0,0,0,0.05) url(../images/Search.png) no-repeat;
+	background-position: 10px center;
+	background-size: auto 60%;
+	border-radius: 5px;
+}
+.search_title input[type='search']::-webkit-input-placeholder
+{
+	font-size: 0.85rem
+}
+.search_title input[type='button']{
+	font-size: 16px;
+	color:#3688ff;
+	width: 20%;
+}
+.search_title p{
+	margin-top: 5px;
+	font-size: 0.9rem;
+	color: #AAAAAA;
+	width: 100%;
+}
+/*浏览记录*/
+.datalist,
+.recordlist{
+	display: flex;
+	background: #FFFFFF;
+	flex-wrap: wrap;
+}
+.datalist div,
+.recordlist div{
+	padding: 10px;
+	font-size: 1rem;
+	width: 100%;
+	color: #999999;
+	border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+/*无数据*/
+.nodata{
+	text-align: center;
+	color: #AAAAAA;
+	padding-top: 10px;
+	background: #FFFFFF;
+}

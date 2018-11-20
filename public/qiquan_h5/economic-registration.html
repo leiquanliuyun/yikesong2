@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>经济注册</title>
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="css/style_w.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style type="text/css">
+    	input{
+    		font-size: 0.3rem
+    	}
+        .btn_code{
+            position: absolute;
+            right: 11px;
+            top: 18px;
+        }
+        #v_container{
+            right: 55px;
+            top: 12px;
+        }
+        #code_input{
+            width: 50px;
+        }
+        .get_code{
+            position: absolute;
+            top: 65%;
+            right: 2rem;
+            white-space: nowrap;
+            z-index: 9;
+            transform: translateY(-50%);
+        }
+        .tips_txt{
+            position: absolute;
+            top: 60%;
+            right: 1rem;
+            font-size: 0.15rem;
+            color:red;
+        }
+        #alertbox{
+            font-size: 20px !important;
+        }
+        .box_close{
+            height: 3em!important;
+            line-height: 3em!important;
+            padding: 0!important;
+        }
+        .cont_txt_cont{
+            font-size: .2rem;
+            line-height: 5rem;
+            text-indent:0;
+        }
+        #alertbox input{
+            padding: .15rem 0;
+        }
+        .cont_txt_cont{
+            font-size: .3rem!important;
+            line-height: 0.5rem !important;
+            text-indent: 0!important;
+            text-align: center!important;
+            text-align-last: center!important;
+            word-wrap: break-word!important;
+            word-break: normal!important;
+        }
+    </style>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/gVerify.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="economic-registration-box">
+            <div class="econmic-registration-head">
+                <img src="images/mine/jingjizhuce.png" alt="">
+            </div>
+            <div class="econmic-registration-body">
+                <ul>
+                    <li>
+                        <span>手机号：</span>
+                        <input type="text" placeholder="请输入您的手机号码" class="usertel" maxlength="11">
+                    </li>
+                    <li style="position: relative;">
+                        <span>图片验证码：</span>
+                        <input type="text" class="user_imgcode" id="code_input" placeholder="请输入"/>
+                        <div id="v_container" class="img_code" style="width: 80px;height: 35px;position: absolute;"></div>
+                        <button id="my_button" class="btn_code">验证</button>
+                        <canvas id="verifyCanvas" style="width: 80px;height: 35px;"></canvas>
+                    </li>
+                    <li>
+                        <span>手机验证码：</span>
+                        <input type="text" placeholder="请输入手机验证码" class="user_phonecode" maxlength="8">
+                        <img src="images/mine/send.png" alt="" class="ovo-send get_code">
+                        <div class="tips_txt"></div>
+                    </li>
+                    <li>
+                        <span>类型：</span>
+                        <select name="econmic-type" id="">
+                            <option value="one">个人</option>
+                            <option value="two">团体</option>
+                        </select>
+                    </li>
+                </ul>
+                <div class="econmic-agreement">
+                    注册即代表同意<a href="econmic-agreement.html">《平台推广协议》</a>
+                </div>
+                <div class="">
+                    <div class="m-submit">提交注册</div>
+                </div>
+
+                <div id="loadingDiv" style="position:fixed;display:none;z-index:5;top:0px;left:0px;width:100%;height:100%;background-color:rgba(0,0,0,0.5)"></div>
+                <!--审核提示-->
+                <div class="m-reminder-box bg-white dis-no" style="height: 4.2rem">
+                    <img src="images/close.png" alt="关闭" class="m-reminder-close-img">
+                    <p class="m-reminder-head">审核提示</p>
+                    <p class="font-red txt-c" style="margin-top: .5rem">恭喜您！信息提交成功。</p>
+                    <p class="txt-in20" style="padding: 0 .4rem">我们将尽快与您 <span class="font-red">电话联系</span>，亲保持电话畅通。审核通过后，即可访问经济通道。</p>
+                    <div class="m-reminder-close">确定</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    	get.fontSize();
+        $(".m-submit").click(function () {
+            $(".m-reminder-box").show();
+            $("#loadingDiv").show();
+        })
+        $(".m-reminder-close-img,.m-reminder-close").click(function () {
+            $(".m-reminder-box").hide();
+            $("#loadingDiv").hide();
+        })
+
+        $(".get_code").on("click",function(){
+            var that = $(this); 
+            that.hide();
+            var num = 60;
+            $(".tips_txt").html("倒计时"+num);
+            var t = window.setInterval(function(){
+                num--;
+                $(".tips_txt").html("倒计时"+num);
+                if(num<=0){
+                    window.clearInterval(t);
+                    $(".tips_txt").html("");
+                    that.show();
+                }
+            },1000)
+        });
+
+        $(".m-submit").on("click",function(){
+            var usertel = $(".usertel").val();
+            var user_imgcode = $(".user_imgcode").val();
+            var user_phonecode = $(".user_phonecode").val();
+            var user_lookcode = $(".user_lookcode").val();
+            var obj = {
+                toptitle:"温馨提示",
+                conttxt:"请填写正确的手机验证码"
+            }
+            //手机号
+            if(!test.phone(usertel)){
+                obj.conttxt="请填写正确的手机号";
+                tipsbox.alertbox(obj,function(){
+                    tipsbox.alertboxhide();
+                });
+                return false;
+            }
+            //图形码
+            if(!user_imgcode){
+                obj.conttxt="请填写正确的图形验证码";
+                tipsbox.alertbox(obj,function(){
+                    tipsbox.alertboxhide();
+                });
+                return false;
+            };
+            //验证码
+            if(!user_phonecode){
+                obj.conttxt="请填写正确的手机验证码";
+                tipsbox.alertbox(obj,function(){
+                    tipsbox.alertboxhide();
+                });
+                return false;
+            }
+        });
+
+        var verifyCode = new GVerify("v_container");
+
+        document.getElementById("my_button").onclick = function(){
+            var res = verifyCode.validate(document.getElementById("code_input").value);
+            if(res){
+                alert("验证正确");
+            }else{
+                alert("验证码错误");
+            }
+        }
+    </script>
+</body>
+</html>

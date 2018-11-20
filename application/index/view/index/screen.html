@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>权利金比例区间筛选</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/static/style/css/screen.css"/>
+ 
+	<style type="text/css">
+		.wrap{
+			background-color: #fff;
+		}
+		.no_recommends_cont{
+			color: #666;
+			text-align: center;
+			height: 3em;
+			line-height: 3em;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="recommends_head bg-white">
+			<span>权利金比例区间筛选</span> 	
+		</div>
+		<form action="{:url('index/screen')}" method="post" id="form_box">
+			<div class="bg-white interval_selection">
+				<span>权利金比例区间</span>
+				<input type="tel" min="0" maxlength="6" max="1" name="min_premium" id="min_premium" class="num" placeholder="最小值" value="{$min_premium}">—— <input type="tel" maxlength="6" min="0" max="1" name="max_premium" id="max_premium" class="num" value="{$max_premium}" placeholder="最大值">
+			</div>
+			<div class="bg-white time_box">
+				期限：<select id="month" name="month"></select>
+				<button type="submit" class="screen">筛选</button>
+			</div>
+		</form>
+		
+		<div class="recommends_title bg-white">
+			<div>
+				<h4>股票</h4>
+			</div>
+			<div>
+				<h4>期限</h4>
+			</div>
+			<div>
+				<h4>期权股票</h4>
+			</div>
+		</div>
+		<div class="recommends_cont">
+			<if condition="$is_search eq 0">
+				<div class="no_recommends_cont">暂无数据，请输入筛选条件。</div>
+			<elseif condition="count($rate_month) eq 0" />
+			 	<div class="no_recommends_cont">暂无数据，请重新输入筛选条件。</div>
+			<else/>
+				<volist name="rate_month" id="vo">	
+				<a href="{:url('enquiry/calculator',['stock_id'=>$vo['stock']['stock_id'],'option'=>'add'])}">		 
+					<div class="_cont_list">
+						<div>
+							{$vo['stock']['name']}({$vo['code']})
+						</div>
+						<div>
+							{$time}
+						</div>
+						<div>
+							{$vo['month']}
+						</div>
+					</div>	
+				 </a>	 			 
+				</volist>
+			</if>
+		</div>
+	</div>
+	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
+	<script>
+	$(function(){
+		
+		$(".num").blur(function(){
+
+			if($(".num").eq(0).val()&&$(".num").eq(1).val())
+			{
+				if($(".num").eq(0).val()>$(".num").eq(1).val()){
+					alert("请正确输入比例");
+					return false;
+				}
+			}
+			if($(this).val()>=0 && $(this).val()<=1){
+			   return false;
+			}else{
+				$(this).val("");
+			   alert("请输入0-1之间的小数")
+			}
+		})
+		var _cont_list = document.querySelectorAll("._cont_list")
+		for (var i = 0; i < _cont_list.length; i++) {
+			_cont_list[i].innerHTML+="<img src='__PUBLIC__/static/style/images/TurnContent-Help.png'>";
+		}
+		var month={$month};
+		for(var i=1 ; i<13;i++){
+	      var newOption  = document.createElement("option");
+	      newOption.text=i+"月";
+	      newOption.value=i;
+	      if (month==i) {
+	      	newOption.selected='selected';
+	      }
+	      document.getElementById("month").add(newOption);
+	    }
+
+	    $("#form_box").on("submit",function(){
+	    	this.form.submit();
+	    })
+	})
+	</script>
+</body>
+</html>
