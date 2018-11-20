@@ -32,21 +32,6 @@ class  CenterController extends CommonController
         $data=['is_login'=>$is_login,'mobile'=>$mobile];
         parent::put_post(['status'=>1000 , 'info'=>'success' , 'data'=>$data]);
     }
-    public function is_login2(){
-        //$mobile=$this->get_post('mobile');
-        //$mobile=input('param.mobile');
-        $mobile = data_isset($this->get_post('mobile'), 'trim', "");//halt($mobile);
-        if (empty($mobile)) {
-            parent::put_post(['status' => 1003, 'info' => '参数不完整1！']);
-        }
-        if (Member::getUserByPhone($mobile)){
-            $is_login=2;
-        }else{
-            $is_login=1;
-        }
-        $data=['is_login'=>$is_login,'mobile'=>$mobile];
-        parent::put_post(['status'=>1000 , 'info'=>'success' , 'data'=>$data]);
-    }
     public function sendSms() {
         $mobile = data_isset($this->get_post('mobile'), 'trim', "");
         $sms_type = data_isset($this->get_post('sms_type'), 'trim', "");
